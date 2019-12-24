@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.RegisterActivity">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="@dimen/navBarIconSize"
+        android:layout_height="@dimen/navBarIconSize"
+        android:layout_marginLeft="@dimen/paddingSize"
+        android:layout_marginTop="@dimen/marginSize"
+        android:padding="@dimen/paddingIconSize"
+        android:src="@mipmap/back_black" />
+
+    <ImageView
+        android:layout_width="106dp"
+        android:layout_height="76dp"
+        android:layout_marginLeft="@dimen/marginSize"
+        android:layout_marginTop="10dp"
+        android:src="@mipmap/logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:layout_marginBottom="25dp"
+        android:text="@string/register"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/navBarTitleSize" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginSize"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/inputIconSize"
+            android:layout_height="@dimen/inputIconSize"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/marginSize"
+            android:layout_marginRight="@dimen/marginSize"
+            android:src="@mipmap/phone" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/inputViewHeight"
+            android:background="@drawable/shape_radius"
+            android:hint="@string/enter_phoneNum"
+            android:inputType="number"
+            android:maxLength="11"
+            android:paddingLeft="@dimen/marginSize" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginSize"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/inputIconSize"
+            android:layout_height="@dimen/inputIconSize"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/marginSize"
+            android:layout_marginRight="@dimen/marginSize"
+            android:src="@mipmap/password" />
+
+        <EditText
+            android:id="@+id/et_verificationCode"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/inputViewHeight"
+            android:layout_weight="1"
+            android:background="@drawable/shape_radius"
+            android:hint="@string/enter_verficationCode"
+            android:inputType="number"
+            android:maxLength="6"
+            android:paddingLeft="@dimen/marginSize" />
+
+        <Button
+            android:id="@+id/btn_getCode"
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/marginSize"
+            android:clickable="false"
+            android:inputType="number"
+            android:text="获取验证码" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_sendMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="54dp"
+        android:layout_marginTop="@dimen/paddingIconSize"
+        android:text="验证码为空"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/btn_registerNext"
+        style="@style/commitBtn"
+        android:layout_marginTop="@dimen/marginSize"
+        android:text="下一步" />
+
+
+</LinearLayout>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragment.HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fl_nav"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navBarHeight"
+        android:background="@color/mainColor"
+        android:paddingLeft="@dimen/marginSize"
+        android:paddingRight="@dimen/marginSize">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="摩托车管家"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/navBarTitleSize" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/relayout_motor_basic_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fl_nav"
+        android:layout_margin="@dimen/marginSize"
+        android:background="@drawable/shape_radius">
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/paddingIconSize"
+            android:paddingBottom="@dimen/paddingIconSize"
+            android:paddingLeft="@dimen/marginLittleSize"
+            android:text="定位"
+            android:textColor="@color/smssdk_black"
+            android:textSize="@dimen/itemSize" />
+
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_toRightOf="@+id/tv_location"
+            android:padding="@dimen/paddingSize"
+            android:src="@mipmap/location" />
+
+
+        <TextView
+            android:id="@+id/tv_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_change"
+            android:padding="@dimen/paddingIconSize"
+            android:text="切换"
+            android:textColor="@color/smssdk_black"
+            android:textSize="@dimen/itemSize" />
+
+        <ImageView
+            android:id="@+id/iv_change"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_alignParentRight="true"
+            android:paddingTop="@dimen/paddingIconSize"
+            android:paddingBottom="@dimen/paddingIconSize"
+            android:paddingRight="@dimen/paddingIconSize"
+
+            android:src="@mipmap/change_motor" />
+
+
+        <ImageView
+            android:id="@+id/iv_motor"
+            android:layout_width="450px"
+            android:layout_height="450px"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerInside"
+            android:src="@mipmap/fz_ys150" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:layout_below="@+id/iv_motor"
+            android:layout_marginLeft="@dimen/marginLittleSize"
+            android:layout_marginRight="@dimen/marginLittleSize"
+            android:layout_marginBottom="@dimen/marginSize"
+            android:background="@drawable/shape_radius"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/marginLittleSize"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/paddingSize"
+                    android:text="飞致YS150"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="车辆型号"
+                    android:textSize="@dimen/infoSize" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/marginLittleSize"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/paddingSize"
+                    android:text="2016年"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="生产年份"
+                    android:textSize="@dimen/infoSize" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/marginLittleSize"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/paddingSize"
+                    android:text="骑士车"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="车辆类型"
+                    android:textSize="@dimen/infoSize" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relayout_motor_basic_info"
+        android:layout_margin="@dimen/marginSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="22dp"
+            android:background="@color/mainColorH" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/paddingSize"
+            android:text="售后服务"
+            android:textColor="@color/titleColor"
+            android:textSize="@dimen/titleSize"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_title"
+        android:background="@drawable/shape_radius"
+        android:layout_margin="@dimen/marginSize"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/marginSize"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/iv_littleUserSize"
+                android:layout_height="@dimen/iv_littleUserSize"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/paddingIconSize"
+                android:scaleType="centerInside"
+                android:src="@mipmap/maintain_default" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/paddingSize"
+                android:text="维修服务"
+                android:textColor="@android:color/black" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

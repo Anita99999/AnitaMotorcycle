@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dialogBackound"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_camera"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialogItemHeight"
+        android:background="@drawable/item_commit_select"
+        android:gravity="center"
+        android:text="@string/take_photo"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/titleSize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/tv_chose"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialogItemHeight"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="从手机相册选择"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+
+        android:id="@+id/tv_cancle"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="42dp"
+
+        android:layout_marginTop="8dp"
+
+        android:background="@android:color/white"
+
+        android:gravity="center"
+
+        android:text="取消"
+
+        android:textColor="@android:color/holo_red_dark"
+
+        android:textSize="16sp" />
+
+
+
+</LinearLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--导航条高度-->
+    <dimen name="navBarHeight">52dp</dimen>
+    <dimen name="navBarIconSize">30dp</dimen>
+    <!--Welcome界面图片大小-->
+    <dimen name="welcomeIv">250dp</dimen>
+    <!--输入信息框高度-->
+    <dimen name="inputViewHeight">44dp</dimen>
+    <dimen name="inputIconSize">22dp</dimen>
+    <!--按钮高度-->
+    <dimen name="btnHeight">44dp</dimen>
+    <dimen name="itemHeight">44dp</dimen>
+    <!--主页菜单上方分割线高度-->
+    <dimen name="viewHeight">1dp</dimen>
+    <!--主页菜单高度-->
+    <dimen name="tabLayoutHeight">54dp</dimen>
+    <!--用户头像宽高大小-->
+    <dimen name="iv_userSize">60dp</dimen>
+    <dimen name="iv_littleUserSize">46dp</dimen>
+    <dimen name="settingItemHeight">52dp</dimen>
+    <dimen name="dialogItemHeight">42dp</dimen>
+
+    <!--统一边距-->
+    <dimen name="marginSize">16dp</dimen>
+    <dimen name="marginLittleSize">10dp</dimen>
+    <!--统一内边距-->
+    <dimen name="paddingSize">4dp</dimen>
+    <!--图标内边距-->
+    <dimen name="paddingIconSize">6dp</dimen>
+    <dimen name="userMarginTop">18dp</dimen>
+
+    <!--主页分隔线与底部的距离-->
+    <dimen name="viewPagerMarginBottom">55dp</dimen>
+
+    <!--边角弧度（drawable/btn_commit_h,btn_commit_n中使用）-->
+    <dimen name="radius">15dp</dimen>
+
+
+    <!--导航条文字大小-->
+    <dimen name="navBarTitleSize">22sp</dimen>
+    <!--用户名字体大小-->
+    <dimen name="usernameSize">20sp</dimen>
+    <!--普通字体大小-->
+    <dimen name="titleSize">18sp</dimen>
+
+    <dimen name="itemSize">16sp</dimen>
+
+    <!--信息文字大小-->
+    <dimen name="infoSize">14sp</dimen>
+</resources>

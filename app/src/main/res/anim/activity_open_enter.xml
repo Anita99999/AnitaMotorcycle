@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--打开Activity时，新进入的Activity执行的动画-->
+    <!--动画：从右往左-->
+    <!--x位置从开始到结束、动画移动时间-->
+    <translate
+        android:fromXDelta="100%"
+        android:toXDelta="0%"
+        android:duration="@integer/anim_duration"/>
+</set>

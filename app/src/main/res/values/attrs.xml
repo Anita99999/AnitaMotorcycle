@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--声明样式，规-->
+    <declare-styleable name="inputView">
+        <!--输入框前面图标，接收图片资源文件-->
+        <attr name="input_icon" format="reference"></attr>
+        <!--输入框提示内容-->
+        <attr name="input_hint" format="string"></attr>
+        <!--输入框是否需要密文显示-->
+        <attr name="is_password" format="boolean"></attr>
+    </declare-styleable>
+
+    <!--设置界面条目-->
+    <declare-styleable name="settingItem">
+        <!--设置界面左边图标，接收图片资源文件-->
+        <attr name="leftIcon" format="integer"></attr>
+
+        <attr name="rightIcon" format="integer"></attr>
+        <!--设置左侧文字-->
+        <attr name="leftText" format="string"></attr>
+        <!--设置右侧文字-->
+        <attr name="rightText" format="string"></attr>
+        <attr name="isShowRightText" format="boolean"></attr>
+        <!--文字颜色-->
+        <attr name="LtextColor" format="color"></attr>
+
+    </declare-styleable>
+
+</resources>

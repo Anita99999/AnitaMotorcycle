@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragment.MeFragment">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navBarHeight"
+        android:background="@color/mainColor"
+        android:paddingLeft="@dimen/marginSize"
+        android:paddingRight="@dimen/marginSize">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="我"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/navBarTitleSize" />
+
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/marginSize"
+                    android:layout_marginTop="@dimen/userMarginTop"
+                    android:layout_marginRight="@dimen/marginSize"
+                    android:layout_marginBottom="@dimen/marginSize"
+                    android:orientation="horizontal">
+
+                    <!--圆形图片-->
+                    <!--属性：app:civ_border_width边框宽度、civ_border_color边框颜色-->
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_user"
+                        android:layout_width="@dimen/iv_userSize"
+                        android:layout_height="@dimen/iv_userSize"
+                        android:src="@mipmap/user"
+                        app:civ_border_color="#f1f0f0"
+                        app:civ_border_width="2dp"
+                        app:civ_circle_background_color="#f1f0f0" />
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/marginSize"
+                        android:padding="@dimen/paddingSize"
+                        android:text="用户名"
+                        android:textColor="@color/titleColor"
+                        android:textSize="@dimen/usernameSize"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right">
+
+                        <ImageView
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:padding="@dimen/paddingIconSize"
+                            android:src="@mipmap/setup" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:layout_marginLeft="@dimen/marginLittleSize"
+                    android:layout_marginRight="@dimen/marginLittleSize"
+                    android:layout_marginBottom="@dimen/marginSize"
+                    android:background="@drawable/shape_radius"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/marginLittleSize"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/paddingSize"
+                            android:text="0分钟"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="今日骑行"
+                            android:textSize="@dimen/infoSize" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@android:color/darker_gray" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/marginLittleSize"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/paddingSize"
+                            android:text="0公里"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="今日里程"
+                            android:textSize="@dimen/infoSize" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@android:color/darker_gray" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/marginLittleSize"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/paddingSize"
+                            android:text="0公里"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="累计里程"
+                            android:textSize="@dimen/infoSize" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginSize"
+                android:orientation="vertical">
+
+                <com.leon.lib.settingview.LSettingItem
+                    android:id="@+id/lsi_my_motor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:LtextColor="@android:color/black"
+                    app:isShowRightText="true"
+                    app:leftIcon="@mipmap/user_my_motor2"
+                    app:leftText="我的摩托车"
+                    app:rightText="飞致YS150"></com.leon.lib.settingview.LSettingItem>
+
+                <com.leon.lib.settingview.LSettingItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:LtextColor="@android:color/black"
+                    app:leftIcon="@mipmap/user_service_order"
+                    app:leftText="服务订单"></com.leon.lib.settingview.LSettingItem>
+
+                <com.leon.lib.settingview.LSettingItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:LtextColor="@android:color/black"
+                    app:leftIcon="@mipmap/user_shop_order"
+                    app:leftText="商城订单"></com.leon.lib.settingview.LSettingItem>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginSize"
+                android:orientation="vertical">
+
+                <com.leon.lib.settingview.LSettingItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:LtextColor="@android:color/black"
+                    app:leftIcon="@mipmap/advise"
+                    app:leftText="建议与反馈"></com.leon.lib.settingview.LSettingItem>
+
+                <com.leon.lib.settingview.LSettingItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:LtextColor="@android:color/black"
+                    app:leftIcon="@mipmap/about"
+                    app:leftText="关于我们"></com.leon.lib.settingview.LSettingItem>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_logout"
+                    style="@style/commitBtn"
+                    android:text="退出登录" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

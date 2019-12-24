@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.LoginActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:layout_width="106dp"
+            android:layout_height="76dp"
+            android:layout_marginLeft="@dimen/marginSize"
+            android:layout_marginTop="25dp"
+            android:src="@mipmap/logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginBottom="25dp"
+            android:text="欢迎登录摩托车管家"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/navBarTitleSize" />
+
+        <com.anita.anitamotorcycle.Views.InputView
+            android:id="@+id/input_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/inputViewHeight"
+            android:layout_marginTop="@dimen/marginSize"
+            app:input_hint="请输入手机号"
+            app:input_icon="@mipmap/phone"
+            app:is_password="false"></com.anita.anitamotorcycle.Views.InputView>
+
+        <com.anita.anitamotorcycle.Views.InputView
+            android:id="@+id/input_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/inputViewHeight"
+            android:layout_marginTop="@dimen/marginSize"
+            android:layout_marginBottom="@dimen/marginSize"
+            app:input_hint="请输入密码"
+            app:input_icon="@mipmap/password"
+            app:is_password="true"></com.anita.anitamotorcycle.Views.InputView>
+
+        <Button
+            style="@style/commitBtn"
+            android:onClick="onCommitClick"
+            android:text="登  录" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/marginSize"
+            android:layout_marginRight="@dimen/marginSize">
+
+            <TextView
+                android:id="@+id/tv_forgetPwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="忘记密码"
+                android:textColor="#005EFF"
+                android:textSize="@dimen/infoSize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="新用户注册"
+                android:onClick="onRegisterUIClick"
+                android:textColor="#005EFF"
+                android:textSize="@dimen/infoSize" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="登录即代表阅读并同意服务条款" />
+
+</RelativeLayout>

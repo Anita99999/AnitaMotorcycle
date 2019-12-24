@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--打开Activity时，原Activity执行的动画-->
+    <!--缩小动画：以中间为中心点缩小-->
+    <!--初始状态下的xy宽度，结束状态时的xy宽度、缩放中心xy值、动画执行时间-->
+    <scale
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:toXScale="0.8"
+        android:toYScale="0.8"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="@integer/anim_duration"/>
+
+</set>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.MeActivity">
+
+    <include layout="@layout/nav_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginSize"
+        android:layout_marginBottom="@dimen/marginSize"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fl_head"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/settingItemHeight"
+            android:background="@drawable/item_commit_select">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/marginSize"
+                android:text="头像"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/itemSize" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="right|center"
+                android:layout_marginRight="@dimen/marginSize"
+                android:src="@mipmap/go4" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_headIcon"
+                android:layout_width="@dimen/iv_littleUserSize"
+                android:layout_height="@dimen/iv_littleUserSize"
+                android:layout_gravity="right|center"
+                android:layout_marginRight="46dp"
+                android:src="@mipmap/user"
+                app:civ_circle_background_color="#f1f0f0" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="@dimen/marginSize"
+                android:layout_marginRight="@dimen/marginSize"
+                android:background="@color/viewColor" />
+
+        </FrameLayout>
+
+        <com.leon.lib.settingview.LSettingItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:LtextColor="@android:color/black"
+            app:isShowRightText="true"
+            app:leftText="用户名"
+            app:rightText="周伟珍"></com.leon.lib.settingview.LSettingItem>
+
+        <com.leon.lib.settingview.LSettingItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:LtextColor="@android:color/black"
+            app:leftText="性别"></com.leon.lib.settingview.LSettingItem>
+
+        <com.leon.lib.settingview.LSettingItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:LtextColor="@android:color/black"
+            app:leftText="手机号"></com.leon.lib.settingview.LSettingItem>
+
+        <com.leon.lib.settingview.LSettingItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:LtextColor="@android:color/black"
+            app:leftText="所在地区"></com.leon.lib.settingview.LSettingItem>
+
+        <com.leon.lib.settingview.LSettingItem
+            android:id="@+id/change_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:LtextColor="@android:color/black"
+            app:leftText="修改密码"></com.leon.lib.settingview.LSettingItem>
+    </LinearLayout>
+
+    <com.leon.lib.settingview.LSettingItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:LtextColor="@android:color/black"
+        app:leftText="我的收货地址"></com.leon.lib.settingview.LSettingItem>
+
+
+</LinearLayout>

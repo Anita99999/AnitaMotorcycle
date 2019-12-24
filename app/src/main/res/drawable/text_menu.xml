@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--主页底部菜单w文字 高亮-->
+    <item android:color="@color/mainColorH" android:state_selected="true"></item>
+    <item android:color="@android:color/black"></item>
+</selector>

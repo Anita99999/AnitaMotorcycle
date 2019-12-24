@@ -1,0 +1,49 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <item name="colorPrimaryDark">@color/mainColor</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    </style>
+
+    <!--Activity进出动画-->
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <!--打开Activity时，新进入的Activity执行的动画:从右往左-->
+        <item name="android:activityOpenEnterAnimation">@anim/activity_open_enter</item>
+        <!--打开Activity时，原Activity执行的动画：缩小-->
+        <item name="android:activityOpenExitAnimation">@anim/activity_open_exit</item>
+        <!--退出Activity时，退出的Activity执行的动画：从左往右-->
+        <item name="android:activityCloseExitAnimation">@anim/activity_close_exit</item>
+        <!--退出Activity时，重新显示的Activity执行的动画：放大-->
+        <item name="android:activityCloseEnterAnimation">@anim/activity_close_enter</item>
+    </style>
+
+    <!--按钮统一样式-->
+    <style name="commitBtn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/btnHeight</item>
+        <!--自定义高亮和默认时不同的颜色-->
+        <item name="android:background">@drawable/btn_commit_select</item>
+        <item name="android:layout_margin">@dimen/marginSize</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/titleSize</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+    <!--底部弹窗样式-->
+    <style name="BottomDialog" parent="@style/Base.V7.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="BottomDialog.Animation" parent="Animation.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@anim/dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_out</item>
+
+    </style>
+
+
+</resources>
