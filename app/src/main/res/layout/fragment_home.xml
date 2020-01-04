@@ -71,7 +71,6 @@
             android:paddingTop="@dimen/paddingIconSize"
             android:paddingRight="@dimen/paddingIconSize"
             android:paddingBottom="@dimen/paddingIconSize"
-
             android:src="@mipmap/change_motor" />
     </RelativeLayout>
 
