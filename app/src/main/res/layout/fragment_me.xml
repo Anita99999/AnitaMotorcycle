@@ -196,14 +196,14 @@
                     app:isShowRightText="true"
                     app:leftIcon="@mipmap/user_my_motor2"
                     app:leftText="我的摩托车"
-                    app:rightText="飞致YS150"></com.leon.lib.settingview.LSettingItem>
+                    app:rightText="迅鲨WH125T-7"></com.leon.lib.settingview.LSettingItem>
 
                 <com.leon.lib.settingview.LSettingItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:LtextColor="@android:color/black"
                     app:leftIcon="@mipmap/user_service_order"
-                    app:leftText="服务订单"></com.leon.lib.settingview.LSettingItem>
+                    app:leftText="维修记录"></com.leon.lib.settingview.LSettingItem>
 
                 <com.leon.lib.settingview.LSettingItem
                     android:layout_width="match_parent"

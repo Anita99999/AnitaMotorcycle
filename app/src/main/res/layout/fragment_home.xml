@@ -26,23 +26,24 @@
     </FrameLayout>
 
     <RelativeLayout
-        android:id="@+id/relayout_motor_basic_info"
+        android:id="@+id/rl_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fl_nav"
-        android:layout_margin="@dimen/marginSize"
-        android:background="@drawable/shape_radius">
+        android:layout_marginLeft="@dimen/marginSize"
+        android:layout_marginTop="@dimen/marginSize"
+        android:layout_marginRight="@dimen/marginSize">
 
         <TextView
             android:id="@+id/tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/marginLittleSize"
             android:paddingTop="@dimen/paddingIconSize"
             android:paddingBottom="@dimen/paddingIconSize"
-            android:paddingLeft="@dimen/marginLittleSize"
             android:text="定位"
             android:textColor="@color/smssdk_black"
-            android:textSize="@dimen/itemSize" />
+            android:textSize="@dimen/titleSize" />
 
         <ImageView
             android:layout_width="34dp"
@@ -60,7 +61,7 @@
             android:padding="@dimen/paddingIconSize"
             android:text="切换"
             android:textColor="@color/smssdk_black"
-            android:textSize="@dimen/itemSize" />
+            android:textSize="@dimen/titleSize" />
 
         <ImageView
             android:id="@+id/iv_change"
@@ -68,28 +69,87 @@
             android:layout_height="34dp"
             android:layout_alignParentRight="true"
             android:paddingTop="@dimen/paddingIconSize"
-            android:paddingBottom="@dimen/paddingIconSize"
             android:paddingRight="@dimen/paddingIconSize"
+            android:paddingBottom="@dimen/paddingIconSize"
 
             android:src="@mipmap/change_motor" />
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="285dp"
+        android:layout_below="@+id/rl_button"
+        android:layout_marginLeft="@dimen/marginSize"
+        android:layout_marginRight="@dimen/marginSize"
+        android:background="@drawable/shape_radius"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tv_bind_motor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/paddingIconSize"
+            android:text="点击绑定我的摩托车"
+            android:textSize="@dimen/titleSize" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relayout_motor_basic_info"
+        android:layout_width="match_parent"
+        android:layout_height="285dp"
+        android:layout_below="@+id/rl_button"
+        android:layout_marginLeft="@dimen/marginSize"
+        android:layout_marginRight="@dimen/marginSize"
+        android:background="@drawable/shape_radius">
 
         <ImageView
             android:id="@+id/iv_motor"
-            android:layout_width="450px"
-            android:layout_height="450px"
-            android:layout_marginTop="30dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_centerHorizontal="true"
             android:scaleType="centerInside"
-            android:src="@mipmap/fz_ys150" />
+            android:src="@mipmap/XS_WH125T_7" />
+
+        <LinearLayout
+            android:id="@+id/ll_warranty_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_motor"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="保修期："
+                android:textSize="@dimen/itemSize" />
+            <TextView
+                android:id="@+id/tv_warranty_period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="365天"
+                android:textSize="@dimen/itemSize"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="或"
+                android:textSize="@dimen/itemSize" />
+            <TextView
+                android:id="@+id/tv_warranty_journey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10000公里"
+                android:textSize="@dimen/itemSize" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="66dp"
-            android:layout_below="@+id/iv_motor"
+            android:layout_below="@+id/ll_warranty_period"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/marginLittleSize"
             android:layout_marginRight="@dimen/marginLittleSize"
-            android:layout_marginBottom="@dimen/marginSize"
             android:background="@drawable/shape_radius"
             android:orientation="horizontal">
 
@@ -106,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/paddingSize"
-                    android:text="飞致YS150"
+                    android:text="迅鲨WH125T-7"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 
@@ -137,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/paddingSize"
-                    android:text="2016年"
+                    android:text="2017年"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 
@@ -168,7 +228,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/paddingSize"
-                    android:text="骑士车"
+                    android:text="踏板车"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 
@@ -203,7 +263,7 @@
             android:layout_marginLeft="@dimen/paddingSize"
             android:text="售后服务"
             android:textColor="@color/titleColor"
-            android:textSize="@dimen/titleSize"
+            android:textSize="@dimen/usernameSize"
             android:textStyle="bold" />
 
 
@@ -213,8 +273,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_title"
+        android:layout_marginLeft="@dimen/marginSize"
+        android:layout_marginRight="@dimen/marginSize"
         android:background="@drawable/shape_radius"
-        android:layout_margin="@dimen/marginSize"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -225,8 +286,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="@dimen/iv_littleUserSize"
-                android:layout_height="@dimen/iv_littleUserSize"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/paddingIconSize"
                 android:scaleType="centerInside"
@@ -239,7 +300,8 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/paddingSize"
                 android:text="维修服务"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/titleSize" />
 
 
         </LinearLayout>

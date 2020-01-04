@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="mainColor">#EBC06C</color>
     <color name="mainColorH">#CC9B39</color>
+    <color name="mainTitileColorH">#6F5116</color>
     <color name="itemColorH">#e6e6e6</color>
     <color name="viewColor">#bfbfbf</color>
     <color name="titleColor">#333333</color>
