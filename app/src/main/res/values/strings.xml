@@ -11,4 +11,9 @@
     <string name="enter_phoneNum">请输入手机号</string>
     <string name="enter_verficationCode">请输入验证码</string>
     <string name="take_photo">拍照</string>
+    <!--维修记录指示器标题-->
+    <string-array name="indicator_title">
+        <item>维修中</item>
+        <item>已完成</item>
+    </string-array>
 </resources>

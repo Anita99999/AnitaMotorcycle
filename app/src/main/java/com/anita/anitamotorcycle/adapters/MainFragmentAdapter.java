@@ -1,26 +1,35 @@
-package com.anita.anitamotorcycle.Adapters;
+package com.anita.anitamotorcycle.adapters;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.anita.anitamotorcycle.Fragment.HomeFragment;
-import com.anita.anitamotorcycle.Fragment.MeFragment;
-import com.anita.anitamotorcycle.Fragment.MessageFragment;
-import com.anita.anitamotorcycle.Fragment.ShopFragment;
+import com.anita.anitamotorcycle.fragment.HomeFragment;
+import com.anita.anitamotorcycle.fragment.MeFragment;
+import com.anita.anitamotorcycle.fragment.MessageFragment;
+import com.anita.anitamotorcycle.fragment.ShopFragment;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 主界面底部菜单适配器
  * 页面切换，使用Fragment作为子页面
  */
 public class MainFragmentAdapter extends FragmentPagerAdapter {
+
+    private static Map<Integer, Fragment> sCache = new HashMap<>();
+
     public MainFragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 
 //    返回具体位置的viewPager切换到i位置时对应的fragment
     public Fragment getItem(int i) {
-        Fragment fragment = null;
+        Fragment fragment = sCache.get(i);
+        if (fragment != null) {
+            return fragment;
+        }
         switch (i) {
             case 0:
                 fragment = new HomeFragment();
@@ -37,6 +46,7 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
             default:
                 break;
         }
+        sCache.put(i, fragment);
         return fragment;
     }
 

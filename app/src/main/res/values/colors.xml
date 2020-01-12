@@ -10,6 +10,7 @@
     <color name="viewColor">#bfbfbf</color>
     <color name="titleColor">#333333</color>
     <color name="dialogBackound">#e0e0e0</color>
+    <color name="black">#000000</color>
 
     <color name="itemMenuColor">#706C5A</color>
 </resources>

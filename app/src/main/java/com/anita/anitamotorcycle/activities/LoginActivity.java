@@ -1,4 +1,4 @@
-package com.anita.anitamotorcycle.Activities;
+package com.anita.anitamotorcycle.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.anita.anitamotorcycle.R;
-import com.anita.anitamotorcycle.Views.InputView;
+import com.anita.anitamotorcycle.views.InputView;
 
 public class LoginActivity extends BaseActivity {
     private long firstTime=0;   //第一次点击返回键的时间

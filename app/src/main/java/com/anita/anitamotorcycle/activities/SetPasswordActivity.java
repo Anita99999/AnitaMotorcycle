@@ -1,4 +1,4 @@
-package com.anita.anitamotorcycle.Activities;
+package com.anita.anitamotorcycle.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.anita.anitamotorcycle.R;
-import com.anita.anitamotorcycle.Utils.UserUtils;
-import com.anita.anitamotorcycle.Views.InputView;
+import com.anita.anitamotorcycle.utils.UserUtils;
+import com.anita.anitamotorcycle.views.InputView;
 
 public class SetPasswordActivity extends BaseActivity {
 

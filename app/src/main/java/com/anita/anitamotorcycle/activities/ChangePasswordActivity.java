@@ -1,6 +1,4 @@
-package com.anita.anitamotorcycle.Activities;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.anita.anitamotorcycle.activities;
 
 import android.os.Bundle;
 

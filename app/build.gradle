@@ -36,6 +36,8 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 //    设置界面条目
     implementation 'com.leon:lsettingviewlibrary:1.7.0'
+//    使用indicator
+    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

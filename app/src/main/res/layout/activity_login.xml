@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.LoginActivity">
+    tools:context=".activities.LoginActivity">
 
 
     <LinearLayout
@@ -29,16 +29,16 @@
             android:textColor="@android:color/black"
             android:textSize="@dimen/navBarTitleSize" />
 
-        <com.anita.anitamotorcycle.Views.InputView
+        <com.anita.anitamotorcycle.views.InputView
             android:id="@+id/input_phone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/inputViewHeight"
             android:layout_marginTop="@dimen/marginSize"
             app:input_hint="请输入手机号"
             app:input_icon="@mipmap/phone"
-            app:is_password="false"></com.anita.anitamotorcycle.Views.InputView>
+            app:is_password="false"></com.anita.anitamotorcycle.views.InputView>
 
-        <com.anita.anitamotorcycle.Views.InputView
+        <com.anita.anitamotorcycle.views.InputView
             android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="@dimen/inputViewHeight"
@@ -46,10 +46,10 @@
             android:layout_marginBottom="@dimen/marginSize"
             app:input_hint="请输入密码"
             app:input_icon="@mipmap/password"
-            app:is_password="true"></com.anita.anitamotorcycle.Views.InputView>
+            app:is_password="true"></com.anita.anitamotorcycle.views.InputView>
 
         <Button
-            style="@style/commitBtn"
+            style="@style/Button"
             android:onClick="onCommitClick"
             android:text="登  录" />
 
@@ -80,12 +80,23 @@
 
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:text="登录即代表阅读并同意服务条款" />
+        android:layout_marginBottom="30dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登录即代表阅读并同意" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#005EFF"
+            android:text="服务条款" />
+    </LinearLayout>
+
 
 </RelativeLayout>

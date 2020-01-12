@@ -1,4 +1,4 @@
-package com.anita.anitamotorcycle.Activities;
+package com.anita.anitamotorcycle.activities;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,16 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anita.anitamotorcycle.Adapters.MainFragmentAdapter;
+import com.anita.anitamotorcycle.adapters.MainFragmentAdapter;
 import com.anita.anitamotorcycle.R;
 import com.google.android.material.tabs.TabLayout;
 
 
 public class MainActivity extends AppCompatActivity {
     private long firstTime = 0;   //第一次点击返回键的时间
-    TabLayout tabLayout;
-    ViewPager viewPager;
-    private PagerAdapter adapter;   //页卡适配器
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private PagerAdapter mAdapter;   //页卡适配器
+
     //    菜单标题
     private final int[] TAB_TITLES = new int[]{R.string.menu_home, R.string.menu_shop, R.string.menu_message, R.string.menu_me};
     //    菜单图标
@@ -39,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initView();
-//        初始化页卡
-        initPager();
+        initListener();
         setTabs(tabLayout, getLayoutInflater(), TAB_TITLES, TAB_IMGS);
 
     }
@@ -48,11 +48,12 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tab_layout);
+
+        mAdapter = new MainFragmentAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(mAdapter);
     }
 
-    private void initPager() {
-        adapter = new MainFragmentAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
+    private void initListener() {
 
         // 关联切换
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

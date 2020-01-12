@@ -1,13 +1,10 @@
-package com.anita.anitamotorcycle.Fragment;
+package com.anita.anitamotorcycle.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -17,12 +14,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.anita.anitamotorcycle.Activities.MeActivity;
+import com.anita.anitamotorcycle.activities.MeActivity;
 
-import com.anita.anitamotorcycle.Activities.MyMotorActivity;
+import com.anita.anitamotorcycle.activities.MyMotorActivity;
 import com.anita.anitamotorcycle.R;
-import com.anita.anitamotorcycle.Utils.Constants;
-import com.anita.anitamotorcycle.Utils.UserUtils;
+import com.anita.anitamotorcycle.activities.RepairRecordActivity;
+import com.anita.anitamotorcycle.utils.Constants;
+import com.anita.anitamotorcycle.utils.UserUtils;
 import com.leon.lib.settingview.LSettingItem;
 
 import java.io.File;
@@ -34,7 +32,9 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     private CircleImageView iv_user;
     private TextView tv_username;
     private Button btn_logout;
-    private LSettingItem my_motor;
+
+    private LSettingItem mRepairRecord;
+    private LSettingItem mMyMotor;
 
     public MeFragment() {
         // Required empty public constructor
@@ -77,7 +77,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         tv_username = view.findViewById(R.id.tv_username);
         tv_username.setOnClickListener(this);
 
-        my_motor = view.findViewById(R.id.lsi_my_motor);
+        mMyMotor = view.findViewById(R.id.lsi_my_motor);
+        mRepairRecord = view.findViewById(R.id.lsi_repair_record);
 
 //       退出登录按钮
         btn_logout = view.findViewById(R.id.btn_logout);
@@ -89,10 +90,18 @@ public class MeFragment extends Fragment implements View.OnClickListener {
      */
     private void initOnLSettingItemClick() {
 //        “我的摩托车”点击事件
-        my_motor.setmOnLSettingItemClick(new LSettingItem.OnLSettingItemClick() {
+        mMyMotor.setmOnLSettingItemClick(new LSettingItem.OnLSettingItemClick() {
             @Override
             public void click(boolean isChecked) {
                 startActivity(new Intent(getActivity(), MyMotorActivity.class));
+            }
+        });
+
+//        “维修记录”点击事件
+        mRepairRecord.setmOnLSettingItemClick(new LSettingItem.OnLSettingItemClick() {
+            @Override
+            public void click(boolean isChecked) {
+                startActivity(new Intent(getActivity(), RepairRecordActivity.class));
             }
         });
     }

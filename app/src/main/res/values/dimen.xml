@@ -2,7 +2,7 @@
 <resources>
 
     <!--导航条高度-->
-    <dimen name="navBarHeight">52dp</dimen>
+    <dimen name="navBarHeight">50dp</dimen>
     <dimen name="navBarIconSize">30dp</dimen>
     <!--Welcome界面图片大小-->
     <dimen name="welcomeIv">250dp</dimen>
@@ -12,6 +12,7 @@
     <!--按钮高度-->
     <dimen name="btnHeight">44dp</dimen>
     <dimen name="itemHeight">44dp</dimen>
+    <dimen name="maxItemHeight">88dp</dimen>
     <!--主页菜单上方分割线高度-->
     <dimen name="viewHeight">1dp</dimen>
     <!--主页菜单高度-->
@@ -35,7 +36,8 @@
     <dimen name="viewPagerMarginBottom">55dp</dimen>
 
     <!--边角弧度（drawable/btn_commit_h,btn_commit_n中使用）-->
-    <dimen name="radius">15dp</dimen>
+    <dimen name="radius">10dp</dimen>
+    <dimen name="littleRadius">6dp</dimen>
 
 
     <!--导航条文字大小-->
@@ -49,4 +51,5 @@
 
     <!--信息文字大小-->
     <dimen name="infoSize">14sp</dimen>
+    <dimen name="infoLittleSize">12sp</dimen>
 </resources>

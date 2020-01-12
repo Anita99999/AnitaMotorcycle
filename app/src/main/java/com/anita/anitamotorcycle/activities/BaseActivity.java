@@ -1,17 +1,18 @@
-package com.anita.anitamotorcycle.Activities;
+package com.anita.anitamotorcycle.activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.anita.anitamotorcycle.R;
 
 /**
  * Activitu父类
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
     private ImageView myIvBack;
     private TextView myTvTitle;
 

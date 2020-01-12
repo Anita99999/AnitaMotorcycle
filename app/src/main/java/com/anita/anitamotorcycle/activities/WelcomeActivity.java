@@ -1,4 +1,4 @@
-package com.anita.anitamotorcycle.Activities;
+package com.anita.anitamotorcycle.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

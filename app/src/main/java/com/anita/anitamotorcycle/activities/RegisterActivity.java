@@ -1,4 +1,4 @@
-package com.anita.anitamotorcycle.Activities;
+package com.anita.anitamotorcycle.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +17,8 @@ import android.widget.Toast;
 
 
 import com.anita.anitamotorcycle.R;
-import com.anita.anitamotorcycle.Utils.Constants;
-import com.anita.anitamotorcycle.Utils.UserUtils;
+import com.anita.anitamotorcycle.utils.Constants;
+import com.anita.anitamotorcycle.utils.UserUtils;
 
 import org.json.JSONObject;
 

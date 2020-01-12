@@ -5,8 +5,7 @@
     android:layout_height="@dimen/navBarHeight"
     android:paddingLeft="@dimen/marginSize"
     android:paddingRight="@dimen/marginSize"
-    android:background="@color/mainColor"
-    >
+    android:background="@color/mainColor">
 
     <ImageView
         android:id="@+id/iv_back"

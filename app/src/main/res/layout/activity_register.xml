@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activities.RegisterActivity">
+    tools:context=".activities.RegisterActivity">
 
     <ImageView
         android:id="@+id/iv_back"
@@ -106,7 +106,7 @@
 
     <Button
         android:id="@+id/btn_registerNext"
-        style="@style/commitBtn"
+        style="@style/Button"
         android:layout_marginTop="@dimen/marginSize"
         android:text="下一步" />
 

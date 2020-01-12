@@ -1,4 +1,4 @@
-package com.anita.anitamotorcycle.Activities;
+package com.anita.anitamotorcycle.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,9 +14,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.anita.anitamotorcycle.R;
-import com.anita.anitamotorcycle.Utils.Constants;
-import com.anita.anitamotorcycle.Utils.DataUtils;
-import com.anita.anitamotorcycle.Utils.PermissionUtils;
+import com.anita.anitamotorcycle.utils.Constants;
+import com.anita.anitamotorcycle.utils.DataUtils;
+import com.anita.anitamotorcycle.utils.PermissionUtils;
 import com.leon.lib.settingview.LSettingItem;
 
 import java.io.ByteArrayOutputStream;

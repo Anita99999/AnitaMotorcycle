@@ -1,16 +1,12 @@
-package com.anita.anitamotorcycle.Utils;
+package com.anita.anitamotorcycle.utils;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.anita.anitamotorcycle.Activities.LoginActivity;
+import com.anita.anitamotorcycle.activities.LoginActivity;
 import com.anita.anitamotorcycle.R;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Fragment.MeFragment">
+    tools:context=".fragment.MeFragment">
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -196,9 +196,10 @@
                     app:isShowRightText="true"
                     app:leftIcon="@mipmap/user_my_motor2"
                     app:leftText="我的摩托车"
-                    app:rightText="迅鲨WH125T-7"></com.leon.lib.settingview.LSettingItem>
+                    app:rightText="国四暴锋眼190"></com.leon.lib.settingview.LSettingItem>
 
                 <com.leon.lib.settingview.LSettingItem
+                    android:id="@+id/lsi_repair_record"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:LtextColor="@android:color/black"
@@ -243,7 +244,7 @@
 
                 <Button
                     android:id="@+id/btn_logout"
-                    style="@style/commitBtn"
+                    style="@style/Button"
                     android:text="退出登录" />
             </LinearLayout>
 

@@ -16,14 +16,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.MyMotorActivity"></activity>
-        <activity android:name=".Activities.SetPasswordActivity" />
-        <activity android:name=".Activities.ChangePasswordActivity" />
-        <activity android:name=".Activities.MeActivity" />
-        <activity android:name=".Activities.RegisterActivity" />
-        <activity android:name=".Activities.MainActivity" />
-        <activity android:name=".Activities.LoginActivity" />
-        <activity android:name=".Activities.WelcomeActivity">
+        <activity android:name=".activities.RepairRecordActivity"></activity>
+        <activity android:name=".activities.RepairApplicationActivity" />
+        <activity android:name=".activities.MyMotorActivity" />
+        <activity android:name=".activities.SetPasswordActivity" />
+        <activity android:name=".activities.ChangePasswordActivity" />
+        <activity android:name=".activities.MeActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

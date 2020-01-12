@@ -22,7 +22,7 @@
     </style>
 
     <!--按钮统一样式-->
-    <style name="commitBtn">
+    <style name="Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/btnHeight</item>
         <!--自定义高亮和默认时不同的颜色-->
@@ -33,6 +33,13 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="EditText">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:background">@null</item>
+    </style>
 
     <!--底部弹窗样式-->
     <style name="BottomDialog" parent="@style/Base.V7.Theme.AppCompat.Light.Dialog">
