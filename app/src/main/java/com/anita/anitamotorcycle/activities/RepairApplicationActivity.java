@@ -119,7 +119,6 @@ public class RepairApplicationActivity extends BaseActivity {
                 finish();
             }
         });
-
     }
 
     private void showDatePickerDialog(int themeResId) {
