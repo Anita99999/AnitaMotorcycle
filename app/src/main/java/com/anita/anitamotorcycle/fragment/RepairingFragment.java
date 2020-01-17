@@ -16,11 +16,11 @@ import com.anita.anitamotorcycle.R;
  * @description:维修记录的维修中
  * * @date : 2020/1/5 22:49
  */
-public class UnderRepairFragment extends Fragment {
+public class RepairingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_under_repair, container, false);
+        return inflater.inflate(R.layout.fragment_repairing, container, false);
 //        return super.onCreateView(inflater, container, savedInstanceState);
     }
 }
