@@ -7,8 +7,8 @@
     tools:context=".fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/fl_nav"
+    <FrameLayout
+        android:id="@+id/fralayout_nav"
         android:layout_width="match_parent"
         android:layout_height="@dimen/navBarHeight"
         android:background="@color/mainColor"
@@ -29,47 +29,59 @@
         android:id="@+id/rl_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/fl_nav"
-        android:layout_marginLeft="@dimen/marginSize"
-        android:layout_marginTop="@dimen/paddingIconSize"
-        android:layout_marginRight="@dimen/marginSize">
+        android:layout_below="@+id/fralayout_nav"
+        android:layout_marginTop="@dimen/paddingIconSize">
 
-        <TextView
-            android:id="@+id/tv_location"
+        <LinearLayout
+            android:id="@+id/linlayout_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/marginLittleSize"
-            android:paddingTop="@dimen/paddingIconSize"
-            android:paddingBottom="@dimen/paddingIconSize"
-            android:text="定位"
-            android:textColor="@color/smssdk_black" />
+            android:layout_marginLeft="@dimen/marginSize"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_toRightOf="@+id/tv_location"
-            android:padding="@dimen/paddingSize"
-            android:src="@mipmap/location" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/paddingSize"
+                android:text="定位"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/itemSize" />
 
 
-        <TextView
-            android:id="@+id/tv_change"
+            <ImageView
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:scaleType="centerInside"
+                android:src="@mipmap/location" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linlayout_change"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/iv_change"
-            android:padding="@dimen/paddingIconSize"
-            android:text="切换"
-            android:textColor="@color/smssdk_black" />
-
-        <ImageView
-            android:id="@+id/iv_change"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
             android:layout_alignParentRight="true"
-            android:paddingTop="@dimen/paddingIconSize"
-            android:paddingRight="@dimen/paddingIconSize"
-            android:paddingBottom="@dimen/paddingIconSize"
-            android:src="@mipmap/change_motor" />
+            android:layout_marginRight="@dimen/marginSize"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/paddingSize"
+                android:text="切换"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/itemSize" />
+
+            <ImageView
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:scaleType="centerInside"
+                android:src="@mipmap/change_motor" />
+        </LinearLayout>
+
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -97,8 +109,6 @@
             android:padding="@dimen/paddingIconSize"
             android:text="点击绑定我的摩托车"
             android:textSize="@dimen/titleSize" />
-
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -108,8 +118,7 @@
         android:layout_below="@+id/rl_button"
         android:layout_marginLeft="@dimen/marginSize"
         android:layout_marginRight="@dimen/marginSize"
-        android:background="@drawable/shape_radius"
-        >
+        android:background="@drawable/shape_radius">
 
         <ImageView
             android:id="@+id/iv_motor"
@@ -277,6 +286,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/linlayout_repair"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -284,12 +294,11 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/iv_repair"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/iv_littleUserSize"
+                android:layout_height="@dimen/iv_littleUserSize"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/paddingIconSize"
                 android:scaleType="centerInside"
+                android:padding="@dimen/paddingSize"
                 android:src="@mipmap/maintain_default" />
 
             <TextView
@@ -298,7 +307,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/paddingSize"
                 android:text="维修服务"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black" />
 
         </LinearLayout>
 

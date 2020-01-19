@@ -106,7 +106,7 @@
 
     <Button
         android:id="@+id/btn_registerNext"
-        style="@style/Button"
+        style="@style/commitButton"
         android:layout_marginTop="@dimen/marginSize"
         android:text="下一步" />
 

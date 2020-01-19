@@ -4,8 +4,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.anita.anitamotorcycle.fragment.RepairedFragment;
-import com.anita.anitamotorcycle.fragment.RepairingFragment;
+import com.anita.anitamotorcycle.fragment.RepairedRecordFragment;
+import com.anita.anitamotorcycle.fragment.RepairingRecordFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,10 +32,10 @@ public class RecordContentAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                fragment = new RepairingFragment();
+                fragment = new RepairingRecordFragment();
                 break;
             case 1:
-                fragment = new RepairedFragment();
+                fragment = new RepairedRecordFragment();
                 break;
         }
         sCache.put(position, fragment);

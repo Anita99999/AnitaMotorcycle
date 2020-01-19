@@ -3,11 +3,14 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="mainColor">#EBC06C</color>
-    <color name="mainColorH">#CC9B39</color>
+    <color name="mainColor">#E6B24E</color>
+    <color name="mainColorH">#DD9122</color>
+    <!--<color name="mainColor">#E48D53</color>-->
+    <!--<color name="mainColorH">#D15E31</color>-->
     <color name="mainTitileColorH">#6F5116</color>
     <color name="itemColorH">#e6e6e6</color>
-    <color name="viewColor">#bfbfbf</color>
+    <color name="viewColor">#BFBFBF</color>
+    <color name="itemViewColor">#E0EEEE</color>
     <color name="titleColor">#333333</color>
     <color name="dialogBackound">#e0e0e0</color>
     <color name="black">#000000</color>

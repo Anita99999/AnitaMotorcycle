@@ -1,15 +1,15 @@
 package com.anita.anitamotorcycle.activities;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anita.anitamotorcycle.R;
@@ -24,13 +24,12 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class RepairApplicationActivity extends BaseActivity {
 
-
     private ArrayAdapter<String> mMotorAdapter;
     private Spinner mMotorType;
     private Spinner mProblemsType;    //维修类型下拉列表
     private ArrayAdapter<String> mProblemsAdapter;
-    private Button mRepairTime;
-    private Button mCommitButton;
+    private TextView mCommit;
+    private ImageView mBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +41,10 @@ public class RepairApplicationActivity extends BaseActivity {
     }
 
     private void initView() {
-        initNavBar(true, "维修申请");
+        mBack = findViewById(R.id.iv_back);
+        mCommit = findViewById(R.id.tv_commit);
 
-        mRepairTime = findViewById(R.id.btn_time);
+//        mRepairTime = findViewById(R.id.btn_time);
 //        定义车牌号下拉列表内容
         mMotorType = findViewById(R.id.sp_motors_type);
         List<String> motors_list = new ArrayList<String>();
@@ -71,10 +71,16 @@ public class RepairApplicationActivity extends BaseActivity {
         mProblemsType = findViewById(R.id.sp_problems_type);
         mProblemsType.setAdapter(mProblemsAdapter);    //将适配器添加到下拉列表上
 
-        mCommitButton = findViewById(R.id.btn_commit);
     }
 
     private void initListener() {
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();    //后退操作
+            }
+        });
+
 //        车牌号下拉列表
         mMotorType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -89,12 +95,12 @@ public class RepairApplicationActivity extends BaseActivity {
         });
 
 //        维修时间
-        mRepairTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog(2);
-            }
-        });
+//        mRepairTime.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDatePickerDialog(2);
+//            }
+//        });
 
 //        故障类型下拉列表
         mProblemsType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -110,47 +116,47 @@ public class RepairApplicationActivity extends BaseActivity {
         });
 
 //        提交按钮
-        mCommitButton.setOnClickListener(new View.OnClickListener() {
+        mCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), RepairRecordActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(getApplicationContext(), RepairRecordActivity.class);
+//                startActivity(intent);
+//                finish();
             }
         });
     }
 
-    private void showDatePickerDialog(int themeResId) {
-        Calendar calendar = Calendar.getInstance(Locale.CHINA);
-
-        DatePickerDialog dialog = new DatePickerDialog(this, themeResId, new DatePickerDialog.OnDateSetListener() {
-            // 绑定监听器(How the parent is notified that the date is set.)
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                // 得到选择的时间，可以进行你想要的操作
-                mRepairTime.setText(year + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日");
-            }
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        dialog.setTitle("日期");
-        long day = 24 * 60 * 60 * 1000;
-
-        int hour;
-        if (calendar.get(Calendar.AM_PM) == 0) {
-            calendar.get(Calendar.HOUR);
-            hour = calendar.get(Calendar.HOUR);
-            Log.d(TAG, "showDatePickerDialog: hour==" + hour);
-        } else {
-            hour = calendar.get(Calendar.HOUR) + 12;
-            Log.d(TAG, "showDatePickerDialog: hour==" + hour);
-        }
-        if (hour < 17) {
-            dialog.getDatePicker().setMaxDate(calendar.getTimeInMillis() + day * 5);  //设置日期最大值
-            dialog.getDatePicker().setMinDate(calendar.getTimeInMillis()); //设置日期最小值
-        } else {
-            dialog.getDatePicker().setMaxDate(calendar.getTimeInMillis() + day * 6);  //设置日期最大值
-            dialog.getDatePicker().setMinDate(calendar.getTimeInMillis() + day * 1); //设置日期最小值
-        }
-        dialog.show();
-    }
+//    private void showDatePickerDialog(int themeResId) {
+//        Calendar calendar = Calendar.getInstance(Locale.CHINA);
+//
+//        DatePickerDialog dialog = new DatePickerDialog(this, themeResId, new DatePickerDialog.OnDateSetListener() {
+//            // 绑定监听器(How the parent is notified that the date is set.)
+//            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                // 得到选择的时间，可以进行你想要的操作
+//                mRepairTime.setText(year + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日");
+//            }
+//        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+//        dialog.setTitle("日期");
+//        long day = 24 * 60 * 60 * 1000;
+//
+//        int hour;
+//        if (calendar.get(Calendar.AM_PM) == 0) {
+//            calendar.get(Calendar.HOUR);
+//            hour = calendar.get(Calendar.HOUR);
+//            Log.d(TAG, "showDatePickerDialog: hour==" + hour);
+//        } else {
+//            hour = calendar.get(Calendar.HOUR) + 12;
+//            Log.d(TAG, "showDatePickerDialog: hour==" + hour);
+//        }
+//        if (hour < 17) {
+//            dialog.getDatePicker().setMaxDate(calendar.getTimeInMillis() + day * 5);  //设置日期最大值
+//            dialog.getDatePicker().setMinDate(calendar.getTimeInMillis()); //设置日期最小值
+//        } else {
+//            dialog.getDatePicker().setMaxDate(calendar.getTimeInMillis() + day * 6);  //设置日期最大值
+//            dialog.getDatePicker().setMinDate(calendar.getTimeInMillis() + day * 1); //设置日期最小值
+//        }
+//        dialog.show();
+//    }
 
 }

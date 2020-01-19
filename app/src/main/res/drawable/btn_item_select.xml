@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--按钮高亮-->
+    <!--当view处于高亮状态时,显示的drawable-->
+    <item android:state_focused="true" android:drawable="@drawable/btn_item_h"></item>
+    <!--当view处于按下状态时，-->
+    <item android:state_pressed="true" android:drawable="@drawable/btn_item_h"></item>
+    <!--当view处于选中状态时-->
+    <item android:state_selected="true" android:drawable="@drawable/btn_item_h" ></item>
+
+    <!--View 默认-->
+    <item android:drawable="@drawable/btn_item_n"></item>
+</selector>

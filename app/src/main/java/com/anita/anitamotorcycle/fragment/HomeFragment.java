@@ -9,15 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.activities.MainActivity;
 import com.anita.anitamotorcycle.activities.MeActivity;
+import com.anita.anitamotorcycle.activities.MyMotorActivity;
 import com.anita.anitamotorcycle.activities.RepairApplicationActivity;
 
 public class HomeFragment extends Fragment {
 
-    private ImageView mRepairApplication;
+    private RelativeLayout mMotorInfo;
+    private LinearLayout mChange_motor;
+    private LinearLayout mRepairApplication;
 
     public HomeFragment() {
     }
@@ -32,10 +37,20 @@ public class HomeFragment extends Fragment {
 
 
     private void initView(View view) {
-        mRepairApplication = view.findViewById(R.id.iv_repair);
+        mChange_motor = view.findViewById(R.id.linlayout_change);   //切换
+        mMotorInfo = view.findViewById(R.id.relayout_motor_basic_info); //摩托车信息
+        mRepairApplication = view.findViewById(R.id.linlayout_repair);  //维修服务
     }
 
     private void initListener() {
+//        切换
+        mChange_motor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), MyMotorActivity.class));
+            }
+        });
+//        维修服务
         mRepairApplication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

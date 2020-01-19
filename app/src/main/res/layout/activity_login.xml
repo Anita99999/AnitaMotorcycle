@@ -49,7 +49,7 @@
             app:is_password="true"></com.anita.anitamotorcycle.views.InputView>
 
         <Button
-            style="@style/Button"
+            style="@style/commitButton"
             android:onClick="onCommitClick"
             android:text="登  录" />
 

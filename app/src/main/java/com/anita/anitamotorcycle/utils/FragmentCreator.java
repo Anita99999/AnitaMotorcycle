@@ -2,8 +2,8 @@ package com.anita.anitamotorcycle.utils;
 
 import androidx.fragment.app.Fragment;
 
-import com.anita.anitamotorcycle.fragment.RepairedFragment;
-import com.anita.anitamotorcycle.fragment.RepairingFragment;
+import com.anita.anitamotorcycle.fragment.RepairedRecordFragment;
+import com.anita.anitamotorcycle.fragment.RepairingRecordFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,10 +26,10 @@ public class FragmentCreator {
 
         switch (index) {
             case 0:
-                fragment = new RepairingFragment();
+                fragment = new RepairingRecordFragment();
                 break;
             case 1:
-                fragment = new RepairedFragment();
+                fragment = new RepairedRecordFragment();
                 break;
         }
 

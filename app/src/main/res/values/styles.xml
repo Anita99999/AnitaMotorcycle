@@ -22,7 +22,7 @@
     </style>
 
     <!--按钮统一样式-->
-    <style name="Button">
+    <style name="commitButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/btnHeight</item>
         <!--自定义高亮和默认时不同的颜色-->
@@ -30,6 +30,14 @@
         <item name="android:layout_margin">@dimen/marginSize</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/titleSize</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="itemButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/btnItemHeight</item>
+        <!--自定义颜色-->
+        <item name="android:background">@drawable/shape_btn_item</item>
         <item name="android:gravity">center</item>
     </style>
 
