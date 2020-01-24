@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="@dimen/marginSize"
         android:text="车辆型号"
         android:textColor="@android:color/black"
         android:textSize="@dimen/titleSize"
@@ -20,7 +19,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/marginSize"
         android:text="维修状态"
         android:textColor="@android:color/black"
         android:textSize="@dimen/titleSize" />
@@ -98,6 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/viewHeight"
         android:layout_marginTop="@dimen/marginSize"
+        android:layout_marginBottom="@dimen/marginSize"
         android:layout_below="@+id/btn_confirm"
         android:background="@color/itemViewColor" />
 

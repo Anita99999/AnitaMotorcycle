@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_plate_numbers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车牌号"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/titleSize"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/motorImageWidth"
+                android:layout_height="@dimen/motorImageWidth"
+                android:scaleType="centerInside"
+                android:src="@mipmap/gsbfy190" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/marginSize">
+
+                <TextView
+                    android:id="@+id/tv_motor_model"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车辆型号" />
+
+                <TextView
+                    android:id="@+id/tv_factory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_motor_model"
+                    android:layout_marginTop="@dimen/marginLittleSize"
+                    android:text="制造商名称" />
+
+                <TextView
+                    android:id="@+id/tv_warranty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_factory"
+                    android:layout_marginTop="@dimen/marginLittleSize"
+                    android:text="保修期：365天/10000公里" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/viewHeight"
+        android:layout_marginTop="@dimen/marginSize"
+        android:layout_marginBottom="@dimen/marginSize"
+        android:background="@color/itemViewColor" />
 
 </LinearLayout>

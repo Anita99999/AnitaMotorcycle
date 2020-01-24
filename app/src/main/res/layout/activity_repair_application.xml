@@ -61,69 +61,66 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_height="@dimen/itemHeight"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/textViewWidth"
                         android:layout_height="match_parent"
-                        android:layout_weight="4"
                         android:gravity="center_vertical"
                         android:text="申请人姓名" />
 
                     <EditText
                         android:id="@+id/et_username"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="15"
                         android:background="@drawable/shape_et"
                         android:inputType="text"
+                        android:layout_marginLeft="@dimen/paddingIconSize"
                         android:paddingLeft="@dimen/marginLittleSize"
                         android:textSize="@dimen/itemSize" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_height="@dimen/itemHeight"
                     android:layout_marginTop="@dimen/marginSize"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/textViewWidth"
                         android:layout_height="match_parent"
-                        android:layout_weight="4"
                         android:gravity="center_vertical"
                         android:text="手机号" />
 
                     <EditText
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="15"
                         android:background="@drawable/shape_et"
                         android:inputType="phone"
                         android:maxLength="11"
                         android:paddingLeft="@dimen/marginLittleSize"
+                        android:layout_marginLeft="@dimen/paddingIconSize"
                         android:textSize="@dimen/itemSize" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_height="@dimen/itemHeight"
                     android:layout_marginTop="@dimen/marginSize"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/textViewWidth"
                         android:layout_height="match_parent"
-                        android:layout_weight="4"
                         android:gravity="center_vertical"
                         android:text="车牌号" />
 
                     <Spinner
                         android:id="@+id/sp_motors_type"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="15"
+                        android:layout_marginLeft="@dimen/paddingIconSize"
                         android:background="@drawable/shape_et" />
                 </LinearLayout>
 
@@ -154,45 +151,43 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_height="@dimen/itemHeight"
                     android:layout_marginTop="@dimen/marginSize"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/textViewWidth"
                         android:layout_height="match_parent"
-                        android:layout_weight="4"
                         android:gravity="center_vertical"
                         android:text="车辆定位" />
 
                     <EditText
                         android:id="@+id/et_location"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="15"
                         android:background="@drawable/shape_et"
+                        android:layout_marginLeft="@dimen/paddingIconSize"
                         android:inputType="text"
                         android:paddingLeft="@dimen/marginLittleSize" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_height="@dimen/itemHeight"
                     android:layout_marginTop="@dimen/marginSize"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/textViewWidth"
                         android:layout_height="match_parent"
-                        android:layout_weight="4"
                         android:gravity="center_vertical"
                         android:text="故障类型" />
 
                     <Spinner
                         android:id="@+id/sp_problems_type"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="15"
+                        android:layout_marginLeft="@dimen/paddingIconSize"
                         android:background="@drawable/shape_et" />
                 </LinearLayout>
 
@@ -216,7 +211,6 @@
                     android:paddingLeft="@dimen/marginLittleSize"
                     android:paddingTop="@dimen/paddingIconSize"
                     android:textSize="@dimen/itemSize" />
-
 
             </LinearLayout>
 

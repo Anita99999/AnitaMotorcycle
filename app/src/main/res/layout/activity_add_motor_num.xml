@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.AddMotorNumActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navBarHeight"
+        android:background="@color/mainColor"
+        android:paddingLeft="@dimen/marginSize"
+        android:paddingRight="@dimen/marginSize">
+
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/navBarIconSize"
+            android:layout_height="@dimen/navBarIconSize"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/paddingIconSize"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="添加摩托车"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/navBarTitleSize" />
+
+        <TextView
+            android:id="@+id/tv_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:padding="@dimen/paddingIconSize"
+            android:text="完成"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/navBarTitleSize" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginSize"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemHeight"
+            android:layout_marginTop="@dimen/paddingIconSize"
+            android:background="@drawable/shape_et"
+            android:baselineAligned="false"
+            android:hint="请输入正确的车牌号"
+            android:paddingLeft="@dimen/marginLittleSize"
+            android:textSize="@dimen/titleSize" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

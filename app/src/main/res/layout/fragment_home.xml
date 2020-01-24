@@ -128,40 +128,18 @@
             android:scaleType="centerInside"
             android:src="@mipmap/gsbfy190" />
 
-        <LinearLayout
-            android:id="@+id/ll_warranty_period"
+        <TextView
+            android:id="@+id/tv_warranty_period"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/iv_motor"
-            android:layout_centerHorizontal="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="保修期：" />
-
-            <TextView
-                android:id="@+id/tv_warranty_period"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="365天" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="或" />
-
-            <TextView
-                android:id="@+id/tv_warranty_journey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10000公里" />
-        </LinearLayout>
+            android:layout_centerHorizontal="true"
+            android:text="保修期：365天/10000公里" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="66dp"
-            android:layout_below="@+id/ll_warranty_period"
+            android:layout_below="@+id/tv_warranty_period"
             android:layout_centerHorizontal="true"
             android:background="@drawable/shape_radius"
             android:orientation="horizontal">
@@ -297,8 +275,8 @@
                 android:layout_width="@dimen/iv_littleUserSize"
                 android:layout_height="@dimen/iv_littleUserSize"
                 android:layout_gravity="center"
-                android:scaleType="centerInside"
                 android:padding="@dimen/paddingSize"
+                android:scaleType="centerInside"
                 android:src="@mipmap/maintain_default" />
 
             <TextView

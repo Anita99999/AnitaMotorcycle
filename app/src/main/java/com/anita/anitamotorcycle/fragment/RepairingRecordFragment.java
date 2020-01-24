@@ -15,9 +15,6 @@ import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.adapters.RecordDataAdapter;
 import com.anita.anitamotorcycle.beans.RecordItemBean;
 
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,14 +65,14 @@ public class RepairingRecordFragment extends Fragment {
     }
 
     private void showList() {
-        //        设置recyclerview样式，设置布局管理器
+//        设置recyclerview样式，设置布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 //        设置反向
 //        layoutManager.setReverseLayout(isReverse);
         mRepairingList.setFocusable(false);
         mRepairingList.setLayoutManager(layoutManager);
 
-        //        创建适配器
+//        创建适配器
         RecordDataAdapter adapter = new RecordDataAdapter(mDatas);
 //        设置adaptor到recyclerview里
         mRepairingList.setAdapter(adapter);

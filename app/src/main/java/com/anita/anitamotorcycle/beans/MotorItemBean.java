@@ -21,6 +21,8 @@ public class MotorItemBean {
 
 //    摩托车信息
     public String url;//图片
+    public int warrantyTime;//保修期
+    public int warrantyDistance;//保修公里
 
     public Time createAt;
     public Time updateAt;

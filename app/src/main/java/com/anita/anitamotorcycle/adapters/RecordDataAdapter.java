@@ -98,7 +98,7 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
         public void setData(RecordItemBean recordItemBean) {
             mMotorType.setText(recordItemBean.plateNumbers);
             mRepairStatus.setText(recordItemBean.repairStatus);
-            mUpdateTime.setText(recordItemBean.updateAt.toString());
+            mUpdateTime.setText(recordItemBean.updateAt);
             mFactoryName.setText(recordItemBean.factoryName);
             mTroubleType.setText(recordItemBean.troubleType);
         }
