@@ -1,13 +1,17 @@
 package com.anita.anitamotorcycle.adapters;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.activities.MotorDetailsActivity;
 import com.anita.anitamotorcycle.beans.MotorItemBean;
 
 import java.util.List;
@@ -19,7 +23,7 @@ import java.util.List;
  * @date : 2020/1/17 17:21
  */
 public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.InnerHolder> {
-
+    private static final String TAG = "MyMotorDataAdapter";
     private List<MotorItemBean> mData;
 
     /**
@@ -52,8 +56,18 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
      * @param position
      */
     @Override
-    public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final InnerHolder holder, int position) {
         holder.setData(mData.get(position));
+        final MotorItemBean motorItemBean = mData.get(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: holder.itemView.setOnClickListener....test1");
+                Intent intent = new Intent(v.getContext(), MotorDetailsActivity.class);
+                intent.putExtra("plateNumbers", motorItemBean.getPlateNumbers());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     /**

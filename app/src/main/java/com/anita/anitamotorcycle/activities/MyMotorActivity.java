@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -87,6 +88,8 @@ public class MyMotorActivity extends BaseActivity {
 //        设置recyclerview样式，设置布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mMyMototList.setLayoutManager(layoutManager);
+//        mMyMototList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mMyMototList.setNestedScrollingEnabled(false);
 
 //        创建适配器
         MyMotorDataAdapter adapter = new MyMotorDataAdapter(mDatas);

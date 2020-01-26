@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="车辆型号"
+        android:text="车牌号"
         android:textColor="@android:color/black"
         android:textSize="@dimen/titleSize"
         android:textStyle="bold" />
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_motor_type"
         android:layout_marginTop="@dimen/marginLittleSize"
-        android:text="更新时间:" />
+        android:text="状态更新时间:" />
 
     <TextView
         android:id="@+id/tv_update_time_data"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_update_time"
         android:layout_marginTop="@dimen/marginLittleSize"
-        android:text="商家名称:" />
+        android:text="维修商名称:" />
 
     <TextView
         android:id="@+id/tv_factory_name_data"
@@ -86,10 +86,10 @@
 
     <Button
         android:id="@+id/btn_evaluate"
+        style="@style/itemButton"
         android:layout_below="@+id/tv_trouble_type"
         android:layout_toLeftOf="@+id/btn_confirm"
         android:layout_marginRight="@dimen/marginLittleSize"
-        style="@style/itemButton"
         android:text="评价" />
 
     <View

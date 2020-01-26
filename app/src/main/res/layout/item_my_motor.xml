@@ -60,12 +60,17 @@
             </RelativeLayout>
         </LinearLayout>
 
-
     </LinearLayout>
+    <!--<Button-->
+        <!--android:id="@+id/btn_delete"-->
+        <!--style="@style/itemButton"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:layout_marginRight="@dimen/marginLittleSize"-->
+        <!--android:text="删除" />-->
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/viewHeight"
-        android:layout_marginTop="@dimen/marginSize"
+        android:layout_marginTop="@dimen/marginLittleSize"
         android:layout_marginBottom="@dimen/marginSize"
         android:background="@color/itemViewColor" />
 

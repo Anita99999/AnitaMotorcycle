@@ -1,5 +1,7 @@
 package com.anita.anitamotorcycle.adapters;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -9,6 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.activities.MotorDetailsActivity;
+import com.anita.anitamotorcycle.activities.RepairDetailsActivity;
+import com.anita.anitamotorcycle.beans.MotorItemBean;
 import com.anita.anitamotorcycle.beans.RecordItemBean;
 
 import java.util.List;
@@ -19,10 +24,12 @@ import java.util.List;
  * @date : 2020/1/17 17:21
  */
 public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.InnerHolder> {
+    private static final String TAG = "RecordDataAdapter";
     private List<RecordItemBean> mData;
 
     /**
      * 使用构造函数传递数据
+     *
      * @param data
      */
     public RecordDataAdapter(List<RecordItemBean> data) {
@@ -52,6 +59,16 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
         holder.setData(mData.get(position));
+        final RecordItemBean recordItemBean = mData.get(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: holder.itemView.setOnClickListener....test1");
+                Intent intent = new Intent(v.getContext(), RepairDetailsActivity.class);
+                intent.putExtra("recordPlateNumbers", recordItemBean.getPlateNumbers());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     /**

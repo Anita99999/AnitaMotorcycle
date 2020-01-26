@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.MotorDetailsActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navBarHeight"
+        android:background="@color/mainColor"
+        android:paddingLeft="@dimen/marginSize"
+        android:paddingRight="@dimen/marginSize">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/navBarIconSize"
+            android:layout_height="@dimen/navBarIconSize"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/paddingIconSize"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="车牌号"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/navBarTitleSize" />
+
+        <TextView
+            android:id="@+id/tv_chose_motor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:padding="@dimen/paddingIconSize"
+            android:text="选择"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/navBarTitleSize" />
+
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/marginSize">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_small_radius"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/marginLittleSize"
+                android:paddingLeft="@dimen/marginLittleSize"
+                android:paddingRight="@dimen/marginLittleSize">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:text="车架号："
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/itemSize" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:text="剩余保修期：365天/10000公里"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/itemSize" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_small_radius"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/marginLittleSize"
+                    android:paddingLeft="@dimen/marginLittleSize"
+                    android:paddingRight="@dimen/marginLittleSize">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/textViewHeight"
+                        android:layout_marginTop="@dimen/paddingSize"
+                        android:gravity="center_vertical"
+                        android:text="当前定位："
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/itemSize" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/viewHeight"
+                        android:layout_marginTop="@dimen/paddingLittleSize"
+                        android:layout_marginBottom="@dimen/paddingLittleSize"
+                        android:background="@color/itemViewColor" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/textViewHeight"
+                        android:layout_marginTop="@dimen/paddingSize"
+                        android:gravity="center_vertical"
+                        android:text="累计里程数："
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/itemSize" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_small_radius"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/marginLittleSize"
+                android:paddingRight="@dimen/marginLittleSize">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:text="制造商："
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/itemSize" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:text="车辆型号："
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/itemSize" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:text="生产国家："
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/itemSize" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:text="车辆类型："
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/itemSize" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:text="生产年份："
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/itemSize" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textViewHeight"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:text="生产顺序号："
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/itemSize" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_delete_motor"
+                android:text="删除"
+                style="@style/commitButton"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

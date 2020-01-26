@@ -1,11 +1,14 @@
 package com.anita.anitamotorcycle.activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anita.anitamotorcycle.R;
+import com.hb.dialog.dialog.ConfirmDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,6 +34,9 @@ public class RepairApplicationActivity extends BaseActivity {
     private ArrayAdapter<String> mProblemsAdapter;
     private TextView mCommit;
     private ImageView mBack;
+    private ImageView mTips2;
+    private ImageView mTips1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +52,19 @@ public class RepairApplicationActivity extends BaseActivity {
         mCommit = findViewById(R.id.tv_commit);
 
 //        mRepairTime = findViewById(R.id.btn_time);
-//        定义车牌号下拉列表内容
+//        车牌号提示
+        mTips1 = findViewById(R.id.iv_tips1);
+//        车牌号下拉列表内容
         mMotorType = findViewById(R.id.sp_motors_type);
         List<String> motors_list = new ArrayList<String>();
-        motors_list.add("请先绑定车辆");
+        motors_list.add("请选择车辆");
 
         mMotorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, motors_list);   //创建数组适配器
         mMotorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //设置下拉列表下拉时的菜单样式
         mMotorType.setAdapter(mMotorAdapter);    //将适配器添加到下拉列表上
 
+//        车辆位置提示
+        mTips2 = findViewById(R.id.iv_tips2);
 //        定义故障类型下拉列表内容
         List<String> problems_list = new ArrayList<String>();
         problems_list.add("请选择故障类型");
@@ -70,6 +81,7 @@ public class RepairApplicationActivity extends BaseActivity {
         mProblemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //设置下拉列表下拉时的菜单样式
         mProblemsType = findViewById(R.id.sp_problems_type);
         mProblemsType.setAdapter(mProblemsAdapter);    //将适配器添加到下拉列表上
+
 
     }
 
@@ -91,6 +103,22 @@ public class RepairApplicationActivity extends BaseActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 Log.d(TAG, "onNothingSelected: none");
+            }
+        });
+
+//        车牌号提示
+        mTips1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlertDialog(1);
+            }
+        });
+
+//        车辆位置提示
+        mTips2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlertDialog(2);
             }
         });
 
@@ -119,12 +147,48 @@ public class RepairApplicationActivity extends BaseActivity {
         mCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(getApplicationContext(), RepairRecordActivity.class);
-//                startActivity(intent);
-//                finish();
+                showConfirmDialog();
             }
         });
+
+
+    }
+
+    private void showConfirmDialog() {
+        ConfirmDialog confirmDialog = new ConfirmDialog(this);
+        confirmDialog.setLogoImg(R.mipmap.dialog_notice).setMsg("确认提交维修申请吗？");
+        confirmDialog.setClickListener(new ConfirmDialog.OnBtnClickListener() {
+            @Override
+            public void ok() {
+                Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), RepairDetailsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void cancel() {
+                Toast.makeText(getApplicationContext(), "取消", Toast.LENGTH_LONG).show();
+            }
+        });
+        confirmDialog.show();
+    }
+
+
+    private void showAlertDialog(int i) {
+        String a = "车牌号";
+        String b = "若无所需车牌号，请先到我的摩托车中添加车辆。";
+        if (i == 2) {
+            a = "车辆位置";
+            b = "维修员将根据此位置到点维修车辆，请确保车辆位置准确。";
+        }
+        AlertDialog alertDialog1 = new AlertDialog.Builder(this)
+                .setTitle(a)//标题
+                .setMessage(b)//内容
+                .setIcon(R.mipmap.tips)//图标
+                .create();
+        alertDialog1.show();
+
     }
 
 //    private void showDatePickerDialog(int themeResId) {

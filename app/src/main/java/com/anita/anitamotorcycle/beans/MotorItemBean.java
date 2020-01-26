@@ -21,6 +21,11 @@ public class MotorItemBean {
 
 //    摩托车信息
     public String url;//图片
+
+    public String getPlateNumbers() {
+        return plateNumbers;
+    }
+
     public int warrantyTime;//保修期
     public int warrantyDistance;//保修公里
 

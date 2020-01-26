@@ -51,171 +51,144 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginSize"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/marginSize"
-                android:orientation="vertical">
+                android:layout_marginBottom="@dimen/paddingIconSize"
+                android:gravity="center_vertical"
+                android:text="申请人姓名：" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/itemHeight"
-                    android:orientation="horizontal">
+            <EditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textViewHeight"
+                android:background="@drawable/shape_et"
+                android:hint="请输入姓名"
+                android:inputType="text"
+                android:paddingLeft="@dimen/marginLittleSize"
+                android:textSize="@dimen/itemSize" />
 
-                    <TextView
-                        android:layout_width="@dimen/textViewWidth"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="申请人姓名" />
+            <TextView
+                android:layout_width="@dimen/textViewWidth"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginLittleSize"
+                android:layout_marginBottom="@dimen/paddingIconSize"
+                android:gravity="center_vertical"
+                android:text="联系电话：" />
 
-                    <EditText
-                        android:id="@+id/et_username"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/shape_et"
-                        android:inputType="text"
-                        android:layout_marginLeft="@dimen/paddingIconSize"
-                        android:paddingLeft="@dimen/marginLittleSize"
-                        android:textSize="@dimen/itemSize" />
-                </LinearLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textViewHeight"
+                android:background="@drawable/shape_et"
+                android:hint="请输入联系电话"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:paddingLeft="@dimen/marginLittleSize"
+                android:textSize="@dimen/itemSize" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/itemHeight"
-                    android:layout_marginTop="@dimen/marginSize"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="@dimen/textViewWidth"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="手机号" />
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/shape_et"
-                        android:inputType="phone"
-                        android:maxLength="11"
-                        android:paddingLeft="@dimen/marginLittleSize"
-                        android:layout_marginLeft="@dimen/paddingIconSize"
-                        android:textSize="@dimen/itemSize" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/itemHeight"
-                    android:layout_marginTop="@dimen/marginSize"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="@dimen/textViewWidth"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="车牌号" />
-
-                    <Spinner
-                        android:id="@+id/sp_motors_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/paddingIconSize"
-                        android:background="@drawable/shape_et" />
-                </LinearLayout>
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/itemHeight"-->
-                <!--android:layout_marginTop="@dimen/marginLittleSize"-->
-                <!--android:orientation="horizontal">-->
-
-                <!--<TextView-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="4"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:text="维修时间" />-->
-
-                <!--<Button-->
-                <!--android:id="@+id/btn_time"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="15"-->
-                <!--android:background="@drawable/shape_et"-->
-                <!--android:gravity="center_vertical|left"-->
-                <!--android:paddingLeft="@dimen/marginLittleSize"-->
-                <!--android:text="请选择日期" />-->
-
-                <!--</LinearLayout>-->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/itemHeight"
-                    android:layout_marginTop="@dimen/marginSize"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="@dimen/textViewWidth"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="车辆定位" />
-
-                    <EditText
-                        android:id="@+id/et_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/shape_et"
-                        android:layout_marginLeft="@dimen/paddingIconSize"
-                        android:inputType="text"
-                        android:paddingLeft="@dimen/marginLittleSize" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/itemHeight"
-                    android:layout_marginTop="@dimen/marginSize"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="@dimen/textViewWidth"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="故障类型" />
-
-                    <Spinner
-                        android:id="@+id/sp_problems_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/paddingIconSize"
-                        android:background="@drawable/shape_et" />
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/marginLittleSize"
+                android:layout_marginBottom="@dimen/paddingIconSize"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/marginSize"
                     android:gravity="center_vertical"
-                    android:text="故障描述" />
+                    android:text="车牌号：" />
 
-                <EditText
-                    android:id="@+id/et_problems"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/maxTextViewHeight"
-                    android:layout_marginTop="@dimen/paddingIconSize"
-                    android:background="@drawable/shape_et"
-                    android:gravity="top"
-                    android:hint="请描述故障问题"
-                    android:inputType="text"
-                    android:maxLines="3"
-                    android:paddingLeft="@dimen/marginLittleSize"
-                    android:paddingTop="@dimen/paddingIconSize"
-                    android:textSize="@dimen/itemSize" />
+                <ImageView
+                    android:id="@+id/iv_tips1"
+                    android:layout_width="@dimen/iconSize"
+                    android:layout_height="@dimen/iconSize"
+                    android:padding="@dimen/paddingLittleSize"
+                    android:src="@mipmap/tips"/>
 
             </LinearLayout>
+
+            <Spinner
+                android:id="@+id/sp_motors_type"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textViewHeight"
+                android:background="@drawable/shape_et" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/marginLittleSize"
+                android:layout_marginBottom="@dimen/paddingIconSize"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="车辆位置：" />
+
+                <ImageView
+                    android:id="@+id/iv_tips2"
+                    android:layout_width="@dimen/iconSize"
+                    android:layout_height="@dimen/iconSize"
+                    android:padding="@dimen/paddingLittleSize"
+                    android:src="@mipmap/tips"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textViewHeight"
+                android:background="@drawable/shape_et"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:paddingLeft="@dimen/marginLittleSize"
+                android:textSize="@dimen/itemSize" />
+
+            <TextView
+                android:layout_width="@dimen/textViewWidth"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginLittleSize"
+                android:layout_marginBottom="@dimen/paddingIconSize"
+                android:gravity="center_vertical"
+                android:text="故障类型：" />
+
+            <Spinner
+                android:id="@+id/sp_problems_type"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/textViewHeight"
+                android:background="@drawable/shape_et" />
+
+            <TextView
+                android:layout_width="@dimen/textViewWidth"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginLittleSize"
+                android:layout_marginBottom="@dimen/paddingIconSize"
+                android:gravity="center_vertical"
+                android:text="故障描述" />
+
+            <EditText
+                android:id="@+id/et_problems"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/maxTextViewHeight"
+                android:layout_marginTop="@dimen/paddingIconSize"
+                android:background="@drawable/shape_et"
+                android:gravity="top"
+                android:hint="请描述故障问题"
+                android:inputType="text"
+                android:maxLines="3"
+                android:paddingLeft="@dimen/marginLittleSize"
+                android:paddingTop="@dimen/paddingIconSize"
+                android:textSize="@dimen/itemSize" />
 
 
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

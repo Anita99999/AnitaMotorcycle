@@ -15,8 +15,10 @@ import android.widget.RelativeLayout;
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.activities.MainActivity;
 import com.anita.anitamotorcycle.activities.MeActivity;
+import com.anita.anitamotorcycle.activities.MotorDetailsActivity;
 import com.anita.anitamotorcycle.activities.MyMotorActivity;
 import com.anita.anitamotorcycle.activities.RepairApplicationActivity;
+import com.anita.anitamotorcycle.activities.RepairDetailsActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -55,6 +57,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RepairApplicationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+//        摩托车信息
+        mMotorInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MotorDetailsActivity.class);
                 startActivity(intent);
             }
         });

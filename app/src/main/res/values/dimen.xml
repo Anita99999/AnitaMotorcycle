@@ -15,7 +15,7 @@
     <dimen name="btnHeight">44dp</dimen>
     <dimen name="btnItemHeight">30dp</dimen>
     <dimen name="itemHeight">44dp</dimen>
-    <dimen name="textViewHeight">42dp</dimen>
+    <dimen name="textViewHeight">40dp</dimen>
     <dimen name="textViewWidth">76dp</dimen>
     <dimen name="maxTextViewHeight">88dp</dimen>
     <!--主页菜单上方分割线高度-->
@@ -37,6 +37,7 @@
     <dimen name="marginLittleSize">10dp</dimen>
     <!--统一内边距-->
     <dimen name="paddingSize">4dp</dimen>
+    <dimen name="paddingLittleSize">2dp</dimen>
     <!--图标内边距-->
     <dimen name="paddingIconSize">6dp</dimen>
     <dimen name="userMarginTop">18dp</dimen>
@@ -47,8 +48,8 @@
 
     <!--边角弧度（drawable/btn_commit_h,btn_commit_n中使用）-->
     <dimen name="radius">10dp</dimen>
-    <dimen name="btn_item_radius">20dp</dimen>
-    <dimen name="littleRadius">6dp</dimen>
+    <dimen name="btn_item_radius">18dp</dimen>
+    <dimen name="littleRadius">5dp</dimen>
 
 
     <!--导航条文字大小-->

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,6 +72,8 @@ public class RepairedRecordFragment extends Fragment {
 //        layoutManager.setReverseLayout(isReverse);
         mRepairedList.setFocusable(false);
         mRepairedList.setLayoutManager(layoutManager);
+//        mRepairedList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        mRepairedList.setNestedScrollingEnabled(false);
 
         //        创建适配器
         RecordDataAdapter adapter = new RecordDataAdapter(mDatas);
