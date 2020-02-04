@@ -4,14 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.anita.anitamotorcycle.views.InputView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends BaseActivity {
-    private long firstTime=0;   //第一次点击返回键的时间
-    private InputView mInputPhone,mInputPassword;
+    private long firstTime = 0;   //第一次点击返回键的时间
+    private InputView mInputPhone, mInputPassword;
+    private TextView mInlet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,15 +25,28 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
 
         initView();
+        initListener();
+    }
+
+
+    private void initListener() {
+//        维修员入口
+        mInlet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
     }
 
     /**
      * 初始化view
      */
-    private void initView(){
+    private void initView() {
+        mInlet = findViewById(R.id.tv_repair_man_inlet);
 
-        mInputPhone=findViewById(R.id.input_phone);
-        mInputPassword=findViewById(R.id.input_password);
+        mInputPhone = findViewById(R.id.input_phone);
+        mInputPassword = findViewById(R.id.input_password);
 
     }
 
@@ -35,8 +54,8 @@ public class LoginActivity extends BaseActivity {
      * 注册点击事件
      * 跳转到注册页面
      */
-    public void onRegisterUIClick(View v){
-        Intent intent=new Intent(this,RegisterActivity.class);
+    public void onRegisterUIClick(View v) {
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
@@ -44,8 +63,8 @@ public class LoginActivity extends BaseActivity {
      * 登录按钮点击事件
      * 验证用户输入的合法性
      */
-    public void onCommitClick(View v){
-//        String phone=mInputPhone.getInputStr();
+    public void onCommitClick(View v) {
+        String phone = mInputPhone.getInputStr();
 //        String password=mInputPassword.getInputStr();
 //
 ////        用户输入验证不通过
@@ -53,16 +72,31 @@ public class LoginActivity extends BaseActivity {
 //            return;
 //        }
 //      验证通过，跳转到MainActivity 应用主页
-        Intent intent=new Intent(this,MainActivity.class);
-        startActivity(intent);
-        finish();
+
+//        Intent intent=new Intent(this,MainActivity.class);
+//        startActivity(intent);
+//        finish();
+
+        System.out.println("点击按钮");
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                String url = "http://192.168.0.107:8080/AMServer/userlogin";
+                Map<String, String> params = new HashMap<>();
+                ClientUtils.getUserData(url, params);
+
+            }
+        }).start();
+
+
     }
 
     //  点击两次返回键退出程序
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode==KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_DOWN){
-            if((System.currentTimeMillis()-firstTime) > 2000){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - firstTime) > 2000) {
                 Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 firstTime = System.currentTimeMillis();
             } else {

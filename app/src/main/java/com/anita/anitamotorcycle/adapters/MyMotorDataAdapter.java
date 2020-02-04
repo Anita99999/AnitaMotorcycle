@@ -5,14 +5,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.activities.MotorDetailsActivity;
-import com.anita.anitamotorcycle.beans.MotorItemBean;
+import com.anita.anitamotorcycle.beans.MotorItem;
 
 import java.util.List;
 
@@ -24,14 +23,14 @@ import java.util.List;
  */
 public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.InnerHolder> {
     private static final String TAG = "MyMotorDataAdapter";
-    private List<MotorItemBean> mData;
+    private List<MotorItem> mData;
 
     /**
      * 使用构造函数传递数据
      *
      * @param data
      */
-    public MyMotorDataAdapter(List<MotorItemBean> data) {
+    public MyMotorDataAdapter(List<MotorItem> data) {
         this.mData = data;
     }
 
@@ -58,13 +57,13 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
     @Override
     public void onBindViewHolder(@NonNull final InnerHolder holder, int position) {
         holder.setData(mData.get(position));
-        final MotorItemBean motorItemBean = mData.get(position);
+        final MotorItem motorItem = mData.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: holder.itemView.setOnClickListener....test1");
                 Intent intent = new Intent(v.getContext(), MotorDetailsActivity.class);
-                intent.putExtra("plateNumbers", motorItemBean.getPlateNumbers());
+                intent.putExtra("plateNumbers", motorItem.getPlateNumbers());
                 v.getContext().startActivity(intent);
             }
         });
@@ -99,11 +98,11 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
             mWarranty = itemView.findViewById(R.id.tv_warranty);
         }
 
-        public void setData(MotorItemBean motorItemBean) {
-            mPlateNumbers.setText(motorItemBean.plateNumbers);
-            mMotorModel.setText(motorItemBean.model);
-            mFactory.setText(motorItemBean.factory);
-            mWarranty.setText("保修期：" + motorItemBean.warrantyTime + "天/" + motorItemBean.warrantyDistance + "公里");
+        public void setData(MotorItem motorItem) {
+            mPlateNumbers.setText(motorItem.plateNumbers);
+            mMotorModel.setText(motorItem.model);
+            mFactory.setText(motorItem.factory);
+            mWarranty.setText("保修期：" + motorItem.warrantyTime + "天/" + motorItem.warrantyDistance + "公里");
         }
     }
 }

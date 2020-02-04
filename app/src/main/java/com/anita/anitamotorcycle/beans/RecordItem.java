@@ -8,7 +8,7 @@ import java.util.Date;
  * @description:维修记录数据对象
  * @date : 2020/1/17 15:49
  */
-public class RecordItemBean {
+public class RecordItem {
 
     public int status; // 0delete, 1normal
 

@@ -6,18 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".activities.LoginActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_repair_man_inlet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/marginLittleSize"
+            android:layout_marginTop="@dimen/paddingIconSize"
+            android:text="维修员入口 >"
+            android:textColor="#005EFF"
+            android:textSize="@dimen/infoSize" />
 
         <ImageView
             android:layout_width="106dp"
             android:layout_height="76dp"
             android:layout_marginLeft="@dimen/marginSize"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="24dp"
+            android:scaleType="centerInside"
             android:src="@mipmap/logo" />
 
         <TextView

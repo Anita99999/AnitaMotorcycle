@@ -11,10 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.anita.anitamotorcycle.R;
-import com.anita.anitamotorcycle.activities.MotorDetailsActivity;
 import com.anita.anitamotorcycle.activities.RepairDetailsActivity;
-import com.anita.anitamotorcycle.beans.MotorItemBean;
-import com.anita.anitamotorcycle.beans.RecordItemBean;
+import com.anita.anitamotorcycle.beans.RecordItem;
 
 import java.util.List;
 
@@ -25,14 +23,14 @@ import java.util.List;
  */
 public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.InnerHolder> {
     private static final String TAG = "RecordDataAdapter";
-    private List<RecordItemBean> mData;
+    private List<RecordItem> mData;
 
     /**
      * 使用构造函数传递数据
      *
      * @param data
      */
-    public RecordDataAdapter(List<RecordItemBean> data) {
+    public RecordDataAdapter(List<RecordItem> data) {
         this.mData = data;
     }
 
@@ -59,13 +57,13 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
         holder.setData(mData.get(position));
-        final RecordItemBean recordItemBean = mData.get(position);
+        final RecordItem recordItem = mData.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: holder.itemView.setOnClickListener....test1");
                 Intent intent = new Intent(v.getContext(), RepairDetailsActivity.class);
-                intent.putExtra("recordPlateNumbers", recordItemBean.getPlateNumbers());
+                intent.putExtra("recordPlateNumbers", recordItem.getPlateNumbers());
                 v.getContext().startActivity(intent);
             }
         });
@@ -110,14 +108,14 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
         /**
          * 设置数据
          *
-         * @param recordItemBean
+         * @param recordItem
          */
-        public void setData(RecordItemBean recordItemBean) {
-            mMotorType.setText(recordItemBean.plateNumbers);
-            mRepairStatus.setText(recordItemBean.repairStatus);
-            mUpdateTime.setText(recordItemBean.updateAt);
-            mFactoryName.setText(recordItemBean.factoryName);
-            mTroubleType.setText(recordItemBean.troubleType);
+        public void setData(RecordItem recordItem) {
+            mMotorType.setText(recordItem.plateNumbers);
+            mRepairStatus.setText(recordItem.repairStatus);
+            mUpdateTime.setText(recordItem.updateAt);
+            mFactoryName.setText(recordItem.factoryName);
+            mTroubleType.setText(recordItem.troubleType);
         }
     }
 }

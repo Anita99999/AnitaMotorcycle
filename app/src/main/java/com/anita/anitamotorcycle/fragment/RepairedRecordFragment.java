@@ -8,13 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.adapters.RecordDataAdapter;
-import com.anita.anitamotorcycle.beans.RecordItemBean;
+import com.anita.anitamotorcycle.beans.RecordItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ import java.util.TimeZone;
 public class RepairedRecordFragment extends Fragment {
 
     private RecyclerView mRepairedList;
-    private List<RecordItemBean> mDatas;
+    private List<RecordItem> mDatas;
 
     @Nullable
     @Override
@@ -54,7 +53,7 @@ public class RepairedRecordFragment extends Fragment {
 //        创建模拟数据
         for (int i = 1; i <= 6; i++) {
 //            创建数据对象
-            RecordItemBean data = new RecordItemBean();
+            RecordItem data = new RecordItem();
             data.repairStatus = "提交成功" + i;
             data.plateNumbers = "车牌号" + i;
             data.updateAt = dateFormat;

@@ -7,7 +7,7 @@ import java.sql.Time;
  * @author Anita
  * @description:我的摩托車 * @date : 2020/1/18 21:32
  */
-public class MotorItemBean {
+public class MotorItem {
     public int id;
     //    添加摩托车
     public String code;// 车驾号

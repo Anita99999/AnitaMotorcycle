@@ -6,26 +6,20 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.adapters.MyMotorDataAdapter;
-import com.anita.anitamotorcycle.adapters.RecordDataAdapter;
-import com.anita.anitamotorcycle.beans.MotorItemBean;
-import com.anita.anitamotorcycle.beans.RecordItemBean;
+import com.anita.anitamotorcycle.beans.MotorItem;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class MyMotorActivity extends BaseActivity {
 
     private RecyclerView mMyMototList;
-    private List<MotorItemBean> mDatas;
+    private List<MotorItem> mDatas;
     private ImageView mBack;
     private TextView mAddMotor;
 
@@ -66,7 +60,7 @@ public class MyMotorActivity extends BaseActivity {
 //        创建模拟数据
         for (int i = 1; i <= 2; i++) {
 //            创建数据对象
-            MotorItemBean data = new MotorItemBean();
+            MotorItem data = new MotorItem();
             data.plateNumbers = "车牌号" + i;
             data.model = "车辆型号" + i;
             data.factory = "制造商" + i;
