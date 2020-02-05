@@ -4,8 +4,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.anita.anitamotorcycle.fragment.RepairedRecordFragment;
-import com.anita.anitamotorcycle.fragment.RepairingRecordFragment;
+import com.anita.anitamotorcycle.fragments.RepairedRecordFragment;
+import com.anita.anitamotorcycle.fragments.RepairingRecordFragment;
 
 import java.util.HashMap;
 import java.util.Map;

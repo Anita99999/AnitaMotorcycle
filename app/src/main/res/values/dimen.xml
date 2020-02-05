@@ -29,7 +29,7 @@
     <dimen name="dialogItemHeight">42dp</dimen>
 
     <!--我的摩托车-->
-    <dimen name="motorImageWidth">120dp</dimen>
+    <dimen name="motorImageWidth">112dp</dimen>
 
     <!--统一边距-->
     <dimen name="marginSize">16dp</dimen>

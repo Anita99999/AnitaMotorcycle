@@ -22,7 +22,7 @@ public class UserUtils {
     /**
      * 验证登录用户手机号输入合法性
      */
-    public static boolean validatePhone(Context context, String phone) {
+    public static boolean validatePhone(Context context, String phone, String password) {
 //      简单验证手机号RegexUtils.isMobileSimple(phone);
 //      精确验证手机号RegexUtils.isMobileExact(phone);
 //        当输入手机号不是精确手机号
@@ -33,6 +33,11 @@ public class UserUtils {
 
         if (!RegexUtils.isMobileExact(phone)) {
             Toast.makeText(context, "无效手机号", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(context, "密码不可为空", Toast.LENGTH_SHORT).show();
             return false;
         }
 //        当用户通过验证

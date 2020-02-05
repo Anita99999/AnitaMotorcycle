@@ -2,8 +2,8 @@ package com.anita.anitamotorcycle.utils;
 
 import androidx.fragment.app.Fragment;
 
-import com.anita.anitamotorcycle.fragment.RepairedRecordFragment;
-import com.anita.anitamotorcycle.fragment.RepairingRecordFragment;
+import com.anita.anitamotorcycle.fragments.RepairedRecordFragment;
+import com.anita.anitamotorcycle.fragments.RepairingRecordFragment;
 
 import java.util.HashMap;
 import java.util.Map;

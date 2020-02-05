@@ -4,10 +4,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.anita.anitamotorcycle.fragment.HomeFragment;
-import com.anita.anitamotorcycle.fragment.MeFragment;
-import com.anita.anitamotorcycle.fragment.MessageFragment;
-import com.anita.anitamotorcycle.fragment.ShopFragment;
+import com.anita.anitamotorcycle.fragments.HomeFragment;
+import com.anita.anitamotorcycle.fragments.MeFragment;
+import com.anita.anitamotorcycle.fragments.MessageFragment;
 
 import java.util.HashMap;
 import java.util.Map;

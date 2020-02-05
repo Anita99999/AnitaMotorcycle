@@ -1,5 +1,6 @@
-package com.anita.anitamotorcycle.fragment;
+package com.anita.anitamotorcycle.fragments;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.adapters.RecordDataAdapter;
 import com.anita.anitamotorcycle.beans.RecordItem;
 
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,26 +26,26 @@ import java.util.TimeZone;
 
 /**
  * @author Anita
- * @description:维修记录中的已完成 * @date : 2020/1/5 22:49
+ * @description:维修记录的维修中 * @date : 2020/1/5 22:49
  */
-public class RepairedRecordFragment extends Fragment {
+public class RepairingRecordFragment extends Fragment {
 
-    private RecyclerView mRepairedList;
+    private RecyclerView mRepairingList;
     private List<RecordItem> mDatas;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_repairing_record, container, false);
-        mRepairedList = view.findViewById(R.id.rv_repairing_record);
+        mRepairingList = view.findViewById(R.id.rv_repairing_record);
         getData();  //获取数据
-        showList(true); //实现list
+        showList(); //实现list
         return view;
     }
 
     /*
-   TODO：从网络中获取数据，暂时模拟数据
-    */
+    TODO：从网络中获取数据，暂时模拟数据
+     */
     private void getData() {
 //        创建数据集合
         mDatas = new ArrayList<>();
@@ -51,7 +54,7 @@ public class RepairedRecordFragment extends Fragment {
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+08"));
         String dateFormat = sdf.format(date);// new Date()为获取当前系统时间
 //        创建模拟数据
-        for (int i = 1; i <= 6; i++) {
+        for (int i = 1; i <= 5; i++) {
 //            创建数据对象
             RecordItem data = new RecordItem();
             data.repairStatus = "提交成功" + i;
@@ -64,20 +67,29 @@ public class RepairedRecordFragment extends Fragment {
         }
     }
 
-    private void showList(boolean isReverse) {
+    private void showList() {
 //        设置recyclerview样式，设置布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 //        设置反向
 //        layoutManager.setReverseLayout(isReverse);
-        mRepairedList.setFocusable(false);
-        mRepairedList.setLayoutManager(layoutManager);
-//        mRepairedList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        mRepairedList.setNestedScrollingEnabled(false);
+        mRepairingList.setFocusable(false);
+        mRepairingList.setLayoutManager(layoutManager);
+//        item间距
+        mRepairingList.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                outRect.top = UIUtil.dip2px(view.getContext(), 8);
+                outRect.bottom = UIUtil.dip2px(view.getContext(), 8);
+                outRect.left = UIUtil.dip2px(view.getContext(), 12);
+                outRect.right = UIUtil.dip2px(view.getContext(), 12);
+            }
+        });
+        mRepairingList.setNestedScrollingEnabled(false);
 
-        //        创建适配器
+//        创建适配器
         RecordDataAdapter adapter = new RecordDataAdapter(mDatas);
 //        设置adaptor到recyclerview里
-        mRepairedList.setAdapter(adapter);
+        mRepairingList.setAdapter(adapter);
     }
 
 

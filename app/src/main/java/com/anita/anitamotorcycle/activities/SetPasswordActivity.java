@@ -7,7 +7,6 @@ import android.widget.Button;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.utils.UserUtils;
-import com.anita.anitamotorcycle.views.InputView;
 
 public class SetPasswordActivity extends BaseActivity {
 

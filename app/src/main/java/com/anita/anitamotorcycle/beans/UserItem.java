@@ -12,6 +12,11 @@ public class UserItem {
     private String msg;
     private Long time = new Date().getTime();
 
+    public UserItem(String phone, String password) {
+        this.phone = phone;
+        this.password = password;
+    }
+
     private String id;
     private String phone;
     private String password;

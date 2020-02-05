@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.HomeFragment">
+    tools:context=".fragments.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <FrameLayout
@@ -126,6 +126,7 @@
             android:layout_height="140dp"
             android:layout_centerHorizontal="true"
             android:scaleType="centerInside"
+            android:background="@drawable/shape_small_radius"
             android:src="@mipmap/gsbfy190" />
 
         <TextView

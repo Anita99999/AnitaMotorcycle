@@ -1,4 +1,4 @@
-package com.anita.anitamotorcycle.fragment;
+package com.anita.anitamotorcycle.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,17 +8,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.anita.anitamotorcycle.R;
-import com.anita.anitamotorcycle.activities.MainActivity;
-import com.anita.anitamotorcycle.activities.MeActivity;
 import com.anita.anitamotorcycle.activities.MotorDetailsActivity;
 import com.anita.anitamotorcycle.activities.MyMotorActivity;
 import com.anita.anitamotorcycle.activities.RepairApplicationActivity;
-import com.anita.anitamotorcycle.activities.RepairDetailsActivity;
 
 public class HomeFragment extends Fragment {
 

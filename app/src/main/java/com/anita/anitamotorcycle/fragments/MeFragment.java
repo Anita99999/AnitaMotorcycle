@@ -1,4 +1,4 @@
-package com.anita.anitamotorcycle.fragment;
+package com.anita.anitamotorcycle.fragments;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

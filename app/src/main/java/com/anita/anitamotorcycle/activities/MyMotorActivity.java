@@ -1,11 +1,13 @@
 package com.anita.anitamotorcycle.activities;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,9 +15,14 @@ import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.adapters.MyMotorDataAdapter;
 import com.anita.anitamotorcycle.beans.MotorItem;
 
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 我的摩托车
+ */
 public class MyMotorActivity extends BaseActivity {
 
     private RecyclerView mMyMototList;
@@ -84,7 +91,16 @@ public class MyMotorActivity extends BaseActivity {
         mMyMototList.setLayoutManager(layoutManager);
 //        mMyMototList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mMyMototList.setNestedScrollingEnabled(false);
-
+//        item间距
+        mMyMototList.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                outRect.top = UIUtil.dip2px(view.getContext(), 8);
+                outRect.bottom = UIUtil.dip2px(view.getContext(), 8);
+                outRect.left = UIUtil.dip2px(view.getContext(), 12);
+                outRect.right = UIUtil.dip2px(view.getContext(), 12);
+            }
+        });
 //        创建适配器
         MyMotorDataAdapter adapter = new MyMotorDataAdapter(mDatas);
 //        设置adaptor到recyclerview里

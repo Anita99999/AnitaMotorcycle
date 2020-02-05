@@ -39,16 +39,16 @@
             android:textColor="@android:color/black"
             android:textSize="@dimen/navBarTitleSize" />
 
-        <com.anita.anitamotorcycle.views.InputView
+        <com.anita.anitamotorcycle.activities.InputView
             android:id="@+id/input_phone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/inputViewHeight"
             android:layout_marginTop="@dimen/marginSize"
             app:input_hint="请输入手机号"
             app:input_icon="@mipmap/phone"
-            app:is_password="false"></com.anita.anitamotorcycle.views.InputView>
+            app:is_password="false"></com.anita.anitamotorcycle.activities.InputView>
 
-        <com.anita.anitamotorcycle.views.InputView
+        <com.anita.anitamotorcycle.activities.InputView
             android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="@dimen/inputViewHeight"
@@ -56,11 +56,11 @@
             android:layout_marginBottom="@dimen/marginSize"
             app:input_hint="请输入密码"
             app:input_icon="@mipmap/password"
-            app:is_password="true"></com.anita.anitamotorcycle.views.InputView>
+            app:is_password="true"></com.anita.anitamotorcycle.activities.InputView>
 
         <Button
+            android:id="@+id/btn_login"
             style="@style/commitButton"
-            android:onClick="onCommitClick"
             android:text="登  录" />
 
         <RelativeLayout
@@ -78,11 +78,11 @@
                 android:textSize="@dimen/infoSize" />
 
             <TextView
+                android:id="@+id/tv_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="新用户注册"
-                android:onClick="onRegisterUIClick"
                 android:textColor="#005EFF"
                 android:textSize="@dimen/infoSize" />
         </RelativeLayout>

@@ -46,14 +46,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/marginSize"
+        android:padding="@dimen/marginSize"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/paddingIconSize"
+            android:layout_marginTop="@dimen/paddingLittleSize"
             android:orientation="horizontal">
 
             <EditText

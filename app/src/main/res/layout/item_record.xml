@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_small_radius"
+    android:padding="@dimen/paddingSize">
 
     <TextView
         android:id="@+id/tv_motor_type"
@@ -92,12 +93,5 @@
         android:layout_marginRight="@dimen/marginLittleSize"
         android:text="评价" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/viewHeight"
-        android:layout_marginTop="@dimen/marginSize"
-        android:layout_marginBottom="@dimen/marginSize"
-        android:layout_below="@+id/btn_confirm"
-        android:background="@color/itemViewColor" />
 
 </RelativeLayout>
