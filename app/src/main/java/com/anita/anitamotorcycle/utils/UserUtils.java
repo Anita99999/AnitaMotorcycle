@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.anita.anitamotorcycle.activities.LoginActivity;
@@ -20,7 +21,7 @@ import com.blankj.utilcode.util.StringUtils;
  * @date : 2019/9/11 10:37
  */
 public class UserUtils {
-
+    private static final String TAG = "UserUtils";
     /**
      * 验证登录用户
      * 1. 验证用户手机号及密码
@@ -35,9 +36,9 @@ public class UserUtils {
             Toast.makeText(context, "密码不可为空", Toast.LENGTH_SHORT).show();
             return false;
         }
-//        当用户通过验证
+
         return true;
-    }
+}
 
     /**
      * 验证用户手机号
@@ -77,27 +78,62 @@ public class UserUtils {
         return true;
     }
 
+    /**
+     * 修改密码
+     * 1、数据验证
+     *      1、原密码是否输入
+     *      2、新密码是否输入,且新密码与确定密码是否相同
+     *      3、原密码输入是否正确(查数据库，TODO)
+     */
+    public static boolean changePassword (Context context, String oldPassword, String password, String passwordConfirm) {
+//        原密码是否输入
+        if (TextUtils.isEmpty(oldPassword)) {
+            Toast.makeText(context, "请输入原密码", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+//        新密码是否输入,且新密码与确定密码是否相同
+        if (TextUtils.isEmpty(password) || !password.equals(passwordConfirm)) {
+            Toast.makeText(context, "请确认新密码", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+//        验证原密码是否正确
+//          1、Realm 获取到当前登录的用户模型
+//          2、根据用户模型中保存的密码匹配用户原密码
+
+        return true;
+    }
+
 
     /**
      * 退出用户登录
-     * 跳转到登录页面
+     * 1. 删除sp保存的用户标记
+     * 2. 跳转到登录页面
      */
     public static void logout(Context context) {
+//        删除sp保存的用户标记
+        boolean isRemove = removeUser(context);
+        if (!isRemove) {
+            Toast.makeText(context, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(context, LoginActivity.class);
 //        添加intent标志符：清除当前TASK栈占用的Activity、创建一个新的TASK栈
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
-        //        定义Activity跳转动画
+//        定义Activity跳转动画
         ((Activity) context).overridePendingTransition(R.anim.activity_open_enter, R.anim.activity_open_exit);
     }
 
     /**
      * 利用SharedPreferences，保存登录用户的用户标记（手机号码）
+     *
      * @param context
      * @param phone
-     * @return  是否保存成功
+     * @return 是否保存成功
      */
-    public static boolean saveUser (Context context, String phone) {
+    public static boolean saveUser(Context context, String phone) {
         SharedPreferences sp = context.getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 //        将phone的值传入常量中
@@ -108,13 +144,11 @@ public class UserUtils {
 
     /**
      * 验证是否存在已登录用户
-     *      即SharedPreferences中是否有保存phone
+     * 即SharedPreferences中是否有保存phone
      */
-    public static boolean isLoginUser (Context context) {
+    public static boolean isLoginUser(Context context) {
         boolean result = false;
-
         SharedPreferences sp = context.getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
-
 //        取出常量中的内容
         String phone = sp.getString("phone", "");
 //        取出的内容不为空
@@ -123,18 +157,19 @@ public class UserUtils {
 //            保存用户标记，在全局单例类UserHelp之中
             UserHelper.getInstance().setPhone(phone);
         }
-
         return result;
     }
 
     /**
      * 删除用户标记
      */
-    public static boolean removeUser (Context context) {
+    public static boolean removeUser(Context context) {
         SharedPreferences sp = context.getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove("phone");
         boolean result = editor.commit();
+        UserHelper.getInstance().setPhone(null);
+
         return result;
     }
 

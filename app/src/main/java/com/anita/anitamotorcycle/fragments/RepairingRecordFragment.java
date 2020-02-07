@@ -57,11 +57,11 @@ public class RepairingRecordFragment extends Fragment {
         for (int i = 1; i <= 5; i++) {
 //            创建数据对象
             RecordItem data = new RecordItem();
-            data.repairStatus = "提交成功" + i;
-            data.plateNumbers = "车牌号" + i;
-            data.updateAt = dateFormat;
-            data.factoryName = "商家名" + i;
-            data.troubleType = "故障类型" + i;
+            data.setRepair_status("提交成功" + i);
+            data.setPlate_numbers("车牌号" + i);
+            data.setUpdate_at(dateFormat);
+            data.setFactory_name("商家名" + i);
+            data.setProblem_type("故障类型" + i);
 //            添加到集合里
             mDatas.add(data);
         }

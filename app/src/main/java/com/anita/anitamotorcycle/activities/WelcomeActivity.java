@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.utils.UserUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,13 +24,19 @@ public class WelcomeActivity extends BaseActivity {
      * 初始化
      */
     private void init(){
+//        验证是否存在已登录用户
+        final boolean isLogin = UserUtils.isLoginUser(this);
         mtimer=new Timer();
         mtimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                //Log.e("WelcomeActivity","当前线程："+Thread.currentThread());
-                //toMain();
-                toLogin();
+                if(isLogin){
+//                    用户已登录，跳转到主页
+                    toMain();
+                }else{
+//                    未登录，跳转到登录
+                    toLogin();
+                }
             }
         },3*1000);
     }

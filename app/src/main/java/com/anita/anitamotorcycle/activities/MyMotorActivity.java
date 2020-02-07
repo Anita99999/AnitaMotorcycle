@@ -40,7 +40,7 @@ public class MyMotorActivity extends BaseActivity implements IMyMotorViewCallbac
         initView();
         initListener();
         //获取数据
-//        getData();
+        getData();
 
         //获取逻辑层的对象
         mMyMotorPresenter = MyMotorPresenter.getInstance();
@@ -74,20 +74,20 @@ public class MyMotorActivity extends BaseActivity implements IMyMotorViewCallbac
      */
     private void getData() {
 //        创建数据集合
-//        mDatas = new ArrayList<>();
-////        创建模拟数据
-//        for (int i = 1; i <= 2; i++) {
-////            创建数据对象
-//            MotorItem data = new MotorItem();
-//            data.plateNumbers = "车牌号" + i;
-//            data.model = "车辆型号" + i;
-//            data.factory = "制造商" + i;
-//            data.warrantyTime = 365 - i;
-//            data.warrantyDistance = 10000 - i;
-////            data.url = "https://www.honda-sundiro.com/UpImage/Relate/20191104170922.jpg";
-////            添加到集合里
-//            mDatas.add(data);
-//        }
+        mDatas = new ArrayList<>();
+//        创建模拟数据
+        for (int i = 1; i <= 2; i++) {
+//            创建数据对象
+            MotorItem data = new MotorItem();
+            data.setPlate_numbers("车牌号" + i);
+            data.setModel("车辆型号" + i);
+            data.setBrand("制造商" + i);
+            data.setBuy_at("保修期" + i);
+            data.setWarranty_distance(10000 - i);
+//            data.url = "https://www.honda-sundiro.com/UpImage/Relate/20191104170922.jpg";
+//            添加到集合里
+            mDatas.add(data);
+        }
     }
 
     private void initView() {

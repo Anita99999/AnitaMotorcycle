@@ -20,9 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="-1dp"
         android:text="维修状态"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/titleSize" />
+        android:textColor="#005EFF"
+        android:textSize="@dimen/itemSize" />
 
     <TextView
         android:id="@+id/tv_update_time"

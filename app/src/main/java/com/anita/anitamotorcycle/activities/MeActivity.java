@@ -66,6 +66,7 @@ public class MeActivity extends BaseActivity {
     }
 
     private void initListener() {
+//        头像
         fl_head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +74,7 @@ public class MeActivity extends BaseActivity {
             }
         });
 
+//        修改密码
         changePassword.setmOnLSettingItemClick(new LSettingItem.OnLSettingItemClick() {
             @Override
             public void click(boolean isChecked) {

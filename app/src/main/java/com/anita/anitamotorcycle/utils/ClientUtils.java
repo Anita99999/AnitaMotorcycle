@@ -1,13 +1,10 @@
 package com.anita.anitamotorcycle.utils;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.anita.anitamotorcycle.activities.LoginActivity;
-import com.anita.anitamotorcycle.activities.MainActivity;
 import com.anita.anitamotorcycle.beans.UserItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -22,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 /**
  * @author Anita
@@ -31,7 +27,11 @@ import static com.blankj.utilcode.util.ActivityUtils.startActivity;
  */
 public class ClientUtils {
     private static final String TAG = "ClientUtils";
-    private static int sResult;
+    private static int sLine;
+    private static String sPhone;
+    private static String sPassword;
+    private static Context sContext;
+    private static boolean sResult = false;
 
     //                String url = "http://192.168.0.107:8080/AMServer/userlogin";
 //                Map<String, String> params = new HashMap<>();
@@ -87,12 +87,13 @@ public class ClientUtils {
      * 1. 连接服务端数据库，传递数据
      * 2. 验证用户手机号已注册
      * 3. 验证密码正确
+     *
      * @param phone
      * @param password
      * @return
      */
-    public static boolean validateLoginPost(Context context, String phone, String password){
-        boolean result=false;
+    public static boolean validateLoginPost(Context context, String phone, String password) {
+        boolean result = false;
         OutputStream outputStream;
         InputStream inputStream;
         try {
@@ -124,20 +125,19 @@ public class ClientUtils {
                 String line = in.readLine();
                 Log.d(TAG, "server response data --- " + line);
                 if (line != null) {
-                    sResult = Integer.parseInt(line);
-                    if (sResult < 0) {
+                    sLine = Integer.parseInt(line);
+                    if (sLine < 0) {
                         Looper.prepare();
-                        Toast.makeText(context, "当前手机号未注册", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "该手机号未注册", Toast.LENGTH_SHORT).show();
                         Looper.loop();
 
-                    } else if (sResult == 0) {
+                    } else if (sLine == 0) {
                         Looper.prepare();
                         Toast.makeText(context, "密码输入错误", Toast.LENGTH_SHORT).show();
                         Looper.loop();
-                    } else if (sResult > 0) {
-                        result =true;
+                    } else if (sLine > 0) {
+                        result = true;
                     }
-                    Log.d(TAG, "sResult -- > " + sResult);
                 }
                 in.close();
                 inputStream.close();
@@ -148,8 +148,6 @@ public class ClientUtils {
         }
         return result;
     }
-
-
 
 
     /**

@@ -63,7 +63,7 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
             public void onClick(View v) {
                 Log.d(TAG, "onClick: holder.itemView.setOnClickListener....test1");
                 Intent intent = new Intent(v.getContext(), MotorDetailsActivity.class);
-                intent.putExtra("plateNumbers", motorItem.getPlateNumbers());
+                intent.putExtra("plateNumbers", motorItem.getPlate_numbers());
                 v.getContext().startActivity(intent);
             }
         });
@@ -99,10 +99,10 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
         }
 
         public void setData(MotorItem motorItem) {
-            mPlateNumbers.setText(motorItem.plateNumbers);
-            mMotorModel.setText(motorItem.model);
-            mFactory.setText(motorItem.factory);
-            mWarranty.setText("保修期：" + motorItem.warrantyTime + "天/" + motorItem.warrantyDistance + "公里");
+            mPlateNumbers.setText(motorItem.getPlate_numbers());
+            mMotorModel.setText(motorItem.getModel());
+            mFactory.setText(motorItem.getBrand());
+            mWarranty.setText("保修期：" + motorItem.getBuy_at() + "天/" + motorItem.getTotal_distance() + "公里");
         }
     }
 }

@@ -2,17 +2,19 @@ package com.anita.anitamotorcycle.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.DialogTitle;
+
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.anita.anitamotorcycle.utils.UserUtils;
-
 
 
 public class LoginActivity extends BaseActivity {
@@ -63,9 +65,12 @@ public class LoginActivity extends BaseActivity {
                     return;
                 }
 
+                Log.d("test", "onClick: ");
 //                连接服务端数据库：验证用户手机号已注册；验证密码正确
                 Thread accessWebServiceThread = new Thread(new WebServiceHandler());
                 accessWebServiceThread.start();
+
+
 
             }
         });
@@ -116,7 +121,7 @@ public class LoginActivity extends BaseActivity {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                }else{
+                } else {
                     Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
 
                 }

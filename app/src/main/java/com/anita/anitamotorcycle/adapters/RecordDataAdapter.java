@@ -63,7 +63,7 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
             public void onClick(View v) {
                 Log.d(TAG, "onClick: holder.itemView.setOnClickListener....test1");
                 Intent intent = new Intent(v.getContext(), RepairDetailsActivity.class);
-                intent.putExtra("recordPlateNumbers", recordItem.getPlateNumbers());
+                intent.putExtra("recordPlateNumbers", recordItem.getPlate_numbers());
                 v.getContext().startActivity(intent);
             }
         });
@@ -111,11 +111,11 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
          * @param recordItem
          */
         public void setData(RecordItem recordItem) {
-            mMotorType.setText(recordItem.plateNumbers);
-            mRepairStatus.setText(recordItem.repairStatus);
-            mUpdateTime.setText(recordItem.updateAt);
-            mFactoryName.setText(recordItem.factoryName);
-            mTroubleType.setText(recordItem.troubleType);
+            mMotorType.setText(recordItem.getPlate_numbers());
+            mRepairStatus.setText(recordItem.getRepair_status());
+            mUpdateTime.setText(recordItem.getUpdate_at());
+            mFactoryName.setText(recordItem.getFactory_name());
+            mTroubleType.setText(recordItem.getProblem_type());
         }
     }
 }
