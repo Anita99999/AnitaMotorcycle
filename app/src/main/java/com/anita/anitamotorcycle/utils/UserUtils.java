@@ -3,11 +3,13 @@ package com.anita.anitamotorcycle.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.anita.anitamotorcycle.activities.LoginActivity;
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.helps.UserHelper;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 
@@ -20,22 +22,15 @@ import com.blankj.utilcode.util.StringUtils;
 public class UserUtils {
 
     /**
-     * 验证登录用户手机号输入合法性
+     * 验证登录用户
+     * 1. 验证用户手机号及密码
      */
-    public static boolean validatePhone(Context context, String phone, String password) {
-//      简单验证手机号RegexUtils.isMobileSimple(phone);
-//      精确验证手机号RegexUtils.isMobileExact(phone);
-//        当输入手机号不是精确手机号
-        if (TextUtils.isEmpty(phone)) {
-            Toast.makeText(context, "手机号不可为空", Toast.LENGTH_SHORT).show();
+    public static boolean validateLogin(Context context, String phone, String password) {
+//        验证手机号
+        if (!validatePhone(context, phone)) {
             return false;
         }
-
-        if (!RegexUtils.isMobileExact(phone)) {
-            Toast.makeText(context, "无效手机号", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
+//        验证密码
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(context, "密码不可为空", Toast.LENGTH_SHORT).show();
             return false;
@@ -45,8 +40,30 @@ public class UserUtils {
     }
 
     /**
+     * 验证用户手机号
+     * @param context
+     * @param phone
+     * @return
+     */
+    public static boolean validatePhone(Context context, String phone) {
+        if (TextUtils.isEmpty(phone)) {
+            Toast.makeText(context, "手机号不可为空", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+//        当输入手机号不是精确手机号
+        if (!RegexUtils.isMobileExact(phone)) {
+            Toast.makeText(context, "无效手机号", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+//        当用户通过验证
+        return true;
+    }
+
+    /**
      * 验证用户设置的密码
-     * 1.两次密码是否输入并相同
+     * 1.两次密码是否不为空并相同
      *
      * @param context
      * @return
@@ -74,6 +91,51 @@ public class UserUtils {
         ((Activity) context).overridePendingTransition(R.anim.activity_open_enter, R.anim.activity_open_exit);
     }
 
+    /**
+     * 利用SharedPreferences，保存登录用户的用户标记（手机号码）
+     * @param context
+     * @param phone
+     * @return  是否保存成功
+     */
+    public static boolean saveUser (Context context, String phone) {
+        SharedPreferences sp = context.getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+//        将phone的值传入常量中
+        editor.putString("phone", phone);
+        boolean result = editor.commit();
+        return result;
+    }
 
+    /**
+     * 验证是否存在已登录用户
+     *      即SharedPreferences中是否有保存phone
+     */
+    public static boolean isLoginUser (Context context) {
+        boolean result = false;
+
+        SharedPreferences sp = context.getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
+
+//        取出常量中的内容
+        String phone = sp.getString("phone", "");
+//        取出的内容不为空
+        if (!TextUtils.isEmpty(phone)) {
+            result = true;
+//            保存用户标记，在全局单例类UserHelp之中
+            UserHelper.getInstance().setPhone(phone);
+        }
+
+        return result;
+    }
+
+    /**
+     * 删除用户标记
+     */
+    public static boolean removeUser (Context context) {
+        SharedPreferences sp = context.getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove("phone");
+        boolean result = editor.commit();
+        return result;
+    }
 
 }

@@ -87,12 +87,11 @@ public class ClientUtils {
      * 1. 连接服务端数据库，传递数据
      * 2. 验证用户手机号已注册
      * 3. 验证密码正确
-     *
      * @param phone
      * @param password
      * @return
      */
-    public static boolean loginPost(Context context, String phone, String password){
+    public static boolean validateLoginPost(Context context, String phone, String password){
         boolean result=false;
         OutputStream outputStream;
         InputStream inputStream;
@@ -149,6 +148,9 @@ public class ClientUtils {
         }
         return result;
     }
+
+
+
 
     /**
      * 使用GSON解析

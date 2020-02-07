@@ -8,9 +8,6 @@ import java.util.Date;
  * @date : 2020/2/4 14:12
  */
 public class UserItem {
-    private String code;
-    private String msg;
-    private Long time = new Date().getTime();
 
     public UserItem(String phone, String password) {
         this.phone = phone;
@@ -26,7 +23,7 @@ public class UserItem {
     private String url;
     private String create_at;
     private String update_at;
-    private String status;
+    private int status; //0delete, 1normal
 
     public String getId() {
         return id;
@@ -100,11 +97,11 @@ public class UserItem {
         this.update_at = update_at;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

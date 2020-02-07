@@ -9,8 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.helps.UserHelper;
+import com.anita.anitamotorcycle.utils.ClientUtils;
+import com.anita.anitamotorcycle.utils.UserUtils;
 
-import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 
 public class LoginActivity extends BaseActivity {
@@ -55,13 +57,13 @@ public class LoginActivity extends BaseActivity {
                 System.out.println("点击登录按钮");
                 mPhone = mInputPhone.getInputStr();
                 mPassword = mInputPassword.getInputStr();
-//
-//               用户输入验证不通过
-//                if (!UserUtils.validatePhone(LoginActivity.this, mPhone, mPassword)) {
-//                    return;
-//                }
 
+//               用户输入数据验证
+                if (!UserUtils.validateLogin(LoginActivity.this, mPhone, mPassword)) {
+                    return;
+                }
 
+//                连接服务端数据库：验证用户手机号已注册；验证密码正确
                 Thread accessWebServiceThread = new Thread(new WebServiceHandler());
                 accessWebServiceThread.start();
 
@@ -102,13 +104,24 @@ public class LoginActivity extends BaseActivity {
     class WebServiceHandler implements Runnable {
         @Override
         public void run() {
-//      验证通过，跳转到MainActivity 应用主页
-//            if (ClientUtils.loginPost(LoginActivity.this, mPhone, mPassword)) {
+            if (ClientUtils.validateLoginPost(LoginActivity.this, mPhone, mPassword)) {
+//              当用户通过验证
+//              利用SharedPreferences保存用户登录标记
+                boolean isSave = UserUtils.saveUser(LoginActivity.this, mPhone);
+                if (isSave) {
+//                  保存用户标记，在全局单例类UserHelp之中
+                    UserHelper.getInstance().setPhone(mPhone);
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-//            }
+//                  跳转到主页面
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
         }
     }
 

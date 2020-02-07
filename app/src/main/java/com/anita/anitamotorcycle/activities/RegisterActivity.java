@@ -109,7 +109,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case R.id.btn_getCode:
                 phone = mEt_phone.getText().toString();
                 Log.d(TAG, "onClick: 获取验证码，phone==" + phone);
-                boolean result = UserUtils.validatePhone(this, phone,"1");    //验证手机号
+                boolean result = UserUtils.validatePhone(this, phone);    //验证手机号
                 if (!result) return;
                 //判断网络状态
                 mTv_sendMessage.setVisibility(View.INVISIBLE);
@@ -122,7 +122,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 mTv_sendMessage.setVisibility(View.INVISIBLE);
                 phone = mEt_phone.getText().toString();
                 Log.d(TAG, "onClick: phone==" + phone);
-                boolean validate = UserUtils.validatePhone(this, phone,"1");    //验证手机号
+                boolean validate = UserUtils.validatePhone(this, phone);    //验证手机号
                 if (validate) {
                     SMSSDK.submitVerificationCode("86", phone, mEt_verificationCode.getText().toString());  //提交验证码
                 }

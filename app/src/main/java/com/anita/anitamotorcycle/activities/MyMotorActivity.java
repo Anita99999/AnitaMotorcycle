@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.adapters.MyMotorDataAdapter;
 import com.anita.anitamotorcycle.beans.MotorItem;
+import com.anita.anitamotorcycle.interfaces.IMyMotorViewCallback;
+import com.anita.anitamotorcycle.presenters.MyMotorPresenter;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
@@ -23,12 +25,13 @@ import java.util.List;
 /**
  * 我的摩托车
  */
-public class MyMotorActivity extends BaseActivity {
+public class MyMotorActivity extends BaseActivity implements IMyMotorViewCallback {
 
     private RecyclerView mMyMototList;
     private List<MotorItem> mDatas;
     private ImageView mBack;
     private TextView mAddMotor;
+    private MyMotorPresenter mMyMotorPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,15 @@ public class MyMotorActivity extends BaseActivity {
         initView();
         initListener();
         //获取数据
-        getData();
+//        getData();
+
+        //获取逻辑层的对象
+        mMyMotorPresenter = MyMotorPresenter.getInstance();
+        //先设置通知接口的ui注册
+        mMyMotorPresenter.registerViewCallback(this);
+//        获取摩托车列表
+        mMyMotorPresenter.getMyMotorList();
+
         showList(); //实现list
     }
 
@@ -63,20 +74,20 @@ public class MyMotorActivity extends BaseActivity {
      */
     private void getData() {
 //        创建数据集合
-        mDatas = new ArrayList<>();
-//        创建模拟数据
-        for (int i = 1; i <= 2; i++) {
-//            创建数据对象
-            MotorItem data = new MotorItem();
-            data.plateNumbers = "车牌号" + i;
-            data.model = "车辆型号" + i;
-            data.factory = "制造商" + i;
-            data.warrantyTime = 365 - i;
-            data.warrantyDistance = 10000 - i;
-//            data.url = "https://www.honda-sundiro.com/UpImage/Relate/20191104170922.jpg";
-//            添加到集合里
-            mDatas.add(data);
-        }
+//        mDatas = new ArrayList<>();
+////        创建模拟数据
+//        for (int i = 1; i <= 2; i++) {
+////            创建数据对象
+//            MotorItem data = new MotorItem();
+//            data.plateNumbers = "车牌号" + i;
+//            data.model = "车辆型号" + i;
+//            data.factory = "制造商" + i;
+//            data.warrantyTime = 365 - i;
+//            data.warrantyDistance = 10000 - i;
+////            data.url = "https://www.honda-sundiro.com/UpImage/Relate/20191104170922.jpg";
+////            添加到集合里
+//            mDatas.add(data);
+//        }
     }
 
     private void initView() {
@@ -105,5 +116,34 @@ public class MyMotorActivity extends BaseActivity {
         MyMotorDataAdapter adapter = new MyMotorDataAdapter(mDatas);
 //        设置adaptor到recyclerview里
         mMyMototList.setAdapter(adapter);
+    }
+
+    @Override
+    public void onMyMotorListLoaded(List<MotorItem> result) {
+
+    }
+
+    @Override
+    public void onNetworkError() {
+
+    }
+
+    @Override
+    public void onEmpty() {
+
+    }
+
+    @Override
+    public void onLoading() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        取消接口注册，以免内存泄露
+        if (mMyMotorPresenter != null) {
+            mMyMotorPresenter.unRegisterViewCallback(this);
+        }
     }
 }
