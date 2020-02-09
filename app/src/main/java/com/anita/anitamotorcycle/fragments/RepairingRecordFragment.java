@@ -2,6 +2,7 @@ package com.anita.anitamotorcycle.fragments;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.adapters.RecordDataAdapter;
+import com.anita.anitamotorcycle.beans.MotorItem;
 import com.anita.anitamotorcycle.beans.RecordItem;
+import com.anita.anitamotorcycle.interfaces.IRepairingCallback;
+import com.anita.anitamotorcycle.presenters.RepairingPresenter;
+import com.anita.anitamotorcycle.views.UILoaderView;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
@@ -28,19 +33,50 @@ import java.util.TimeZone;
  * @author Anita
  * @description:维修记录的维修中 * @date : 2020/1/5 22:49
  */
-public class RepairingRecordFragment extends Fragment {
+public class RepairingRecordFragment extends Fragment implements IRepairingCallback {
+    private static final String TAG = "RepairingRecordFragment";
 
     private RecyclerView mRepairingList;
     private List<RecordItem> mDatas;
+    private RepairingPresenter mPresenter;
+    private UILoaderView mUiLoaderView;
+    private View mView;
+    private RecordDataAdapter mAdapter;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_repairing_record, container, false);
-        mRepairingList = view.findViewById(R.id.rv_repairing_record);
-        getData();  //获取数据
-        showList(); //实现list
-        return view;
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_repairing_record, container, false);
+//        mRepairingList = view.findViewById(R.id.rv_repairing_record);
+//        getData();  //获取数据
+//        showList(); //实现list
+        mUiLoaderView = new UILoaderView(getContext()) {
+            @Override
+            protected View getSuccessView(ViewGroup container) {
+                return createSuccessView(inflater, container);
+            }
+        };
+
+        //获取到逻辑层的对象
+        mPresenter = RepairingPresenter.getInstance();
+        //先要设置通知接口的注册
+        mPresenter.registerViewCallback(this);
+        //获取推荐列表
+        mPresenter.getRepairingList();
+
+        if (mUiLoaderView.getParent() instanceof ViewGroup) {
+            ((ViewGroup) mUiLoaderView.getParent()).removeView(mUiLoaderView);
+        }
+        return mUiLoaderView;
+    }
+
+    private View createSuccessView(LayoutInflater layoutInflater, ViewGroup container) {
+//        加载view
+        mView = layoutInflater.inflate(R.layout.fragment_repairing_record, container, false);
+//        找到控件
+        mRepairingList = mView.findViewById(R.id.rv_repairing_record);
+        showList();
+        return mView;
     }
 
     /*
@@ -87,10 +123,37 @@ public class RepairingRecordFragment extends Fragment {
         mRepairingList.setNestedScrollingEnabled(false);
 
 //        创建适配器
-        RecordDataAdapter adapter = new RecordDataAdapter(mDatas);
+        mAdapter = new RecordDataAdapter();
 //        设置adaptor到recyclerview里
-        mRepairingList.setAdapter(adapter);
+        mRepairingList.setAdapter(mAdapter);
     }
 
+    /**
+     * 把数据设置给适配器，并且更新UI
+     * 当获取到维修中记录数据时，该方法才被调用
+     *
+     * @param result
+     */
+    @Override
+    public void onRepairingListLoaded(List<RecordItem> result) {
+        Log.d(TAG, "onRepairingListLoaded: ");
+        mAdapter.setData(result);
+        mUiLoaderView.updateStatus(UILoaderView.UIStatus.SUCCESS);
+    }
 
+    @Override
+    public void onNetworkError() {
+        Log.d(TAG, "onNetworkError: ");
+        mUiLoaderView.updateStatus(UILoaderView.UIStatus.NETWORK_ERROR);
+    }
+
+    @Override
+    public void onEmpty() {
+        mUiLoaderView.updateStatus(UILoaderView.UIStatus.EMPTY);
+    }
+
+    @Override
+    public void onLoading() {
+        mUiLoaderView.updateStatus(UILoaderView.UIStatus.LOADING);
+    }
 }

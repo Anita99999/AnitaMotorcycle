@@ -85,14 +85,14 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relayout_bind_motor"
         android:layout_width="match_parent"
         android:layout_height="234dp"
         android:layout_below="@+id/rl_button"
         android:layout_marginLeft="@dimen/marginSize"
         android:layout_marginRight="@dimen/marginSize"
         android:background="@drawable/shape_radius"
-        android:gravity="center"
-        android:visibility="visible">
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/iv_motor_default"
@@ -118,7 +118,8 @@
         android:layout_below="@+id/rl_button"
         android:layout_marginLeft="@dimen/marginSize"
         android:layout_marginRight="@dimen/marginSize"
-        android:background="@drawable/shape_radius">
+        android:background="@drawable/shape_radius"
+        android:visibility="invisible">
 
         <ImageView
             android:id="@+id/iv_motor"

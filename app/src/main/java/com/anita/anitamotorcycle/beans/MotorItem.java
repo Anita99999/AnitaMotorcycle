@@ -7,7 +7,7 @@ import java.sql.Time;
  * @author Anita
  * @description:我的摩托車 * @date : 2020/1/18 21:32
  */
-public class MotorItem {
+    public class MotorItem {
     private String id;
     private String user_id;
 
@@ -33,8 +33,8 @@ public class MotorItem {
     private int today_distance; //今日骑行公里数
     private int total_distance; //总骑行公里数
 
-    private Time create_at;
-    private Time update_at;
+    private String create_at;
+    private String update_at;
     private int status; // 0delete, 1normal
 
     public String getId() {
@@ -165,19 +165,19 @@ public class MotorItem {
         this.total_distance = total_distance;
     }
 
-    public Time getCreate_at() {
+    public String getCreate_at() {
         return create_at;
     }
 
-    public void setCreate_at(Time create_at) {
+    public void setCreate_at(String create_at) {
         this.create_at = create_at;
     }
 
-    public Time getUpdate_at() {
+    public String getUpdate_at() {
         return update_at;
     }
 
-    public void setUpdate_at(Time update_at) {
+    public void setUpdate_at(String update_at) {
         this.update_at = update_at;
     }
 

@@ -9,12 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.DialogTitle;
-
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.anita.anitamotorcycle.utils.UserUtils;
+import com.anita.anitamotorcycle.views.InputView;
 
 
 public class LoginActivity extends BaseActivity {

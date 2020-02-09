@@ -1,4 +1,4 @@
-package com.anita.anitamotorcycle.activities;
+package com.anita.anitamotorcycle.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;

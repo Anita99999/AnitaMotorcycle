@@ -36,7 +36,10 @@ public class HomeFragment extends Fragment {
 
     private void initView(View view) {
         mChange_motor = view.findViewById(R.id.linlayout_change);   //切换
+
         mMotorInfo = view.findViewById(R.id.relayout_motor_basic_info); //摩托车信息
+
+
         mRepairApplication = view.findViewById(R.id.linlayout_repair);  //维修服务
     }
 

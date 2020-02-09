@@ -35,6 +35,21 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
     }
 
     /**
+     * 设置数据
+     *
+     * @param myMotorDatas
+     */
+    public void setData(List<MotorItem> myMotorDatas) {
+//        if (mData != null) {
+//            mData.clear();
+//            mData.addAll(myMotorDatas);
+//        }
+        this.mData = myMotorDatas;
+        //更新UI。
+        notifyDataSetChanged();
+    }
+
+    /**
      * 用于创建条目view,即条目的界面
      *
      * @param parent
@@ -102,7 +117,7 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
             mPlateNumbers.setText(motorItem.getPlate_numbers());
             mMotorModel.setText(motorItem.getModel());
             mFactory.setText(motorItem.getBrand());
-            mWarranty.setText("保修期：" + motorItem.getBuy_at() + "天/" + motorItem.getTotal_distance() + "公里");
+            mWarranty.setText("保修期：" + motorItem.getBuy_at() + "天/" + motorItem.getWarranty_distance() + "公里");
         }
     }
 }

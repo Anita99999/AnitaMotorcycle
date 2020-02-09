@@ -24,6 +24,8 @@ import java.util.List;
 public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.InnerHolder> {
     private static final String TAG = "RecordDataAdapter";
     private List<RecordItem> mData;
+    public RecordDataAdapter(){}
+
 
     /**
      * 使用构造函数传递数据
@@ -32,6 +34,12 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
      */
     public RecordDataAdapter(List<RecordItem> data) {
         this.mData = data;
+    }
+
+    public void setData(List<RecordItem> recordList) {
+        this.mData = recordList;
+        //更新UI。
+        notifyDataSetChanged();
     }
 
     /**
