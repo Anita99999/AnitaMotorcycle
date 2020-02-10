@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.utils.MotorUtils;
 import com.anita.anitamotorcycle.utils.UserUtils;
 
 import java.util.Timer;
@@ -26,6 +27,7 @@ public class WelcomeActivity extends BaseActivity {
     private void init(){
 //        验证是否存在已登录用户
         final boolean isLogin = UserUtils.isLoginUser(this);
+        MotorUtils.isExitMotor(this);
         mtimer=new Timer();
         mtimer.schedule(new TimerTask() {
             @Override

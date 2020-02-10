@@ -7,7 +7,7 @@ package com.anita.anitamotorcycle.interfaces;
  */
 public interface IRepairingPresenter extends IBasePresenter<IRepairingCallback>{
     /**
-     * 获取我的摩托车内容
+     * 获取维修中内容
      */
     void getRepairingList();
 

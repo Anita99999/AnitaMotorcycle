@@ -53,17 +53,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/paddingLittleSize"
+            android:layout_marginTop="@dimen/marginLittleSize"
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/et_vin_code"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/itemHeight"
                 android:layout_weight="1"
                 android:background="@drawable/shape_et"
                 android:baselineAligned="false"
                 android:hint="请输入17位车架号"
-                android:maxLength="11"
+                android:maxLength="17"
                 android:paddingLeft="@dimen/marginLittleSize"
                 android:textSize="@dimen/titleSize" />
 
@@ -78,198 +79,6 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginSize"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/textViewHeight"
-                android:gravity="center_vertical"
-                android:text="制造商名称："
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/titleSize" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/textViewHeight"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/paddingSize"
-                android:paddingRight="@dimen/paddingSize"
-                android:text="制造商名称"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/titleSize" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/viewHeight"
-            android:layout_marginTop="@dimen/paddingIconSize"
-            android:layout_marginBottom="@dimen/paddingIconSize"
-            android:background="@color/itemViewColor" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/textViewHeight"
-                android:gravity="center_vertical"
-                android:text="车辆型号："
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/titleSize" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/textViewHeight"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/paddingSize"
-                android:paddingRight="@dimen/paddingSize"
-                android:text="车辆型号"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/titleSize" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/viewHeight"
-            android:layout_marginTop="@dimen/paddingIconSize"
-            android:layout_marginBottom="@dimen/paddingIconSize"
-            android:background="@color/itemViewColor" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/textViewHeight"
-                android:gravity="center_vertical"
-                android:text="车辆类型："
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/titleSize" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/textViewHeight"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/paddingSize"
-                android:paddingRight="@dimen/paddingSize"
-                android:text="车辆类型"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/titleSize" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/viewHeight"
-            android:layout_marginTop="@dimen/paddingIconSize"
-            android:layout_marginBottom="@dimen/paddingIconSize"
-            android:background="@color/itemViewColor" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/textViewHeight"
-                android:gravity="center_vertical"
-                android:text="生产国家："
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/titleSize" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/textViewHeight"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/paddingSize"
-                android:paddingRight="@dimen/paddingSize"
-                android:text="生产国家"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/titleSize" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/viewHeight"
-            android:layout_marginTop="@dimen/paddingIconSize"
-            android:layout_marginBottom="@dimen/paddingIconSize"
-            android:background="@color/itemViewColor" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/textViewHeight"
-                android:gravity="center_vertical"
-                android:text="生产年份："
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/titleSize" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/textViewHeight"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/paddingSize"
-                android:paddingRight="@dimen/paddingSize"
-                android:text="生产年份"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/titleSize" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/viewHeight"
-            android:layout_marginTop="@dimen/paddingIconSize"
-            android:layout_marginBottom="@dimen/paddingIconSize"
-            android:background="@color/itemViewColor" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/textViewHeight"
-                android:gravity="center_vertical"
-                android:text="生产顺序号："
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/titleSize" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/textViewHeight"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/paddingSize"
-                android:paddingRight="@dimen/paddingSize"
-                android:text="生产顺序号"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/titleSize" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/viewHeight"
-            android:layout_marginTop="@dimen/paddingIconSize"
-            android:layout_marginBottom="@dimen/paddingIconSize"
-            android:background="@color/itemViewColor" />
 
     </LinearLayout>
 

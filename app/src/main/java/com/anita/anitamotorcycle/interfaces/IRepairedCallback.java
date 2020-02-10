@@ -1,21 +1,21 @@
 package com.anita.anitamotorcycle.interfaces;
 
-import com.anita.anitamotorcycle.beans.MotorItem;
+import com.anita.anitamotorcycle.beans.RecordItem;
 
 import java.util.List;
 
 /**
  * @author Anita
- * @description:通知我的摩托车ui，界面主动发起的动作
+ * @description:通知维修记录维修完成ui，界面主动发起的动作
  * @date : 2020/2/5 22:00
  */
-public interface IMyMotorViewCallback {
+public interface IRepairedCallback {
     /**
      * 获取内容的结果
      *
      * @param result
      */
-    void onMyMotorListLoaded(List<MotorItem> result);
+    void onRepairedListLoaded(List<RecordItem> result);
 
     /**
      * 网络错误

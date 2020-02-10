@@ -107,7 +107,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="@dimen/paddingSize"
-                            android:text="0分钟"
+                            android:text="分钟"
                             android:textColor="@android:color/black"
                             android:textStyle="bold" />
 
@@ -138,7 +138,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="@dimen/paddingSize"
-                            android:text="0公里"
+                            android:text="公里"
                             android:textColor="@android:color/black"
                             android:textStyle="bold" />
 
@@ -169,7 +169,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="@dimen/paddingSize"
-                            android:text="0公里"
+                            android:text="公里"
                             android:textColor="@android:color/black"
                             android:textStyle="bold" />
 
@@ -197,7 +197,7 @@
                     app:isShowRightText="true"
                     app:leftIcon="@mipmap/user_my_motor2"
                     app:leftText="我的摩托车"
-                    app:rightText="国四暴锋眼190"></com.leon.lib.settingview.LSettingItem>
+                    app:rightText=""></com.leon.lib.settingview.LSettingItem>
 
                 <com.leon.lib.settingview.LSettingItem
                     android:id="@+id/lsi_repair_record"

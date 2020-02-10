@@ -2,6 +2,7 @@ package com.anita.anitamotorcycle.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -69,8 +70,6 @@ public class LoginActivity extends BaseActivity {
                 Thread accessWebServiceThread = new Thread(new WebServiceHandler());
                 accessWebServiceThread.start();
 
-
-
             }
         });
 
@@ -121,8 +120,9 @@ public class LoginActivity extends BaseActivity {
                     startActivity(intent);
                     finish();
                 } else {
+                    Looper.prepare();
                     Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
-
+                    Looper.loop();
                 }
 
             }

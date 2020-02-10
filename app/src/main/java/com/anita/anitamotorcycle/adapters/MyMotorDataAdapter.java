@@ -34,20 +34,6 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
         this.mData = data;
     }
 
-    /**
-     * 设置数据
-     *
-     * @param myMotorDatas
-     */
-    public void setData(List<MotorItem> myMotorDatas) {
-//        if (mData != null) {
-//            mData.clear();
-//            mData.addAll(myMotorDatas);
-//        }
-        this.mData = myMotorDatas;
-        //更新UI。
-        notifyDataSetChanged();
-    }
 
     /**
      * 用于创建条目view,即条目的界面

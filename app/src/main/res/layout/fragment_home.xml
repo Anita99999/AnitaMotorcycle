@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_motor_default"
             android:padding="@dimen/paddingIconSize"
-            android:text="点击绑定我的摩托车"
+            android:text="点击添加我的摩托车"
             android:textSize="@dimen/titleSize" />
     </RelativeLayout>
 

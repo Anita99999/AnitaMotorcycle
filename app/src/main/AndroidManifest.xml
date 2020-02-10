@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <!--android:usesCleartextTraffic="true",允许http协议传输-->
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -20,6 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.AddMotorInfoActivity"></activity>
+        <activity android:name=".activities.BindFirstActivity" />
         <activity android:name=".activities.RepairDetailsActivity" />
         <activity android:name=".activities.MotorDetailsActivity" />
         <activity android:name=".activities.AddMotorNumActivity" />

@@ -5,9 +5,16 @@ import java.sql.Time;
 
 /**
  * @author Anita
- * @description:我的摩托車 * @date : 2020/1/18 21:32
+ * @description:我的摩托車（19个字段）
+ * * @date : 2020/1/18 21:32
  */
-    public class MotorItem {
+public class MotorItem {
+    public MotorItem(){}
+
+    public MotorItem(String vin_code){
+        this.vin_code = vin_code;
+    }
+
     private String id;
     private String user_id;
 
@@ -22,13 +29,13 @@ import java.sql.Time;
     private int number;//生产顺序号（数据库无该字段）
     private String plate_numbers; // 车牌号
 
-//    摩托车信息
+    //    摩托车信息
     private String url;//图片
 
     private String buy_at;//购买日期（计算保修期）
     private int warranty_distance;//保修公里
 
-//    统计
+    //    统计
     private int today_runtime;// 今日骑行分钟数
     private int today_distance; //今日骑行公里数
     private int total_distance; //总骑行公里数
@@ -187,5 +194,30 @@ import java.sql.Time;
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "MotorItem{" +
+                "id='" + id + '\'' +
+                ", user_id='" + user_id + '\'' +
+                ", vin_code='" + vin_code + '\'' +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", type='" + type + '\'' +
+                ", country='" + country + '\'' +
+                ", year=" + year +
+                ", number=" + number +
+                ", plate_numbers='" + plate_numbers + '\'' +
+                ", url='" + url + '\'' +
+                ", buy_at='" + buy_at + '\'' +
+                ", warranty_distance=" + warranty_distance +
+                ", today_runtime=" + today_runtime +
+                ", today_distance=" + today_distance +
+                ", total_distance=" + total_distance +
+                ", create_at='" + create_at + '\'' +
+                ", update_at='" + update_at + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

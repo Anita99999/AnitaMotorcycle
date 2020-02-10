@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.helps.MotorHelper;
+import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.utils.Constants;
 import com.anita.anitamotorcycle.utils.UserUtils;
 
@@ -30,7 +32,7 @@ import cn.smssdk.utils.SMSLog;
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "RegisterActivity";
     int time = Constants.MESSAGE_COUNTDOWNTIME; //短信验证码发送倒计时
-    private String phone;
+    private String mPhone;
     private EditText mEt_verificationCode, mEt_phone;
     private Button mBtn_getCode, mBtn_registerNext;
     private TextView mTv_sendMessage;
@@ -107,24 +109,24 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 break;
 //            "获取验证码"点击事件
             case R.id.btn_getCode:
-                phone = mEt_phone.getText().toString();
-                Log.d(TAG, "onClick: 获取验证码，phone==" + phone);
-                boolean result = UserUtils.validatePhone(this, phone);    //验证手机号
+                mPhone = mEt_phone.getText().toString();
+                Log.d(TAG, "onClick: 获取验证码，mPhone==" + mPhone);
+                boolean result = UserUtils.validatePhone(this, mPhone);    //验证手机号
                 if (!result) return;
                 //判断网络状态
                 mTv_sendMessage.setVisibility(View.INVISIBLE);
-                SMSSDK.getVerificationCode("86", phone);    //请求发送验证码的服务
-                Log.d(TAG, "onClick: 获取验证码，phone==" + phone);
+                SMSSDK.getVerificationCode("86", mPhone);    //请求发送验证码的服务
+                Log.d(TAG, "onClick: 获取验证码，mPhone==" + mPhone);
                 break;
 //                "注册"按钮点击事件
             case R.id.btn_registerNext:
                 Log.d(TAG, "onClick: -注册--");
                 mTv_sendMessage.setVisibility(View.INVISIBLE);
-                phone = mEt_phone.getText().toString();
-                Log.d(TAG, "onClick: phone==" + phone);
-                boolean validate = UserUtils.validatePhone(this, phone);    //验证手机号
+                mPhone = mEt_phone.getText().toString();
+                Log.d(TAG, "onClick: mPhone==" + mPhone);
+                boolean validate = UserUtils.validatePhone(this, mPhone);    //验证手机号
                 if (validate) {
-                    SMSSDK.submitVerificationCode("86", phone, mEt_verificationCode.getText().toString());  //提交验证码
+                    SMSSDK.submitVerificationCode("86", mPhone, mEt_verificationCode.getText().toString());  //提交验证码
                 }
                 break;
             default:
@@ -164,6 +166,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     //提交验证码成功
                     Log.d(TAG, "handleMessage: 提交验证码成功");
                     Toast.makeText(getApplicationContext(), "验证成功", Toast.LENGTH_LONG).show();
+//                  保存用户标记，在全局单例类UserHelp之中
+                    UserHelper.getInstance().setPhone(mPhone);
                     startActivity(new Intent(RegisterActivity.this, SetPasswordActivity.class));    //跳转到设置登录密码界面
                 } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     //获取验证码成功

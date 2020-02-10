@@ -27,7 +27,6 @@ public class UserHelper {
     }
 
     private String phone;
-    private String motorId;
 
     public String getPhone() {
         return phone;
@@ -37,11 +36,4 @@ public class UserHelper {
         this.phone = phone;
     }
 
-    public String getMotorId() {
-        return motorId;
-    }
-
-    public void setMotorId(String motorId) {
-        this.motorId = motorId;
-    }
 }

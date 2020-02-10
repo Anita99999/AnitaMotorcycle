@@ -149,11 +149,13 @@ public class RepairingRecordFragment extends Fragment implements IRepairingCallb
 
     @Override
     public void onEmpty() {
+        Log.d(TAG, "onEmpty: ");
         mUiLoaderView.updateStatus(UILoaderView.UIStatus.EMPTY);
     }
 
     @Override
     public void onLoading() {
+        Log.d(TAG, "onLoading: ");
         mUiLoaderView.updateStatus(UILoaderView.UIStatus.LOADING);
     }
 }

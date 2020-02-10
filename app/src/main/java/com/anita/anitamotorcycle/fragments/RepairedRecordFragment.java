@@ -2,6 +2,7 @@ package com.anita.anitamotorcycle.fragments;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.adapters.RecordDataAdapter;
 import com.anita.anitamotorcycle.beans.RecordItem;
+import com.anita.anitamotorcycle.interfaces.IRepairedCallback;
+import com.anita.anitamotorcycle.interfaces.IRepairingCallback;
+import com.anita.anitamotorcycle.presenters.RepairedPresenter;
+import com.anita.anitamotorcycle.presenters.RepairingPresenter;
+import com.anita.anitamotorcycle.views.UILoaderView;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
@@ -28,19 +34,51 @@ import java.util.TimeZone;
  * @author Anita
  * @description:维修记录中的已完成 * @date : 2020/1/5 22:49
  */
-public class RepairedRecordFragment extends Fragment {
+public class RepairedRecordFragment extends Fragment implements IRepairedCallback {
+    private static final String TAG = "RepairedRecordFragment";
 
     private RecyclerView mRepairedList;
     private List<RecordItem> mDatas;
+    private RepairedPresenter mPresenter;
+    private View mView;
+    private UILoaderView mUiLoaderView;
+    private RecordDataAdapter mAdapter;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_repairing_record, container, false);
-        mRepairedList = view.findViewById(R.id.rv_repairing_record);
-        getData();  //获取数据
-        showList(true); //实现list
-        return view;
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_repairing_record, container, false);
+//        mRepairedList = view.findViewById(R.id.rv_repairing_record);
+//        getData();  //获取数据
+//        showList(true); //实现list
+
+        mUiLoaderView = new UILoaderView(getContext()) {
+            @Override
+            protected View getSuccessView(ViewGroup container) {
+                return createSuccessView(inflater, container);
+            }
+        };
+
+        //获取到逻辑层的对象
+        mPresenter = RepairedPresenter.getInstance();
+        //先要设置通知接口的注册
+        mPresenter.registerViewCallback(this);
+        //获取推荐列表
+        mPresenter.getRepairedList();
+
+        if (mUiLoaderView.getParent() instanceof ViewGroup) {
+            ((ViewGroup) mUiLoaderView.getParent()).removeView(mUiLoaderView);
+        }
+        return mUiLoaderView;
+    }
+
+    private View createSuccessView(LayoutInflater layoutInflater, ViewGroup container) {
+//        加载view
+        mView = layoutInflater.inflate(R.layout.fragment_repairing_record, container, false);
+//        找到控件
+        mRepairedList = mView.findViewById(R.id.rv_repairing_record);
+        showList();
+        return mView;
     }
 
     /*
@@ -67,7 +105,7 @@ public class RepairedRecordFragment extends Fragment {
         }
     }
 
-    private void showList(boolean isReverse) {
+    private void showList() {
 //        设置recyclerview样式，设置布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 //        设置反向
@@ -87,10 +125,34 @@ public class RepairedRecordFragment extends Fragment {
         });
 
         //        创建适配器
-        RecordDataAdapter adapter = new RecordDataAdapter(mDatas);
+        mAdapter = new RecordDataAdapter(mDatas);
 //        设置adaptor到recyclerview里
-        mRepairedList.setAdapter(adapter);
+        mRepairedList.setAdapter(mAdapter);
     }
 
 
+    @Override
+    public void onRepairedListLoaded(List<RecordItem> result) {
+        Log.d(TAG, "onRepairedListLoaded: ");
+        mAdapter.setData(result);
+        mUiLoaderView.updateStatus(UILoaderView.UIStatus.SUCCESS);
+    }
+
+    @Override
+    public void onNetworkError() {
+        Log.d(TAG, "onNetworkError: ");
+        mUiLoaderView.updateStatus(UILoaderView.UIStatus.NETWORK_ERROR);
+    }
+
+    @Override
+    public void onEmpty() {
+        Log.d(TAG, "onEmpty: ");
+        mUiLoaderView.updateStatus(UILoaderView.UIStatus.EMPTY);
+    }
+
+    @Override
+    public void onLoading() {
+        Log.d(TAG, "onLoading: ");
+        mUiLoaderView.updateStatus(UILoaderView.UIStatus.LOADING);
+    }
 }

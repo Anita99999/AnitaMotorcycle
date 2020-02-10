@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.utils.Constants;
 import com.anita.anitamotorcycle.utils.DataUtils;
 import com.anita.anitamotorcycle.utils.PermissionUtils;
@@ -26,11 +27,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MeActivity extends BaseActivity {
     private static final String TAG = "MeActivity";
-    private LSettingItem changePassword;
+    private LSettingItem mChangePassword;
     private FrameLayout fl_head;
     private CircleImageView iv_headIcon;
 
     private Bitmap bitmap;
+    private LSettingItem mPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,11 @@ public class MeActivity extends BaseActivity {
         initNavBar(true, "个人信息");
         fl_head = findViewById(R.id.fl_head);
         iv_headIcon = findViewById(R.id.iv_headIcon);
-        changePassword = findViewById(R.id.change_password);
+
+        mPhone = findViewById(R.id.ls_phone);
+        mPhone.setRightText(UserHelper.getInstance().getPhone());
+
+        mChangePassword = findViewById(R.id.ls_change_password);
 
         bitmap = ((BitmapDrawable) iv_headIcon.getDrawable()).getBitmap();
         File sdpath = new File(Constants.SD_PATH);
@@ -75,12 +81,13 @@ public class MeActivity extends BaseActivity {
         });
 
 //        修改密码
-        changePassword.setmOnLSettingItemClick(new LSettingItem.OnLSettingItemClick() {
+        mChangePassword.setmOnLSettingItemClick(new LSettingItem.OnLSettingItemClick() {
             @Override
             public void click(boolean isChecked) {
                 startActivity(new Intent(MeActivity.this, ChangePasswordActivity.class));
             }
         });
+
     }
 
 
