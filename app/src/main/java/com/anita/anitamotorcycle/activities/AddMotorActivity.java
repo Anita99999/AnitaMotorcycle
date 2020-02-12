@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -14,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anita.anitamotorcycle.R;
-import com.anita.anitamotorcycle.beans.MotorItem;
+import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
 import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.anita.anitamotorcycle.utils.MotorUtils;
@@ -27,7 +25,7 @@ public class AddMotorActivity extends BaseActivity {
     private ImageView mInfo;
     private EditText mVinCode;
     private String mVin;
-    private MotorItem mMotorItem = null;
+    private MotorBean mMotorBean = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,27 +96,27 @@ public class AddMotorActivity extends BaseActivity {
 
         @Override
         public void run() {
-            mMotorItem = ClientUtils.validateVIN(mVin, AddMotorActivity.this);
-            if (mMotorItem == null) {
+            mMotorBean = ClientUtils.validateVIN(mVin, AddMotorActivity.this);
+            if (mMotorBean == null) {
                 Log.d(TAG, "run: motorItem==null");
                 Looper.prepare();
                 Toast.makeText(AddMotorActivity.this, "服务器出错！", Toast.LENGTH_SHORT).show();
                 Looper.loop();
             } else {
-                Log.d(TAG, "onClick: motorItem--" + mMotorItem.toString());
+                Log.d(TAG, "onClick: motorItem--" + mMotorBean.toString());
 //                            查询无车辆
-                if (mMotorItem.getId() == null) {
+                if (mMotorBean.getId() == null) {
                     Looper.prepare();
                     Toast.makeText(AddMotorActivity.this, "无该车辆！", Toast.LENGTH_SHORT).show();
                     Looper.loop();
-                } else if (mMotorItem.getCreate_at() != null) {
+                } else if (mMotorBean.getCreate_at() != null) {
 //                            查询有车辆，但已被添加
                     Looper.prepare();
                     Toast.makeText(AddMotorActivity.this, "该车辆已添加", Toast.LENGTH_SHORT).show();
                     Looper.loop();
                 } else {
 //                    vin正确,可添加
-                    MotorHelper.getInstance().setMotorItem(mMotorItem);
+                    MotorHelper.getInstance().setMotorBean(mMotorBean);
                     Intent intent = new Intent(getApplicationContext(), AddMotorInfoActivity.class);
                     startActivity(intent);
                 }

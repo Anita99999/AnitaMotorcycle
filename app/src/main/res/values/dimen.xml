@@ -29,7 +29,7 @@
     <dimen name="dialogItemHeight">42dp</dimen>
 
     <!--我的摩托车-->
-    <dimen name="motorImageWidth">112dp</dimen>
+    <dimen name="motorImageWidth">102dp</dimen>
 
     <!--统一边距-->
     <dimen name="marginSize">16dp</dimen>
@@ -40,6 +40,7 @@
     <dimen name="paddingLittleSize">2dp</dimen>
     <!--图标内边距-->
     <dimen name="paddingIconSize">6dp</dimen>
+    <dimen name="paddingBigSize">8dp</dimen>
     <dimen name="userMarginTop">18dp</dimen>
     <dimen name="itemMarginTop">18dp</dimen>
 

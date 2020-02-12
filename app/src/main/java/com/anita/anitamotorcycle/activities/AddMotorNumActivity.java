@@ -62,16 +62,16 @@ public class AddMotorNumActivity extends AppCompatActivity {
                 }
 //                获取车牌号
                 mPlateNumbers = mEt_plate_numers.getText().toString();
-                MotorHelper.getInstance().getMotorItem().setPlate_numbers(mPlateNumbers);
+                MotorHelper.getInstance().getMotorBean().setPlate_numbers(mPlateNumbers);
 //                获取用户phone
-                MotorHelper.getInstance().getMotorItem().setUser_id(UserHelper.getInstance().getPhone());
+                MotorHelper.getInstance().getMotorBean().setUser_id(UserHelper.getInstance().getPhone());
 //                获取当前北京时间,设置创建时间和更新时间
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  //设置日期格式
                 sdf.setTimeZone(TimeZone.getTimeZone("GMT+08"));
                 String currentDate = sdf.format(date);// new Date()为获取当前系统时间
-                MotorHelper.getInstance().getMotorItem().setCreate_at(currentDate);
-                MotorHelper.getInstance().getMotorItem().setUpdate_at(currentDate);
+                MotorHelper.getInstance().getMotorBean().setCreate_at(currentDate);
+                MotorHelper.getInstance().getMotorBean().setUpdate_at(currentDate);
 
 //                连接数据库，验证是否存在该车辆
                 Thread validateNumbersThread = new Thread(new ValidateNumbersThread());
@@ -100,7 +100,7 @@ public class AddMotorNumActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            boolean rs = ClientUtils.validateNumbers(AddMotorNumActivity.this, MotorHelper.getInstance().getMotorItem());
+            boolean rs = ClientUtils.validateNumbers(AddMotorNumActivity.this, MotorHelper.getInstance().getMotorBean());
             Log.d(TAG, "validateNumbers结果==" + rs);
             if (rs) {
                 Looper.prepare();
@@ -148,7 +148,7 @@ public class AddMotorNumActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            boolean rs = ClientUtils.addMotor(AddMotorNumActivity.this, MotorHelper.getInstance().getMotorItem());
+            boolean rs = ClientUtils.addMotor(AddMotorNumActivity.this, MotorHelper.getInstance().getMotorBean());
             Log.d(TAG, "addMotor结果==" + rs);
             if (rs) {
                 Log.d(TAG, "添加摩托车 ");
@@ -157,17 +157,17 @@ public class AddMotorNumActivity extends AppCompatActivity {
                 boolean isLogin = MotorUtils.isExitMotor(AddMotorNumActivity.this);
                 if (!isLogin) {
 //                无标记,利用SharedPreferences保存摩托车标记
-                    boolean isSave = MotorUtils.saveMotor(AddMotorNumActivity.this, MotorHelper.getInstance().getMotorItem().getId());
+                    boolean isSave = MotorUtils.saveMotor(AddMotorNumActivity.this, MotorHelper.getInstance().getMotorBean().getId());
                     if (isSave) {
 //                      保存摩托车标记，在全局单例类MotorHelp之中
-                        MotorHelper.getInstance().setCurrentMotorId(MotorHelper.getInstance().getMotorItem().getId());
+                        MotorHelper.getInstance().setCurrentMotorId(MotorHelper.getInstance().getMotorBean().getId());
                         successAdd();
                     } else {
                         Looper.prepare();
                         Toast.makeText(AddMotorNumActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
                         Looper.loop();
                     }
-                }else {
+                } else {
                     Log.d(TAG, "run: 已有摩托车标记");
                     successAdd();
                 }
@@ -189,6 +189,7 @@ public class AddMotorNumActivity extends AppCompatActivity {
 //                      添加intent标志符：清除当前TASK栈占用的Activity、创建一个新的TASK栈
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        MotorHelper.getInstance().setMotorBean(null);
         Looper.loop();
     }
 

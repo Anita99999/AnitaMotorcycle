@@ -1,6 +1,6 @@
 package com.anita.anitamotorcycle.interfaces;
 
-import com.anita.anitamotorcycle.beans.RecordItem;
+import com.anita.anitamotorcycle.beans.RecordBean;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public interface IRepairedCallback {
      *
      * @param result
      */
-    void onRepairedListLoaded(List<RecordItem> result);
+    void onRepairedListLoaded(List<RecordBean> result);
 
     /**
      * 网络错误

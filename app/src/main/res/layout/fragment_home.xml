@@ -112,7 +112,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relayout_motor_basic_info"
+        android:id="@+id/relayout_motor_info"
         android:layout_width="match_parent"
         android:layout_height="234dp"
         android:layout_below="@+id/rl_button"
@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/iv_motor"
             android:layout_centerHorizontal="true"
-            android:text="保修期：365天/10000公里" />
+            android:text="保修期剩余：365天/10000公里" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -155,6 +155,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_model"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -184,6 +185,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -213,6 +215,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -234,7 +237,7 @@
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/relayout_motor_basic_info"
+        android:layout_below="@id/relayout_motor_info"
         android:layout_margin="@dimen/marginSize"
         android:gravity="center_vertical"
         android:orientation="horizontal">

@@ -15,11 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.adapters.RecordDataAdapter;
-import com.anita.anitamotorcycle.beans.RecordItem;
+import com.anita.anitamotorcycle.beans.RecordBean;
 import com.anita.anitamotorcycle.interfaces.IRepairedCallback;
-import com.anita.anitamotorcycle.interfaces.IRepairingCallback;
 import com.anita.anitamotorcycle.presenters.RepairedPresenter;
-import com.anita.anitamotorcycle.presenters.RepairingPresenter;
 import com.anita.anitamotorcycle.views.UILoaderView;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -38,7 +36,7 @@ public class RepairedRecordFragment extends Fragment implements IRepairedCallbac
     private static final String TAG = "RepairedRecordFragment";
 
     private RecyclerView mRepairedList;
-    private List<RecordItem> mDatas;
+    private List<RecordBean> mDatas;
     private RepairedPresenter mPresenter;
     private View mView;
     private UILoaderView mUiLoaderView;
@@ -94,7 +92,7 @@ public class RepairedRecordFragment extends Fragment implements IRepairedCallbac
 //        创建模拟数据
         for (int i = 1; i <= 6; i++) {
 //            创建数据对象
-            RecordItem data = new RecordItem();
+            RecordBean data = new RecordBean();
             data.setRepair_status("提交成功" + i);
             data.setPlate_numbers("车牌号" + i);
             data.setUpdate_at(dateFormat);
@@ -132,7 +130,7 @@ public class RepairedRecordFragment extends Fragment implements IRepairedCallbac
 
 
     @Override
-    public void onRepairedListLoaded(List<RecordItem> result) {
+    public void onRepairedListLoaded(List<RecordBean> result) {
         Log.d(TAG, "onRepairedListLoaded: ");
         mAdapter.setData(result);
         mUiLoaderView.updateStatus(UILoaderView.UIStatus.SUCCESS);

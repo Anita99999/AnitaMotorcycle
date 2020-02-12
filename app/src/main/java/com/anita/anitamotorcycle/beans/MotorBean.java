@@ -1,19 +1,42 @@
 package com.anita.anitamotorcycle.beans;
 
 
-import java.sql.Time;
+import com.anita.anitamotorcycle.utils.MotorUtils;
+
+import java.util.Date;
 
 /**
  * @author Anita
- * @description:我的摩托車（19个字段）
- * * @date : 2020/1/18 21:32
+ * @description:我的摩托車（19个字段） * @date : 2020/1/18 21:32
  */
-public class MotorItem {
-    public MotorItem(){}
+public class MotorBean {
+    public MotorBean() {
+    }
 
-    public MotorItem(String vin_code){
+    public MotorBean(String vin_code) {
         this.vin_code = vin_code;
     }
+
+    /**
+     * id : 2020020616512901
+     * user_id : 2020020320171301
+     * vin_code : LP6PCJ3B2A0301404
+     * brand : 五羊本田
+     * model : 暴锋眼190
+     * type : 骑式车
+     * country : 中国
+     * year : 2003
+     * plate_numbers : 粤YYP573
+     * url : http://www.wuyang-honda.com/data/cms/product/category_46/701/picture/1559038518943387.png
+     * buy_at : 2020-02-08
+     * warranty_distance : 10000
+     * today_runtime : 0
+     * today_distance : 0
+     * total_distance : 0
+     * create_at : 2020-02-10 15:44:28
+     * update_at : 2020-02-10 15:44:28
+     * status : 1
+     */
 
     private String id;
     private String user_id;
@@ -26,13 +49,13 @@ public class MotorItem {
     private String type; //车辆类型
     private String country;  //生产国家
     private int year;//生产年份
-    private int number;//生产顺序号（数据库无该字段）
+    private String number;//生产顺序号（数据库无该字段）
     private String plate_numbers; // 车牌号
 
     //    摩托车信息
     private String url;//图片
 
-    private String buy_at;//购买日期（计算保修期）
+    private Date buy_at;//购买日期（计算保修期）
     private int warranty_distance;//保修公里
 
     //    统计
@@ -43,6 +66,31 @@ public class MotorItem {
     private String create_at;
     private String update_at;
     private int status; // 0delete, 1normal
+
+
+    /**
+     * 计算保修天数 = 365-购买天数
+     *
+     * @return
+     */
+    public int getWarrantyDays() {
+        Date today = new Date();
+//        两个日期之间相差的天数
+        int butDays = MotorUtils.daysBetween(buy_at, today);
+        return 365 - butDays;
+    }
+
+    /**
+     * 计算保修公里数
+     *
+     * @return
+     */
+    public int getWarrantyDistance() {
+        int distance = 10000 - total_distance;
+        distance = distance > 0 ? distance : 0;
+        return distance;
+    }
+
 
     public String getId() {
         return id;
@@ -108,11 +156,11 @@ public class MotorItem {
         this.year = year;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -132,11 +180,11 @@ public class MotorItem {
         this.url = url;
     }
 
-    public String getBuy_at() {
+    public Date getBuy_at() {
         return buy_at;
     }
 
-    public void setBuy_at(String buy_at) {
+    public void setBuy_at(Date buy_at) {
         this.buy_at = buy_at;
     }
 
@@ -198,7 +246,7 @@ public class MotorItem {
 
     @Override
     public String toString() {
-        return "MotorItem{" +
+        return "MotorBean{" +
                 "id='" + id + '\'' +
                 ", user_id='" + user_id + '\'' +
                 ", vin_code='" + vin_code + '\'' +

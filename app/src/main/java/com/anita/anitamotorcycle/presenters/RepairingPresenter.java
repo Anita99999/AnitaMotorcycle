@@ -2,7 +2,7 @@ package com.anita.anitamotorcycle.presenters;
 
 import android.util.Log;
 
-import com.anita.anitamotorcycle.beans.RecordItem;
+import com.anita.anitamotorcycle.beans.RecordBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
 import com.anita.anitamotorcycle.interfaces.IRepairingCallback;
 import com.anita.anitamotorcycle.interfaces.IRepairingPresenter;
@@ -20,8 +20,8 @@ import java.util.TimeZone;
  */
 public class RepairingPresenter implements IRepairingPresenter {
     private List<IRepairingCallback> mCallbacks = new ArrayList<>();
-    private List<RecordItem> mDatas = null;
-    private List<RecordItem> mCurrentDatas = null;
+    private List<RecordBean> mDatas = null;
+    private List<RecordBean> mCurrentDatas = null;
     private static final String TAG = "RepairingPresenter";
 
     /**
@@ -68,7 +68,7 @@ public class RepairingPresenter implements IRepairingPresenter {
 //        创建模拟数据
             for (int i = 1; i <= 1; i++) {
 //            创建数据对象
-                RecordItem data = new RecordItem();
+                RecordBean data = new RecordBean();
                 data.setRepair_status("提交成功" + i);
                 data.setPlate_numbers("维修中车牌号" + i);
                 data.setUpdate_at(dateFormat);
@@ -90,7 +90,7 @@ public class RepairingPresenter implements IRepairingPresenter {
      *
      * @param datas
      */
-    private void handlerMyMotorResult(List<RecordItem> datas) {
+    private void handlerMyMotorResult(List<RecordBean> datas) {
         if (datas != null) {
             Log.d(TAG, "handlerMyMotorResult: ");
             //测试，清空一下，让界面显示空

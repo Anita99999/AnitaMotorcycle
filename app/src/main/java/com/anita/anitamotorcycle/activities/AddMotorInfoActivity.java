@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anita.anitamotorcycle.R;
-import com.anita.anitamotorcycle.beans.MotorItem;
+import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
 
 public class AddMotorInfoActivity extends AppCompatActivity {
@@ -19,7 +19,7 @@ public class AddMotorInfoActivity extends AppCompatActivity {
 
     private ImageView mBack;
     private TextView mNext;
-    private MotorItem mMotorItem = null;
+    private MotorBean mMotorBean = null;
     private EditText mBrand;
     private EditText mModel;
     private EditText mType;
@@ -47,16 +47,21 @@ public class AddMotorInfoActivity extends AppCompatActivity {
         mYear = findViewById(R.id.et_year);
         mNumber = findViewById(R.id.et_number);
 
-        mMotorItem = MotorHelper.getInstance().getMotorItem();
-        Log.d(TAG, "initView: mMotorItem--" + mMotorItem.toString());
-        mBrand.setText(mMotorItem.getBrand().toCharArray(), 0, mMotorItem.getBrand().length());
-        mModel.setText(mMotorItem.getModel().toCharArray(), 0, mMotorItem.getModel().length());
-        mType.setText(mMotorItem.getType().toCharArray(), 0, mMotorItem.getType().length());
-        mCountry.setText(mMotorItem.getCountry().toCharArray(), 0, mMotorItem.getCountry().length());
+        mMotorBean = MotorHelper.getInstance().getMotorBean();
+        Log.d(TAG, "initView: mMotorBean--" + mMotorBean.toString());
+
+        String brand = (mMotorBean.getBrand() == null) ? "" : mMotorBean.getBrand();
+        mBrand.setText(brand.toCharArray(), 0, brand.length());
+        String model = (mMotorBean.getModel() == null) ? "" : mMotorBean.getModel();
+        mModel.setText(model.toCharArray(), 0, model.length());
+        String type = (mMotorBean.getType() == null) ? "" : mMotorBean.getType();
+        mType.setText(type.toCharArray(), 0, type.length());
+        String country = (mMotorBean.getCountry() == null) ? "" : mMotorBean.getCountry();
+        mCountry.setText(country.toCharArray(), 0, country.length());
 //                        int转string
-        mYear.setText((mMotorItem.getYear() + "").toCharArray(), 0, (mMotorItem.getYear() + "").length());
+        mYear.setText((mMotorBean.getYear() + "").toCharArray(), 0, (mMotorBean.getYear() + "").length());
 //                        取后6位
-        mNumber.setText(mMotorItem.getVin_code().substring(11).toCharArray(), 0, mMotorItem.getVin_code().substring(11).length());
+        mNumber.setText(mMotorBean.getVin_code().substring(11).toCharArray(), 0, mMotorBean.getVin_code().substring(11).length());
     }
 
     private void initListener() {
@@ -71,13 +76,13 @@ public class AddMotorInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                保存修改信息
-                MotorHelper.getInstance().getMotorItem().setBrand(mBrand.getText().toString());
-                MotorHelper.getInstance().getMotorItem().setModel(mModel.getText().toString());
-                MotorHelper.getInstance().getMotorItem().setType(mType.getText().toString());
-                MotorHelper.getInstance().getMotorItem().setCountry(mCountry.getText().toString());
-                MotorHelper.getInstance().getMotorItem().setYear(Integer.parseInt(mYear.getText().toString()));
-                MotorHelper.getInstance().getMotorItem().setNumber(Integer.parseInt(mNumber.getText().toString()));
-                Log.d(TAG, "确认信息： motor--" + MotorHelper.getInstance().getMotorItem().toString());
+                MotorHelper.getInstance().getMotorBean().setBrand(mBrand.getText().toString());
+                MotorHelper.getInstance().getMotorBean().setModel(mModel.getText().toString());
+                MotorHelper.getInstance().getMotorBean().setType(mType.getText().toString());
+                MotorHelper.getInstance().getMotorBean().setCountry(mCountry.getText().toString());
+                MotorHelper.getInstance().getMotorBean().setYear(Integer.parseInt(mYear.getText().toString()));
+                MotorHelper.getInstance().getMotorBean().setNumber(mNumber.getText().toString());
+                Log.d(TAG, "确认信息： motor--" + MotorHelper.getInstance().getMotorBean().toString());
 
                 Intent intent = new Intent(getApplicationContext(), AddMotorNumActivity.class);
                 startActivity(intent);

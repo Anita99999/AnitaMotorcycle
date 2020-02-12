@@ -25,8 +25,9 @@ public class WelcomeActivity extends BaseActivity {
      * 初始化
      */
     private void init(){
-//        验证是否存在已登录用户
+//        验证sp中是否存在已登录用户，有则保存用户标记
         final boolean isLogin = UserUtils.isLoginUser(this);
+//        验证sp中是否存在摩托车标记，有则保存摩托车标记
         MotorUtils.isExitMotor(this);
         mtimer=new Timer();
         mtimer.schedule(new TimerTask() {

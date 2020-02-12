@@ -1,16 +1,18 @@
 package com.anita.anitamotorcycle.fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.activities.AddMotorActivity;
@@ -18,48 +20,84 @@ import com.anita.anitamotorcycle.activities.BindFirstActivity;
 import com.anita.anitamotorcycle.activities.MotorDetailsActivity;
 import com.anita.anitamotorcycle.activities.MyMotorActivity;
 import com.anita.anitamotorcycle.activities.RepairApplicationActivity;
+import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
-import com.anita.anitamotorcycle.helps.UserHelper;
+import com.anita.anitamotorcycle.utils.ClientUtils;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
 
-    private RelativeLayout mMotorInfo;
+    private RelativeLayout mRelayout_motor_basic_info;
     private LinearLayout mChange_motor;
     private LinearLayout mRepairApplication;
     private LinearLayout mLocation;
     private RelativeLayout mBind;
+    private ImageView mIv_motor;
+    private TextView mTv_warranty_period;
+    private TextView mTv_model;
+    private TextView mTv_year;
+    private TextView mTv_type;
+    private MotorBean mMotorBean;
+    private View mView;
+    private Bitmap mBitmap;
 
     public HomeFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        initView(view);
+        mView = inflater.inflate(R.layout.fragment_home, container, false);
+        initView(mView);
 //
-        return view;
+        return mView;
     }
 
 
     private void initView(View view) {
         mLocation = view.findViewById(R.id.linlayout_location); //定位
         mChange_motor = view.findViewById(R.id.linlayout_change);   //切换
+
         mBind = view.findViewById(R.id.relayout_bind_motor);    //绑定
-        mMotorInfo = view.findViewById(R.id.relayout_motor_basic_info); //摩托车信息
+        mRelayout_motor_basic_info = view.findViewById(R.id.relayout_motor_info); //摩托车信息
+        mIv_motor = view.findViewById(R.id.iv_motor);
+        mTv_warranty_period = view.findViewById(R.id.tv_warranty_period);
+        mTv_model = view.findViewById(R.id.tv_model);
+        mTv_year = view.findViewById(R.id.tv_year);
+        mTv_type = view.findViewById(R.id.tv_type);
+
         mRepairApplication = view.findViewById(R.id.linlayout_repair);  //维修服务
 
         if (MotorHelper.getInstance().getCurrentMotorId() == null) {
-            Log.d(TAG, "initView: ");
-//          未添加摩托车
-            mMotorInfo.setVisibility(View.INVISIBLE);
+//          无摩托车标记
+            mRelayout_motor_basic_info.setVisibility(View.INVISIBLE);
             initListener1();
         } else {
-            Log.d(TAG, "initView: ");
-//            已添加摩托车
-            mMotorInfo.setVisibility(View.VISIBLE);
+//          有摩托车标记
+            mRelayout_motor_basic_info.setVisibility(View.VISIBLE);
+            showMotorView();
             initListener2();
         }
+    }
+
+    private void showMotorView() {
+//        刷新当前摩托车信息
+        MotorHelper.getInstance().refreshCurrentMotor(getContext());
+        mMotorBean = MotorHelper.getInstance().getCurrentMotor();
+//        设置页面摩托车信息
+
+        if (mMotorBean.getUrl() != null) {
+            //创建子线程：请求网络图片并更新到view
+            Thread requestImageThread = new Thread(new RequestImageThread());
+            requestImageThread.start();
+
+            System.out.println("getMotorThread done!");
+            mIv_motor.setImageBitmap(mBitmap);
+        }
+
+        mTv_warranty_period.setText("保修期剩余：" + mMotorBean.getWarrantyDays() + "天/" + mMotorBean.getWarrantyDistance() + "公里");
+        mTv_model.setText(mMotorBean.getModel());
+        mTv_year.setText(mMotorBean.getYear() + "");
+        mTv_type.setText(mMotorBean.getType());
     }
 
     /**
@@ -115,13 +153,29 @@ public class HomeFragment extends Fragment {
         });
 
 //        摩托车信息
-        mMotorInfo.setOnClickListener(new View.OnClickListener() {
+        mRelayout_motor_basic_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MotorDetailsActivity.class);
                 startActivity(intent);
             }
         });
+    }
+
+
+    class RequestImageThread implements Runnable {
+        @Override
+        public void run() {
+            mBitmap = ClientUtils.loadImage(mView, mMotorBean.getUrl());
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mIv_motor.setImageBitmap(mBitmap);
+                }
+            });
+
+
+        }
     }
 
 }

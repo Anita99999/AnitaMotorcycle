@@ -5,31 +5,46 @@
     android:background="@drawable/shape_small_radius"
     android:padding="@dimen/paddingSize">
 
-
-    <TextView
-        android:id="@+id/tv_plate_numbers"
+    <LinearLayout
+        android:id="@+id/ll_plate_numbers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="车牌号"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/titleSize"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/paddingBigSize"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_plate_numbers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车牌号"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/titleSize" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/navBarIconSize"
+            android:layout_height="@dimen/navBarIconSize"
+            android:padding="@dimen/paddingBigSize"
+            android:src="@mipmap/go" />
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/iv_my_motor"
         android:layout_width="@dimen/motorImageWidth"
         android:layout_height="@dimen/motorImageWidth"
-        android:layout_below="@+id/tv_plate_numbers"
+        android:layout_below="@+id/ll_plate_numbers"
         android:layout_marginRight="@dimen/marginSize"
         android:scaleType="centerInside"
         android:src="@mipmap/gsbfy190" />
-
 
     <TextView
         android:id="@+id/tv_motor_model"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_plate_numbers"
+        android:layout_marginTop="@dimen/paddingLittleSize"
+        android:layout_below="@+id/ll_plate_numbers"
         android:layout_toRightOf="@+id/iv_my_motor"
         android:text="车辆型号" />
 
@@ -38,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_motor_model"
-        android:layout_marginTop="@dimen/paddingIconSize"
+        android:layout_marginTop="@dimen/marginLittleSize"
         android:layout_toRightOf="@+id/iv_my_motor"
         android:text="制造商名称" />
 
@@ -47,10 +62,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_factory"
-        android:layout_marginTop="@dimen/paddingIconSize"
+        android:layout_marginTop="@dimen/marginLittleSize"
         android:layout_toRightOf="@+id/iv_my_motor"
-        android:text="保修期：365天/10000公里" />
-
+        android:text="保修期剩余：365天/10000公里" />
 
     <Button
         android:id="@+id/btn_delete"
@@ -58,9 +72,8 @@
         android:layout_below="@+id/tv_warranty"
         android:layout_alignParentRight="true"
         android:layout_gravity="right"
-        android:layout_marginRight="@dimen/marginLittleSize"
-        android:layout_marginTop="@dimen/paddingSize"
-        android:text="删除" />
-
+        android:layout_marginTop="@dimen/marginSize"
+        android:layout_marginRight="@dimen/marginSize"
+        android:text="删 除" />
 
 </RelativeLayout>

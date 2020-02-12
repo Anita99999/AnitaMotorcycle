@@ -3,10 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="mainColor">#E6B24E</color>
-    <color name="mainColorH">#DD9122</color>
-    <!--<color name="mainColor">#E48D53</color>-->
-    <!--<color name="mainColorH">#D15E31</color>-->
+    <color name="mainColor">#EEBA56</color>
+    <color name="mainColorH">#E6A029</color>
     <color name="mainTitileColorH">#6F5116</color>
     <color name="itemColorH">#e6e6e6</color>
     <color name="viewColor">#BFBFBF</color>

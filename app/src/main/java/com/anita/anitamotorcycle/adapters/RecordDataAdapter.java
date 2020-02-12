@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.activities.RepairDetailsActivity;
-import com.anita.anitamotorcycle.beans.RecordItem;
+import com.anita.anitamotorcycle.beans.RecordBean;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.InnerHolder> {
     private static final String TAG = "RecordDataAdapter";
-    private List<RecordItem> mData;
+    private List<RecordBean> mData;
     public RecordDataAdapter(){}
 
 
@@ -32,11 +32,11 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
      *
      * @param data
      */
-    public RecordDataAdapter(List<RecordItem> data) {
+    public RecordDataAdapter(List<RecordBean> data) {
         this.mData = data;
     }
 
-    public void setData(List<RecordItem> recordList) {
+    public void setData(List<RecordBean> recordList) {
         this.mData = recordList;
         //更新UI。
         notifyDataSetChanged();
@@ -65,13 +65,13 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
         holder.setData(mData.get(position));
-        final RecordItem recordItem = mData.get(position);
+        final RecordBean recordBean = mData.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: holder.itemView.setOnClickListener....test1");
                 Intent intent = new Intent(v.getContext(), RepairDetailsActivity.class);
-                intent.putExtra("recordPlateNumbers", recordItem.getPlate_numbers());
+                intent.putExtra("recordPlateNumbers", recordBean.getPlate_numbers());
                 v.getContext().startActivity(intent);
             }
         });
@@ -116,14 +116,14 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
         /**
          * 设置数据
          *
-         * @param recordItem
+         * @param recordBean
          */
-        public void setData(RecordItem recordItem) {
-            mMotorType.setText(recordItem.getPlate_numbers());
-            mRepairStatus.setText(recordItem.getRepair_status());
-            mUpdateTime.setText(recordItem.getUpdate_at());
-            mFactoryName.setText(recordItem.getFactory_name());
-            mTroubleType.setText(recordItem.getProblem_type());
+        public void setData(RecordBean recordBean) {
+            mMotorType.setText(recordBean.getPlate_numbers());
+            mRepairStatus.setText(recordBean.getRepair_status());
+            mUpdateTime.setText(recordBean.getUpdate_at());
+            mFactoryName.setText(recordBean.getFactory_name());
+            mTroubleType.setText(recordBean.getProblem_type());
         }
     }
 }

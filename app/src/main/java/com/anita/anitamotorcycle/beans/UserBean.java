@@ -7,12 +7,13 @@ import java.util.Date;
  * @description:
  * @date : 2020/2/4 14:12
  */
-public class UserItem {
+public class UserBean {
 
-    public UserItem(String phone, String password) {
+    public UserBean(String phone, String password) {
         this.phone = phone;
         this.password = password;
     }
+
 
     private String id;
     private String phone;
