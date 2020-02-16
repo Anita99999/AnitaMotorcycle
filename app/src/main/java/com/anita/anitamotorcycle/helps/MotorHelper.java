@@ -8,6 +8,8 @@ import android.widget.Toast;
 import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.utils.ClientUtils;
 
+import java.util.List;
+
 /**
  * @author Anita
  * @description:
@@ -37,8 +39,11 @@ public class MotorHelper {
 
     private String currentMotorId;  //页面显示车辆id
     private MotorBean currentMotor; //页面显示车辆信息
+
+    private List<MotorBean> motorList; //用户所有摩托车
+
     private MotorBean MotorBean; //添加车辆
-    private Context context; //添加车辆
+    private Context context;
 
     public String getCurrentMotorId() {
         return currentMotorId;
@@ -56,6 +61,14 @@ public class MotorHelper {
         this.currentMotor = currentMotor;
     }
 
+    public List<MotorBean> getMotorList() {
+        return motorList;
+    }
+
+    public void setMotorList(List<MotorBean> motorList) {
+        this.motorList = motorList;
+    }
+
     public MotorBean getMotorBean() {
         return MotorBean;
     }
@@ -69,7 +82,8 @@ public class MotorHelper {
      *
      * @param con
      */
-    public void refreshCurrentMotor(Context con) {
+    public boolean refreshCurrentMotor(Context con) {
+        boolean isRefresh = false;
         Log.d(TAG, "refreshCurrentMotor: ");
         if (currentMotor != null) {
             currentMotor = null;
@@ -86,6 +100,17 @@ public class MotorHelper {
         }
         System.out.println("getMotorThread done!");
 
+        if (currentMotor == null) {
+            Log.d(TAG, "刷新失败: motorItem==null");
+//            Looper.prepare();
+            Toast.makeText(context, "刷新失败！", Toast.LENGTH_SHORT).show();
+//            Looper.loop();
+            isRefresh = false;
+        } else {
+            Log.d(TAG, "run: 刷新成功");
+            isRefresh = true;
+        }
+        return isRefresh;
 
     }
 
@@ -93,19 +118,26 @@ public class MotorHelper {
 
         @Override
         public void run() {
-            Log.d(TAG, "子线程:GetMotorThread ");
+            System.out.println("子线程:GetMotorThread");
             currentMotor = ClientUtils.getCurrentMotor(context, currentMotorId);
-            if (currentMotor == null) {
-                Log.d(TAG, "刷新失败: motorItem==null");
-                Looper.prepare();
-                Toast.makeText(context, "服务器出错！", Toast.LENGTH_SHORT).show();
-                Looper.loop();
-            } else {
-                Log.d(TAG, "run: 刷新成功");
-                Log.d(TAG, "run: currentMotor--" + currentMotor.toString());
-            }
         }
     }
 
-
+    /**
+     * 获取所有摩托车数据
+     *
+     * @param con
+     * @param phone
+     * @return获取成功且有摩托车数据返回，true
+     */
+    public boolean refreshMotorList(Context con, String phone) {
+        motorList = ClientUtils.getMotorList(con, phone);
+        Log.d(TAG, "refreshMotorList: motorList--" + motorList);
+        if (motorList != null && !motorList.isEmpty()) {
+//            数据不为空
+            Log.d(TAG, "refreshMotorList: not empty");
+            return true;
+        }
+        return false;
+    }
 }

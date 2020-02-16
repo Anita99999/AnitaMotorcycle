@@ -1,9 +1,14 @@
 package com.anita.anitamotorcycle.adapters;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.activities.MotorDetailsActivity;
 import com.anita.anitamotorcycle.beans.MotorBean;
+import com.anita.anitamotorcycle.fragments.HomeFragment;
+import com.anita.anitamotorcycle.utils.ClientUtils;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -23,15 +31,18 @@ import java.util.List;
  */
 public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.InnerHolder> {
     private static final String TAG = "MyMotorDataAdapter";
+    private Activity context;
     private List<MotorBean> mData;
+    private View mView;
 
     /**
      * 使用构造函数传递数据
      *
      * @param data
      */
-    public MyMotorDataAdapter(List<MotorBean> data) {
+    public MyMotorDataAdapter(List<MotorBean> data, Activity context) {
         this.mData = data;
+        this.context = context;
     }
 
 
@@ -45,8 +56,8 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
     @NonNull
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(parent.getContext(), R.layout.item_my_motor, null);
-        return new InnerHolder(view);
+        mView = View.inflate(parent.getContext(), R.layout.item_my_motor, null);
+        return new InnerHolder(mView);
     }
 
     /**
@@ -65,6 +76,7 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
                 Log.d(TAG, "onClick: holder.itemView.setOnClickListener....test1");
                 Intent intent = new Intent(v.getContext(), MotorDetailsActivity.class);
                 intent.putExtra("plateNumbers", motorBean.getPlate_numbers());
+                intent.putExtra("motor",motorBean);
                 v.getContext().startActivity(intent);
             }
         });
@@ -89,10 +101,12 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
         private TextView mMotorModel;
         private TextView mFactory;
         private TextView mWarranty;
+        private ImageView mIv_my_motor;
 
         public InnerHolder(@NonNull View itemView) {
             super(itemView);
 //            找到控件
+            mIv_my_motor = itemView.findViewById(R.id.iv_my_motor);
             mPlateNumbers = itemView.findViewById(R.id.tv_plate_numbers);
             mMotorModel = itemView.findViewById(R.id.tv_motor_model);
             mFactory = itemView.findViewById(R.id.tv_factory);
@@ -100,10 +114,17 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
         }
 
         public void setData(MotorBean motorBean) {
+            if (motorBean.getUrl() != null) {
+                Glide.with(context).load(motorBean.getUrl()).into(mIv_my_motor);
+            }
+
             mPlateNumbers.setText(motorBean.getPlate_numbers());
-            mMotorModel.setText("车辆型号：" +motorBean.getModel());
-            mFactory.setText("品牌名称：" +motorBean.getBrand());
-            mWarranty.setText("保修期剩余：" + motorBean.getWarrantyDays() + "天/" + motorBean.getWarranty_distance() + "公里");
+            mMotorModel.setText("车辆型号：" + motorBean.getModel());
+            mFactory.setText("品牌名称：" + motorBean.getBrand());
+            mWarranty.setText("保修期剩余：" + motorBean.getWarrantyDays() + "天/" + motorBean.getWarrantyDistance() + "公里");
+
         }
+
+
     }
 }

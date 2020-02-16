@@ -11,8 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.helps.MotorHelper;
 import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.utils.ClientUtils;
+import com.anita.anitamotorcycle.utils.MotorUtils;
 import com.anita.anitamotorcycle.utils.UserUtils;
 import com.anita.anitamotorcycle.views.InputView;
 
@@ -115,6 +117,30 @@ public class LoginActivity extends BaseActivity {
 //                  保存用户标记，在全局单例类UserHelp之中
                     UserHelper.getInstance().setPhone(mPhone);
 
+//                    用户有摩托车信息，且摩托车标记为空
+                    if (MotorHelper.getInstance().refreshMotorList(LoginActivity.this, mPhone) && MotorHelper.getInstance().getCurrentMotorId() == null) {
+//                        设置摩托车标记,利用SharedPreferences保存摩托车标记
+                        if (MotorUtils.saveMotor(LoginActivity.this, MotorHelper.getInstance().getMotorList().get(0).getId())) {
+//                      保存摩托车标记，在全局单例类MotorHelp之中
+                            MotorHelper.getInstance().setCurrentMotorId(MotorHelper.getInstance().getMotorList().get(0).getId());
+                        } else {
+                            Looper.prepare();
+                            Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+                        }
+                    }else{
+//                        有摩托车标记时，删除标记
+                        if(MotorUtils.isExitMotor(LoginActivity.this)){
+                            //        删除sp保存的摩托车标记
+                            boolean isRemove = MotorUtils.removeMotor(LoginActivity.this);
+                            if (!isRemove) {
+                                Looper.prepare();
+                                Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
+                                Looper.loop();
+                                return;
+                            }
+                        }
+                    }
 //                  跳转到主页面
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);

@@ -51,7 +51,7 @@ public class MotorUtils {
     }
 
     /**
-     * 删除用户标记
+     * 删除摩托车标记
      */
     public static boolean removeMotor(Context context) {
         SharedPreferences sp = context.getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);

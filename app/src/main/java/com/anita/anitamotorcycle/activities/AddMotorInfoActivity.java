@@ -81,7 +81,6 @@ public class AddMotorInfoActivity extends AppCompatActivity {
                 MotorHelper.getInstance().getMotorBean().setType(mType.getText().toString());
                 MotorHelper.getInstance().getMotorBean().setCountry(mCountry.getText().toString());
                 MotorHelper.getInstance().getMotorBean().setYear(Integer.parseInt(mYear.getText().toString()));
-                MotorHelper.getInstance().getMotorBean().setNumber(mNumber.getText().toString());
                 Log.d(TAG, "确认信息： motor--" + MotorHelper.getInstance().getMotorBean().toString());
 
                 Intent intent = new Intent(getApplicationContext(), AddMotorNumActivity.class);

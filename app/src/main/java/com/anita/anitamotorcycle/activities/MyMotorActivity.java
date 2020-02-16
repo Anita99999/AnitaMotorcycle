@@ -33,7 +33,7 @@ public class MyMotorActivity extends BaseActivity {
 
     private MyMotorDataAdapter mDataAdapter;
     private RecyclerView mRv_my_motor;
-    private List<MotorBean> mDatas;
+    private List<MotorBean> mDatas = null;
     private ImageView mBack;
     private TextView mAddMotor;
     private LinearLayout mLl_empty;
@@ -57,16 +57,12 @@ public class MyMotorActivity extends BaseActivity {
      */
     private void getData() {
 
-        //创建子线程:访问服务器，更新数摩托车数据
-        Thread getMotorsThread = new Thread(new GetMotorsThread());
-        getMotorsThread.start();
-        try {
-//            主线程等待子线程结束
-            getMotorsThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        boolean isRefresh = MotorHelper.getInstance().refreshMotorList(MyMotorActivity.this, UserHelper.getInstance().getPhone());
+        if (MotorHelper.getInstance().getCurrentMotorId() != null && isRefresh) {
+//        有摩托车数据且刷新成功
+            mDatas = MotorHelper.getInstance().getMotorList();
         }
-        System.out.println("getMotorThread done!");
+
     }
 
 
@@ -94,11 +90,11 @@ public class MyMotorActivity extends BaseActivity {
         mAddMotor = findViewById(R.id.tv_add_motor);
         mLl_empty = findViewById(R.id.ll_empty);
 
-        if (MotorHelper.getInstance().getCurrentMotorId() == null){
+        if (MotorHelper.getInstance().getCurrentMotorId() == null) {
 //          无摩托车标记
             mRv_my_motor.setVisibility(View.INVISIBLE);
             mLl_empty.setVisibility(View.VISIBLE);
-        }else{
+        } else {
 //          有摩托车标记
             mRv_my_motor.setVisibility(View.VISIBLE);
             mLl_empty.setVisibility(View.INVISIBLE);
@@ -122,18 +118,10 @@ public class MyMotorActivity extends BaseActivity {
             }
         });
 //        创建适配器
-        mDataAdapter = new MyMotorDataAdapter(mDatas);
+        mDataAdapter = new MyMotorDataAdapter(mDatas,this);
 //        设置adaptor到recyclerview里
         mRv_my_motor.setAdapter(mDataAdapter);
     }
 
-    class GetMotorsThread implements Runnable {
-
-        @Override
-        public void run() {
-            Log.d(TAG, "run: 子线程GetMotorsThread");
-            mDatas = ClientUtils.getMotors(MyMotorActivity.this, UserHelper.getInstance().getPhone());
-        }
-    }
 
 }

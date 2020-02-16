@@ -3,13 +3,14 @@ package com.anita.anitamotorcycle.beans;
 
 import com.anita.anitamotorcycle.utils.MotorUtils;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Anita
  * @description:我的摩托車（19个字段） * @date : 2020/1/18 21:32
  */
-public class MotorBean {
+public class MotorBean implements Serializable {
     public MotorBean() {
     }
 
@@ -49,14 +50,15 @@ public class MotorBean {
     private String type; //车辆类型
     private String country;  //生产国家
     private int year;//生产年份
-    private String number;//生产顺序号（数据库无该字段）
+    private String number;//生产顺序号（数据库无该字段，车架号得出）
     private String plate_numbers; // 车牌号
 
     //    摩托车信息
     private String url;//图片
 
     private Date buy_at;//购买日期（计算保修期）
-    private int warranty_distance;//保修公里
+//    保修公里数通过总骑行公里数得出
+    private String location;
 
     //    统计
     private int today_runtime;// 今日骑行分钟数
@@ -90,7 +92,6 @@ public class MotorBean {
         distance = distance > 0 ? distance : 0;
         return distance;
     }
-
 
     public String getId() {
         return id;
@@ -188,13 +189,6 @@ public class MotorBean {
         this.buy_at = buy_at;
     }
 
-    public int getWarranty_distance() {
-        return warranty_distance;
-    }
-
-    public void setWarranty_distance(int warranty_distance) {
-        this.warranty_distance = warranty_distance;
-    }
 
     public int getToday_runtime() {
         return today_runtime;
@@ -259,7 +253,6 @@ public class MotorBean {
                 ", plate_numbers='" + plate_numbers + '\'' +
                 ", url='" + url + '\'' +
                 ", buy_at='" + buy_at + '\'' +
-                ", warranty_distance=" + warranty_distance +
                 ", today_runtime=" + today_runtime +
                 ", today_distance=" + today_distance +
                 ", total_distance=" + total_distance +

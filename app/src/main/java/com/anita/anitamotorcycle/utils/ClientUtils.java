@@ -38,6 +38,8 @@ public class ClientUtils {
     private static int sLine;
     private static MotorBean sMotorBean;
     private static boolean sResult;
+    private static List<MotorBean> sList = null;
+    private static Bitmap sBitmap = null;
 
     //                String url = "http://192.168.0.107:8080/AMServer/userlogin";
 //                Map<String, String> params = new HashMap<>();
@@ -95,6 +97,7 @@ public class ClientUtils {
      * @return
      */
     public static MotorBean getCurrentMotor(Context context, String currentMotorId) {
+        Log.d(TAG, "getCurrentMotor/AMServer/getmotor: 获取当前摩托车信息");
         sMotorBean = null;
         OutputStream outputStream;
         InputStream inputStream;
@@ -136,9 +139,9 @@ public class ClientUtils {
             outputStream.close();
         } catch (SocketTimeoutException e) {
             Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
-            Looper.prepare();
-            Toast.makeText(context, "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
-            Looper.loop();
+//            Looper.prepare();
+//            Toast.makeText(context, "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
+//            Looper.loop();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -147,11 +150,13 @@ public class ClientUtils {
 
     /**
      * 根据userID获取当前用户所有摩托车信息
+     *
      * @param context
      * @param phone
      * @return
      */
-    public static List<MotorBean> getMotors(Context context, String phone){
+    public static List<MotorBean> getMotors(Context context, String phone) {
+        Log.d(TAG, "getMotors: 获取所有摩托车信息");
         List<MotorBean> list = null;
         OutputStream outputStream;
         InputStream inputStream;
@@ -202,6 +207,78 @@ public class ClientUtils {
         return list;
     }
 
+    /**
+     * 根据userID获取当前用户所有摩托车信息
+     *
+     * @param context
+     * @param phone
+     * @return
+     */
+    public static List<MotorBean> getMotorList(final Context context, final String phone) {
+        Log.d(TAG, "getMotorList: 获取所有摩托车信息");
+        sList = null;
+        Thread getMotorsThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/getmotors");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    UserBean user = new UserBean(phone, null);
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(user);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "jsonStr --- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        Log.d(TAG, "server response data --- " + line);
+                        if (line != null) {
+                            sList = JsonUtils.motorListFromJson(line);
+
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+                    Looper.prepare();
+                    Toast.makeText(context, "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
+                    Looper.loop();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        getMotorsThread.start();
+        try {
+//            主线程等待子线程结束
+            getMotorsThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("getMotorListThread done!");
+        return sList;
+    }
 
     /**
      * 登录验证
@@ -214,6 +291,7 @@ public class ClientUtils {
      * @return
      */
     public static boolean validateLoginPost(Context context, String phone, String password) {
+        Log.d(TAG, "validateLoginPost: 登录验证");
         boolean result = false;
         OutputStream outputStream;
         InputStream inputStream;
@@ -284,6 +362,7 @@ public class ClientUtils {
      * @return
      */
     public static MotorBean validateVIN(final String vin, final Context context) {
+        Log.d(TAG, "validateVIN: 验证车架号");
         sMotorBean = null;
 //        sResult = false;
         OutputStream outputStream;
@@ -348,6 +427,7 @@ public class ClientUtils {
      * @return
      */
     public static boolean validateNumbers(Context context, MotorBean motorBean) {
+        Log.d(TAG, "validateNumbers: 验证车牌号");
         sResult = false;
         OutputStream outputStream;
         InputStream inputStream;
@@ -409,6 +489,7 @@ public class ClientUtils {
      * @return
      */
     public static boolean addMotor(Context context, MotorBean motorBean) {
+        Log.d(TAG, "addMotor: 添加摩托车");
         sResult = false;
         OutputStream outputStream;
         InputStream inputStream;
@@ -461,12 +542,11 @@ public class ClientUtils {
     }
 
 
-
-
     /**
      * 访问网络图片
      */
-    public static Bitmap loadImage(final View view, String urlStr) {
+    public static Bitmap loadImage(String urlStr) {
+        Log.d(TAG, "loadImage: 访问网络图片");
         Bitmap bitmap = null;
         try {
             // 定义一个URL对象
@@ -486,6 +566,44 @@ public class ClientUtils {
             e.printStackTrace();
         }
         return bitmap;
+    }
+
+
+    /**
+     * 访问网络图片
+     */
+    public static Bitmap loadImage1(final String urlStr) {
+        Log.d(TAG, "loadImage1: 访问网络图片");
+        sBitmap = null;
+        Thread getImageThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                URL url = null;
+                try {
+                    HttpURLConnection conn = null;
+                    url = new URL(urlStr);
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(5000);
+                    conn.setRequestMethod("GET");
+                    if (conn.getResponseCode() == 200) {
+                        InputStream inputStream = conn.getInputStream();
+                        sBitmap = BitmapFactory.decodeStream(inputStream);
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        getImageThread.start();
+        try {
+//            主线程等待子线程结束
+            getImageThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return sBitmap;
+
     }
 
 

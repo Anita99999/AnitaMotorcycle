@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,11 @@ import com.anita.anitamotorcycle.activities.MyMotorActivity;
 import com.anita.anitamotorcycle.activities.RepairApplicationActivity;
 import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
+import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.utils.ClientUtils;
+import com.bumptech.glide.Glide;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
@@ -37,9 +42,9 @@ public class HomeFragment extends Fragment {
     private TextView mTv_model;
     private TextView mTv_year;
     private TextView mTv_type;
-    private MotorBean mMotorBean;
+    private MotorBean mMotorBean = new MotorBean();
     private View mView;
-    private Bitmap mBitmap;
+    private Bitmap mBitmap = null;
 
     public HomeFragment() {
     }
@@ -54,6 +59,8 @@ public class HomeFragment extends Fragment {
 
 
     private void initView(View view) {
+        Log.d(TAG, "initView: ");
+
         mLocation = view.findViewById(R.id.linlayout_location); //定位
         mChange_motor = view.findViewById(R.id.linlayout_change);   //切换
 
@@ -81,19 +88,16 @@ public class HomeFragment extends Fragment {
 
     private void showMotorView() {
 //        刷新当前摩托车信息
-        MotorHelper.getInstance().refreshCurrentMotor(getContext());
-        mMotorBean = MotorHelper.getInstance().getCurrentMotor();
-//        设置页面摩托车信息
-
-        if (mMotorBean.getUrl() != null) {
-            //创建子线程：请求网络图片并更新到view
-            Thread requestImageThread = new Thread(new RequestImageThread());
-            requestImageThread.start();
-
-            System.out.println("getMotorThread done!");
-            mIv_motor.setImageBitmap(mBitmap);
+        boolean isRefresh = MotorHelper.getInstance().refreshCurrentMotor(getContext());
+        if (!isRefresh) {
+            return;
         }
 
+        mMotorBean = MotorHelper.getInstance().getCurrentMotor();
+//        设置页面摩托车信息
+        if (mMotorBean.getUrl() != null) {
+            Glide.with(getActivity()).load(mMotorBean.getUrl()).into(mIv_motor);
+        }
         mTv_warranty_period.setText("保修期剩余：" + mMotorBean.getWarrantyDays() + "天/" + mMotorBean.getWarrantyDistance() + "公里");
         mTv_model.setText(mMotorBean.getModel());
         mTv_year.setText(mMotorBean.getYear() + "");
@@ -162,20 +166,5 @@ public class HomeFragment extends Fragment {
         });
     }
 
-
-    class RequestImageThread implements Runnable {
-        @Override
-        public void run() {
-            mBitmap = ClientUtils.loadImage(mView, mMotorBean.getUrl());
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mIv_motor.setImageBitmap(mBitmap);
-                }
-            });
-
-
-        }
-    }
 
 }

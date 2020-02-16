@@ -153,9 +153,7 @@ public class AddMotorNumActivity extends AppCompatActivity {
             if (rs) {
                 Log.d(TAG, "添加摩托车 ");
 
-//              验证是否存在摩托车标记
-                boolean isLogin = MotorUtils.isExitMotor(AddMotorNumActivity.this);
-                if (!isLogin) {
+                if (MotorHelper.getInstance().getCurrentMotorId() == null) {
 //                无标记,利用SharedPreferences保存摩托车标记
                     boolean isSave = MotorUtils.saveMotor(AddMotorNumActivity.this, MotorHelper.getInstance().getMotorBean().getId());
                     if (isSave) {

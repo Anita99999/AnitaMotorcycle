@@ -24,6 +24,7 @@ import com.anita.anitamotorcycle.utils.UserUtils;
 import com.leon.lib.settingview.LSettingItem;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
