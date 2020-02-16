@@ -117,7 +117,7 @@ public class LoginActivity extends BaseActivity {
 //                  保存用户标记，在全局单例类UserHelp之中
                     UserHelper.getInstance().setPhone(mPhone);
 
-//                    用户有摩托车信息，且摩托车标记为空
+//                    用户有摩托车数据，且摩托车标记为空
                     if (MotorHelper.getInstance().refreshMotorList(LoginActivity.this, mPhone) && MotorHelper.getInstance().getCurrentMotorId() == null) {
 //                        设置摩托车标记,利用SharedPreferences保存摩托车标记
                         if (MotorUtils.saveMotor(LoginActivity.this, MotorHelper.getInstance().getMotorList().get(0).getId())) {

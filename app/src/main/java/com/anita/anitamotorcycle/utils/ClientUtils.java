@@ -37,6 +37,7 @@ public class ClientUtils {
     private static final String TAG = "ClientUtils";
     private static int sLine;
     private static MotorBean sMotorBean;
+    private static UserBean sUserBean;
     private static boolean sResult;
     private static List<MotorBean> sList = null;
     private static Bitmap sBitmap = null;
@@ -88,6 +89,75 @@ public class ClientUtils {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 根据currentMotorId获取摩托车信息
+     *
+     * @param phone
+     * @return
+     */
+    public static UserBean getUserInfo(final String phone) {
+        Log.d(TAG, "getUserInfo/AMServer/getuser: 获取用户信息");
+        sUserBean = null;
+        Thread getUserThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/getuser");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    UserBean userBean = new UserBean(phone);
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(userBean);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "jsonStr --- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        Log.d(TAG, "server response data --- " + line);
+                        if (line != null) {
+                            sUserBean = JsonUtils.userFromJson(line);
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        getUserThread.start();
+        try {
+//            主线程等待子线程结束
+            getUserThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("getUserThread done!");
+
+        return sUserBean;
+    }
+
 
     /**
      * 根据currentMotorId获取摩托车信息
@@ -148,64 +218,6 @@ public class ClientUtils {
         return sMotorBean;
     }
 
-    /**
-     * 根据userID获取当前用户所有摩托车信息
-     *
-     * @param context
-     * @param phone
-     * @return
-     */
-    public static List<MotorBean> getMotors(Context context, String phone) {
-        Log.d(TAG, "getMotors: 获取所有摩托车信息");
-        List<MotorBean> list = null;
-        OutputStream outputStream;
-        InputStream inputStream;
-        try {
-            URL url = new URL(Constants.BASEURL + "/AMServer/getmotors");
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setConnectTimeout(10000);
-            httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-            httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
-            httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
-
-            UserBean user = new UserBean(phone, null);
-            Gson gson = new Gson();
-            String jsonStr = gson.toJson(user);
-            byte[] bytes = jsonStr.getBytes("UTF-8");
-            Log.d(TAG, "jsonStr --- " + jsonStr);
-            httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
-            //连接
-            httpURLConnection.connect();
-            //把数据给到服务
-            outputStream = httpURLConnection.getOutputStream();
-            outputStream.write(bytes);
-            outputStream.flush();
-            //拿结果
-            int responseCode = httpURLConnection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                inputStream = httpURLConnection.getInputStream();
-                BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-                String line = in.readLine();
-                Log.d(TAG, "server response data --- " + line);
-                if (line != null) {
-                    list = JsonUtils.motorListFromJson(line);
-
-                }
-                in.close();
-                inputStream.close();
-            }
-            outputStream.close();
-        } catch (SocketTimeoutException e) {
-            Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
-            Looper.prepare();
-            Toast.makeText(context, "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
-            Looper.loop();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
 
     /**
      * 根据userID获取当前用户所有摩托车信息

@@ -56,7 +56,7 @@
     <!--导航条文字大小-->
     <dimen name="navBarTitleSize">20sp</dimen>
     <!--用户名字体大小-->
-    <dimen name="usernameSize">20sp</dimen>
+    <dimen name="usernameSize">22sp</dimen>
     <!--普通字体大小-->
     <dimen name="titleSize">18sp</dimen>
 

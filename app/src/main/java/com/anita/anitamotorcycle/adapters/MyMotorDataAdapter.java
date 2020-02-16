@@ -75,7 +75,6 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
             public void onClick(View v) {
                 Log.d(TAG, "onClick: holder.itemView.setOnClickListener....test1");
                 Intent intent = new Intent(v.getContext(), MotorDetailsActivity.class);
-                intent.putExtra("plateNumbers", motorBean.getPlate_numbers());
                 intent.putExtra("motor",motorBean);
                 v.getContext().startActivity(intent);
             }

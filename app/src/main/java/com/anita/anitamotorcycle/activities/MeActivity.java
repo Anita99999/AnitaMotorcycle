@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.beans.UserBean;
 import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.utils.Constants;
 import com.anita.anitamotorcycle.utils.DataUtils;
@@ -27,12 +28,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MeActivity extends BaseActivity {
     private static final String TAG = "MeActivity";
-    private LSettingItem mChangePassword;
+    private LSettingItem mLs_change_password;
     private FrameLayout fl_head;
     private CircleImageView iv_headIcon;
 
     private Bitmap bitmap;
-    private LSettingItem mPhone;
+    private LSettingItem mLs_phone;
+    private LSettingItem mLs_name;
+    private LSettingItem mLs_sex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +48,23 @@ public class MeActivity extends BaseActivity {
     }
 
     private void initView() {
+//        获取上一页面传递的数据
+        UserBean userBean = (UserBean) getIntent().getSerializableExtra("user");
+        Log.d(TAG, "initView: userbean--"+userBean.toString());
         initNavBar(true, "个人信息");
         fl_head = findViewById(R.id.fl_head);
         iv_headIcon = findViewById(R.id.iv_headIcon);
+//        用户名
+        mLs_name = findViewById(R.id.ls_name);
+        mLs_name.setRightText(userBean.getName());
+//        手机号
+        mLs_phone = findViewById(R.id.ls_phone);
+        mLs_phone.setRightText(userBean.getPhone());
+//        性别
+        mLs_sex = findViewById(R.id.ls_sex);
+        mLs_sex.setRightText(userBean.getSex());
 
-        mPhone = findViewById(R.id.ls_phone);
-        mPhone.setRightText(UserHelper.getInstance().getPhone());
-
-        mChangePassword = findViewById(R.id.ls_change_password);
+        mLs_change_password = findViewById(R.id.ls_change_password);
 
         bitmap = ((BitmapDrawable) iv_headIcon.getDrawable()).getBitmap();
         File sdpath = new File(Constants.SD_PATH);
@@ -81,7 +93,7 @@ public class MeActivity extends BaseActivity {
         });
 
 //        修改密码
-        mChangePassword.setmOnLSettingItemClick(new LSettingItem.OnLSettingItemClick() {
+        mLs_change_password.setmOnLSettingItemClick(new LSettingItem.OnLSettingItemClick() {
             @Override
             public void click(boolean isChecked) {
                 startActivity(new Intent(MeActivity.this, ChangePasswordActivity.class));

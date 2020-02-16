@@ -1,6 +1,7 @@
 package com.anita.anitamotorcycle.utils;
 
 import com.anita.anitamotorcycle.beans.MotorBean;
+import com.anita.anitamotorcycle.beans.UserBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -31,11 +32,17 @@ public class JsonUtils {
         return motor;
     }
 
-    public static MotorBean motorsFromJson(String jsonStr) {
+    /**
+     * 解析json数据
+     *
+     * @param jsonStr
+     * @return
+     */
+    public static UserBean userFromJson(String jsonStr) {
         Gson gson = new Gson();
-        MotorBean motor = gson.fromJson(jsonStr, MotorBean.class);
-        System.out.println("json解析：motors---" + motor.toString());
-        return motor;
+        UserBean user = gson.fromJson(jsonStr, UserBean.class);
+        System.out.println("json解析：motor---" + user.toString());
+        return user;
     }
 
 
@@ -48,25 +55,6 @@ public class JsonUtils {
         return list;
     }
 
-
-    /**
-     * 解析json
-     *
-     * @param content
-     * @param valueType
-     * @return
-     */
-    public static <T> T listFromJson(String content, Class<T> valueType) {
-        if (objectMapper == null) {
-            objectMapper = new ObjectMapper();
-        }
-        try {
-            return objectMapper.readValue(content, valueType);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     /**
      * 生成json

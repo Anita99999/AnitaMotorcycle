@@ -16,6 +16,7 @@
         <ImageView
             android:layout_width="@dimen/iconSize"
             android:layout_height="@dimen/iconSize"
+            android:paddingLeft="@dimen/paddingSize"
             android:src="@mipmap/chepaihao1"/>
 
         <TextView

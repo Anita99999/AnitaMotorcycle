@@ -1,5 +1,6 @@
 package com.anita.anitamotorcycle.beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,13 +8,15 @@ import java.util.Date;
  * @description:
  * @date : 2020/2/4 14:12
  */
-public class UserBean {
+public class UserBean implements Serializable {
 
     public UserBean(String phone, String password) {
         this.phone = phone;
         this.password = password;
     }
-
+    public UserBean(String phone) {
+        this.phone = phone;
+    }
 
     private String id;
     private String phone;

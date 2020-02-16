@@ -50,7 +50,7 @@ public class MotorBean implements Serializable {
     private String type; //车辆类型
     private String country;  //生产国家
     private int year;//生产年份
-    private String number;//生产顺序号（数据库无该字段，车架号得出）
+    //生产顺序号（数据库无该字段，车架号得出）
     private String plate_numbers; // 车牌号
 
     //    摩托车信息
@@ -157,13 +157,7 @@ public class MotorBean implements Serializable {
         this.year = year;
     }
 
-    public String getNumber() {
-        return number;
-    }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
 
     public String getPlate_numbers() {
         return plate_numbers;
@@ -249,10 +243,10 @@ public class MotorBean implements Serializable {
                 ", type='" + type + '\'' +
                 ", country='" + country + '\'' +
                 ", year=" + year +
-                ", number=" + number +
                 ", plate_numbers='" + plate_numbers + '\'' +
                 ", url='" + url + '\'' +
-                ", buy_at='" + buy_at + '\'' +
+                ", buy_at=" + buy_at +
+                ", location='" + location + '\'' +
                 ", today_runtime=" + today_runtime +
                 ", today_distance=" + today_distance +
                 ", total_distance=" + total_distance +
