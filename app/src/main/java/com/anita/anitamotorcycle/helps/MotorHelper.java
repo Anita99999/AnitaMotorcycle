@@ -134,7 +134,7 @@ public class MotorHelper {
         motorList = ClientUtils.getMotorList(con, phone);
         Log.d(TAG, "refreshMotorList: motorList--" + motorList);
         if (motorList != null && !motorList.isEmpty()) {
-//            数据不为空
+//            有数据且数据不为空
             Log.d(TAG, "refreshMotorList: not empty");
             return true;
         }

@@ -20,6 +20,7 @@ import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.fragments.HomeFragment;
 import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -114,9 +115,9 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
 
         public void setData(MotorBean motorBean) {
             if (motorBean.getUrl() != null) {
-                Glide.with(context).load(motorBean.getUrl()).into(mIv_my_motor);
+                Glide.with(context).load(motorBean.getUrl()).placeholder(R.mipmap.network_loading).dontAnimate().into(mIv_my_motor);
             }
-
+//
             mPlateNumbers.setText(motorBean.getPlate_numbers());
             mMotorModel.setText("车辆型号：" + motorBean.getModel());
             mFactory.setText("品牌名称：" + motorBean.getBrand());

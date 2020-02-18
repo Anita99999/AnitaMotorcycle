@@ -10,12 +10,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.beans.MotorBean;
+import com.anita.anitamotorcycle.helps.UserHelper;
+import com.anita.anitamotorcycle.utils.MotorUtils;
 import com.hb.dialog.dialog.ConfirmDialog;
 
 import java.util.ArrayList;
@@ -37,7 +41,6 @@ public class RepairApplicationActivity extends BaseActivity {
     private ImageView mTips2;
     private ImageView mTips1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,13 +55,18 @@ public class RepairApplicationActivity extends BaseActivity {
         mCommit = findViewById(R.id.tv_commit);
 
 //        mRepairTime = findViewById(R.id.btn_time);
+        EditText et_phone = findViewById(R.id.et_phone);
+        et_phone.setText(UserHelper.getInstance().getPhone());
 //        车牌号提示
         mTips1 = findViewById(R.id.iv_tips1);
 //        车牌号下拉列表内容
         mMotorType = findViewById(R.id.sp_motors_type);
         List<String> motors_list = new ArrayList<String>();
         motors_list.add("请选择车辆");
-
+        List<MotorBean> MotorsData = MotorUtils.getMotorsData(this);
+        for (MotorBean m : MotorsData) {
+            motors_list.add(m.getPlate_numbers());
+        }
         mMotorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, motors_list);   //创建数组适配器
         mMotorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //设置下拉列表下拉时的菜单样式
         mMotorType.setAdapter(mMotorAdapter);    //将适配器添加到下拉列表上
@@ -76,12 +84,10 @@ public class RepairApplicationActivity extends BaseActivity {
         problems_list.add("前轮轴承异响有损");
         problems_list.add("离合器异响及空转");
         problems_list.add("其他");
-
         mProblemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, problems_list);   //创建数组适配器
         mProblemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //设置下拉列表下拉时的菜单样式
         mProblemsType = findViewById(R.id.sp_problems_type);
         mProblemsType.setAdapter(mProblemsAdapter);    //将适配器添加到下拉列表上
-
 
     }
 
@@ -147,11 +153,17 @@ public class RepairApplicationActivity extends BaseActivity {
         mCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                检查字段
+                checkData();
                 showConfirmDialog();
             }
         });
 
 
+    }
+
+    private boolean checkData() {
+        return false;
     }
 
     private void showConfirmDialog() {
@@ -173,7 +185,6 @@ public class RepairApplicationActivity extends BaseActivity {
         });
         confirmDialog.show();
     }
-
 
     private void showAlertDialog(int i) {
         String a = "车牌号";

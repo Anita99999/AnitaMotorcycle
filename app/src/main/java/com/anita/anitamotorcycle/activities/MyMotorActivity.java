@@ -19,6 +19,7 @@ import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
 import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.utils.ClientUtils;
+import com.anita.anitamotorcycle.utils.MotorUtils;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
@@ -42,29 +43,12 @@ public class MyMotorActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_motor);
-//        找到控件
 
         initView();
         initListener();
-        getData();
-
+        mDatas = MotorUtils.getMotorsData(this);    //获取数据
         showList(); //实现list
-
     }
-
-    /*
-    TODO：从网络中获取数据，暂时模拟数据
-     */
-    private void getData() {
-
-        boolean isRefresh = MotorHelper.getInstance().refreshMotorList(MyMotorActivity.this, UserHelper.getInstance().getPhone());
-        if (MotorHelper.getInstance().getCurrentMotorId() != null && isRefresh) {
-//        有摩托车数据且刷新成功
-            mDatas = MotorHelper.getInstance().getMotorList();
-        }
-
-    }
-
 
     private void initListener() {
         mBack.setOnClickListener(new View.OnClickListener() {

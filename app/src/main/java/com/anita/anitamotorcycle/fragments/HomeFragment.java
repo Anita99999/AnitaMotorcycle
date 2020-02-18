@@ -23,11 +23,7 @@ import com.anita.anitamotorcycle.activities.MyMotorActivity;
 import com.anita.anitamotorcycle.activities.RepairApplicationActivity;
 import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
-import com.anita.anitamotorcycle.helps.UserHelper;
-import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.bumptech.glide.Glide;
-
-import java.util.List;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
@@ -44,7 +40,6 @@ public class HomeFragment extends Fragment {
     private TextView mTv_type;
     private MotorBean mMotorBean = new MotorBean();
     private View mView;
-    private Bitmap mBitmap = null;
 
     public HomeFragment() {
     }
@@ -73,7 +68,7 @@ public class HomeFragment extends Fragment {
         mTv_type = view.findViewById(R.id.tv_type);
 
         mRepairApplication = view.findViewById(R.id.linlayout_repair);  //维修服务
-
+        Log.d(TAG, "initView: 摩托车标记--" + MotorHelper.getInstance().getCurrentMotorId());
         if (MotorHelper.getInstance().getCurrentMotorId() == null) {
 //          无摩托车标记
             mRelayout_motor_basic_info.setVisibility(View.INVISIBLE);
@@ -96,7 +91,7 @@ public class HomeFragment extends Fragment {
         mMotorBean = MotorHelper.getInstance().getCurrentMotor();
 //        设置页面摩托车信息
         if (mMotorBean.getUrl() != null) {
-            Glide.with(getActivity()).load(mMotorBean.getUrl()).into(mIv_motor);
+            Glide.with(getActivity()).load(mMotorBean.getUrl()).placeholder(R.mipmap.network_loading).dontAnimate().into(mIv_motor);
         }
         mTv_warranty_period.setText("保修期剩余：" + mMotorBean.getWarrantyDays() + "天/" + mMotorBean.getWarrantyDistance() + "公里");
         mTv_model.setText(mMotorBean.getModel());
@@ -139,6 +134,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    //    有摩托车标记时的点击事件
     private void initListener2() {
 //        切换
         mChange_motor.setOnClickListener(new View.OnClickListener() {
@@ -161,10 +157,17 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MotorDetailsActivity.class);
+                intent.putExtra("motor", mMotorBean);
                 startActivity(intent);
             }
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        initView(mView);
+        Log.d(TAG, "onResume: 数据回显");
+    }
 }

@@ -44,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/inputViewHeight"
             android:layout_marginTop="@dimen/marginSize"
+            android:maxLength="11"
             app:input_hint="请输入手机号"
             app:input_icon="@mipmap/phone"
             app:is_password="false"></com.anita.anitamotorcycle.views.InputView>

@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
 import com.anita.anitamotorcycle.helps.UserHelper;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Anita
@@ -62,6 +64,20 @@ public class MotorUtils {
 
         return result;
     }
+
+    /*
+TODO：从网络中获取摩托车列表数据
+ */
+    public static List<MotorBean> getMotorsData(Context context) {
+        List<MotorBean> motorList = null;
+        boolean isRefresh = MotorHelper.getInstance().refreshMotorList(context, UserHelper.getInstance().getPhone());
+        if (MotorHelper.getInstance().getCurrentMotorId() != null && isRefresh) {
+//        有摩托车数据且刷新成功
+            motorList = MotorHelper.getInstance().getMotorList();
+        }
+        return motorList;
+    }
+
     /**
      * 计算两个日期之间相差的天数
      * @param date1

@@ -80,6 +80,7 @@
                 android:text="联系电话：" />
 
             <EditText
+                android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/textViewHeight"
                 android:background="@drawable/shape_et"
@@ -88,8 +89,6 @@
                 android:maxLength="11"
                 android:paddingLeft="@dimen/marginLittleSize"
                 android:textSize="@dimen/itemSize" />
-
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
