@@ -1,11 +1,15 @@
 package com.anita.anitamotorcycle.presenters;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.anita.anitamotorcycle.beans.RecordBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
+import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.interfaces.IRepairingCallback;
 import com.anita.anitamotorcycle.interfaces.IRepairingPresenter;
+import com.anita.anitamotorcycle.utils.ClientUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +25,6 @@ import java.util.TimeZone;
 public class RepairingPresenter implements IRepairingPresenter {
     private List<IRepairingCallback> mCallbacks = new ArrayList<>();
     private List<RecordBean> mDatas = null;
-    private List<RecordBean> mCurrentDatas = null;
     private static final String TAG = "RepairingPresenter";
 
     /**
@@ -53,30 +56,15 @@ public class RepairingPresenter implements IRepairingPresenter {
     @Override
     public void getRepairingList() {
 //        发起请求
-
         updateLoading();
 
         if (MotorHelper.getInstance().getCurrentMotorId() != null) {
             Log.d(TAG, "getRepairingList: ");
             //        获取数据
 //        创建数据集合
-            mDatas = new ArrayList<>();
-            Date date = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  //设置日期格式
-            sdf.setTimeZone(TimeZone.getTimeZone("GMT+08"));
-            String dateFormat = sdf.format(date);// new Date()为获取当前系统时间
-//        创建模拟数据
-            for (int i = 1; i <= 1; i++) {
-//            创建数据对象
-                RecordBean data = new RecordBean();
-                data.setRepair_status("提交成功" + i);
-                data.setPlate_numbers("维修中车牌号" + i);
-                data.setUpdate_at(dateFormat);
-                data.setFactory_name("商家名" + i);
-                data.setProblem_type("故障类型" + i);
-//            添加到集合里
-                mDatas.add(data);
-            }
+            mDatas = ClientUtils.getRepairingList(UserHelper.getInstance().getPhone(),0);
+            Log.d(TAG, "getRepairingList: mDatas--" + mDatas);
+
         }
 
 //        数据回来，更新UI
@@ -104,7 +92,7 @@ public class RepairingPresenter implements IRepairingPresenter {
                 for (IRepairingCallback callback : mCallbacks) {
                     callback.onRepairingListLoaded(datas);
                 }
-                this.mCurrentDatas = datas;
+
             }
         } else {
             Log.d(TAG, "handlerMyMotorResult: data==null");

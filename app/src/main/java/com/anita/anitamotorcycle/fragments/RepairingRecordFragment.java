@@ -92,7 +92,7 @@ public class RepairingRecordFragment extends Fragment implements IRepairingCallb
         for (int i = 1; i <= 5; i++) {
 //            创建数据对象
             RecordBean data = new RecordBean();
-            data.setRepair_status("提交成功" + i);
+            data.setRepair_status(i);
             data.setPlate_numbers("车牌号" + i);
             data.setUpdate_at(dateFormat);
             data.setFactory_name("商家名" + i);

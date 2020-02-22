@@ -43,7 +43,6 @@ public class MotorHelper {
     private List<MotorBean> motorList; //用户所有摩托车
 
     private MotorBean MotorBean; //添加车辆
-    private Context context;
 
     public String getCurrentMotorId() {
         return currentMotorId;
@@ -80,31 +79,19 @@ public class MotorHelper {
     /**
      * 连接数据库，刷新当前摩托车信息
      *
-     * @param con
+     * @param context
      */
-    public boolean refreshCurrentMotor(Context con) {
-        boolean isRefresh = false;
+    public boolean refreshCurrentMotor(Context context) {
+        boolean isRefresh;
         Log.d(TAG, "refreshCurrentMotor: ");
         if (currentMotor != null) {
             currentMotor = null;
         }
-        context = con;
-        //创建子线程，并启动子线程；访问服务器，更新数摩托车数据
-        Thread getMotorThread = new Thread(new GetMotorThread());
-        getMotorThread.start();
-        try {
-//            主线程等待子线程结束
-            getMotorThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("getMotorThread done!");
 
+        currentMotor = ClientUtils.getCurrentMotor(context, currentMotorId);
         if (currentMotor == null) {
             Log.d(TAG, "刷新失败: motorItem==null");
-//            Looper.prepare();
             Toast.makeText(context, "刷新失败！", Toast.LENGTH_SHORT).show();
-//            Looper.loop();
             isRefresh = false;
         } else {
             Log.d(TAG, "run: 刷新成功");
@@ -114,29 +101,24 @@ public class MotorHelper {
 
     }
 
-    class GetMotorThread implements Runnable {
-
-        @Override
-        public void run() {
-            System.out.println("子线程:GetMotorThread");
-            currentMotor = ClientUtils.getCurrentMotor(context, currentMotorId);
-        }
-    }
 
     /**
      * 获取所有摩托车数据
      *
-     * @param con
+     * @param context
      * @param phone
      * @return获取成功且有摩托车数据返回，true
      */
-    public boolean refreshMotorList(Context con, String phone) {
-        motorList = ClientUtils.getMotorList(con, phone);
+    public boolean refreshMotorList(Context context, String phone) {
+        motorList = ClientUtils.getMotorList(context, phone);
         Log.d(TAG, "refreshMotorList: motorList--" + motorList);
         if (motorList != null && !motorList.isEmpty()) {
 //            有数据且数据不为空
             Log.d(TAG, "refreshMotorList: not empty");
             return true;
+        }else{
+            Log.d(TAG, "刷新失败: motorItem==null");
+            Toast.makeText(context, "刷新失败！", Toast.LENGTH_SHORT).show();
         }
         return false;
     }

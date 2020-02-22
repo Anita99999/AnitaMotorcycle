@@ -1,5 +1,7 @@
 package com.anita.anitamotorcycle.interfaces;
 
+import android.content.Context;
+
 /**
  * @author Anita
  * @description:我的摩托车，逻辑层通知界面更新接口

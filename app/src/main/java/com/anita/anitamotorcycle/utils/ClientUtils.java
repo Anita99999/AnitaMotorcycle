@@ -5,10 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.anita.anitamotorcycle.beans.MotorBean;
+import com.anita.anitamotorcycle.beans.RecordBean;
 import com.anita.anitamotorcycle.beans.UserBean;
 import com.google.gson.Gson;
 
@@ -39,8 +39,10 @@ public class ClientUtils {
     private static MotorBean sMotorBean;
     private static UserBean sUserBean;
     private static boolean sResult;
-    private static List<MotorBean> sList = null;
+    private static List<MotorBean> sMotorList = null;
+    private static List<RecordBean> sRecordingList = null;
     private static Bitmap sBitmap = null;
+    private static RecordBean sRecordBean;
 
     //                String url = "http://192.168.0.107:8080/AMServer/userlogin";
 //                Map<String, String> params = new HashMap<>();
@@ -166,61 +168,73 @@ public class ClientUtils {
      * @param currentMotorId
      * @return
      */
-    public static MotorBean getCurrentMotor(Context context, String currentMotorId) {
+    public static MotorBean getCurrentMotor(Context context, final String currentMotorId) {
         Log.d(TAG, "getCurrentMotor/AMServer/getmotor: 获取当前摩托车信息");
         sMotorBean = null;
-        OutputStream outputStream;
-        InputStream inputStream;
-        try {
-            URL url = new URL(Constants.BASEURL + "/AMServer/getmotor");
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setConnectTimeout(10000);
-            httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-            httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
-            httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
 
-            MotorBean motorBean = new MotorBean();
-            motorBean.setId(currentMotorId);
-            Gson gson = new Gson();
-            String jsonStr = gson.toJson(motorBean);
-            byte[] bytes = jsonStr.getBytes("UTF-8");
-            Log.d(TAG, "jsonStr --- " + jsonStr);
-            httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
-            //连接
-            httpURLConnection.connect();
-            //把数据给到服务
-            outputStream = httpURLConnection.getOutputStream();
-            outputStream.write(bytes);
-            outputStream.flush();
-            //拿结果
-            int responseCode = httpURLConnection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                inputStream = httpURLConnection.getInputStream();
-                BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-                String line = in.readLine();
-                Log.d(TAG, "server response data --- " + line);
-                if (line != null) {
-                    sMotorBean = JsonUtils.motorFromJson(line);
+        Thread getCurrentMotorThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/getmotor");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    MotorBean motorBean = new MotorBean();
+                    motorBean.setId(currentMotorId);
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(motorBean);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "jsonStr --- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        Log.d(TAG, "server response data --- " + line);
+                        if (line != null) {
+                            sMotorBean = JsonUtils.motorFromJson(line);
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                in.close();
-                inputStream.close();
             }
-            outputStream.close();
-        } catch (SocketTimeoutException e) {
-            Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
-//            Looper.prepare();
-//            Toast.makeText(context, "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
-//            Looper.loop();
-        } catch (Exception e) {
+        });
+        getCurrentMotorThread.start();
+        try {
+//            主线程等待子线程结束
+            getCurrentMotorThread.join();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("getCurrentMotorThread done!");
+
         return sMotorBean;
     }
 
 
     /**
-     * 根据userID获取当前用户所有摩托车信息
+     * 根据userphone获取当前用户所有摩托车信息
      *
      * @param context
      * @param phone
@@ -228,7 +242,7 @@ public class ClientUtils {
      */
     public static List<MotorBean> getMotorList(final Context context, final String phone) {
         Log.d(TAG, "getMotorList: 获取所有摩托车信息");
-        sList = null;
+        sMotorList = null;
         Thread getMotorsThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -263,7 +277,7 @@ public class ClientUtils {
                         String line = in.readLine();
                         Log.d(TAG, "server response data --- " + line);
                         if (line != null) {
-                            sList = JsonUtils.motorListFromJson(line);
+                            sMotorList = JsonUtils.motorListFromJson(line);
 
                         }
                         in.close();
@@ -272,9 +286,6 @@ public class ClientUtils {
                     outputStream.close();
                 } catch (SocketTimeoutException e) {
                     Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
-                    Looper.prepare();
-                    Toast.makeText(context, "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
-                    Looper.loop();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -289,7 +300,75 @@ public class ClientUtils {
             e.printStackTrace();
         }
         System.out.println("getMotorListThread done!");
-        return sList;
+        return sMotorList;
+    }
+
+    /**
+     * 根据userphone获取当前用户维修中/维修完成记录
+     * @param phone
+     * @return
+     */
+    public static List<RecordBean> getRepairingList(final String phone, final int mark) {
+        Log.d(TAG, "getRepairingList: 获取维修记录列表");
+        sRecordingList = null;
+        Thread getRepairingThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/GetRecords");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    UserBean user = new UserBean(phone, mark);
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(user);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "jsonStr --- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        Log.d(TAG, "server response data --- " + line);
+                        if (line != null) {
+                            sRecordingList = JsonUtils.recordListFromJson(line);
+
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        getRepairingThread.start();
+        try {
+//            主线程等待子线程结束
+            getRepairingThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("getRepairingThread done!");
+        return sRecordingList;
     }
 
     /**
@@ -356,9 +435,7 @@ public class ClientUtils {
             outputStream.close();
         } catch (SocketTimeoutException e) {
             Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
-            Looper.prepare();
-            Toast.makeText(context, "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
-            Looper.loop();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -418,9 +495,6 @@ public class ClientUtils {
             outputStream.close();
         } catch (SocketTimeoutException e) {
             Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
-            Looper.prepare();
-            Toast.makeText(context, "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
-            Looper.loop();
         } catch (Exception e) {
             e.printStackTrace();
             Log.d(TAG, "validateVIN:Exception-- " + e.getMessage());
@@ -551,6 +625,78 @@ public class ClientUtils {
             Log.d(TAG, "validateVIN:Exception-- " + e.getMessage());
         }
         return sResult;
+    }
+
+    /**
+     * 申请维修（添加维修记录）
+     *
+     * @param recordBean 传回申请信息、用户phone、和申请时间
+     * @return 返回是否添加成功。成功：record，失败：无数据，连接服务器失败：null
+     */
+    public static RecordBean addRecord(final RecordBean recordBean) {
+        Log.d(TAG, "addRecord: 添加维修记录");
+        sRecordBean = null;
+        Thread addRecordThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/addrecord");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    Log.d(TAG, "post数据---" + recordBean.toString());
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(recordBean);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "生成json--- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        Log.d(TAG, "服务器响应数据 --- " + line);
+                        if (line != null) {
+                            if (line == "flase") {
+                                sRecordBean = new RecordBean();
+                            } else {
+                                sRecordBean = JsonUtils.recordFromJson(line);;
+                            }
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "validateVIN:Exception-- " + e.getMessage());
+                }
+            }
+        });
+        addRecordThread.start();
+        try {
+//            主线程等待子线程结束
+            addRecordThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("addRecordThread done!");
+        return sRecordBean;
     }
 
 

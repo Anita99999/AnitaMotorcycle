@@ -135,6 +135,12 @@ public class MeActivity extends BaseActivity {
                 }).show();
     }
 
+    /**
+     * 动态获取相册、相机权限的回调
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
@@ -179,7 +185,8 @@ public class MeActivity extends BaseActivity {
         switch (requestCode) {
             case 1:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(TAG, "onRequestPermissionsResult:相机权限Permission Granted ");
+                    //同意权限
+                    Log.d(TAG, "onRequestPermissionsResult:同意相机权限Permission Granted ");
                     PermissionUtils.pickImageFromCamera(this);
                 } else {
                     Log.d(TAG, "onRequestPermissionsResult: Permission Denied");

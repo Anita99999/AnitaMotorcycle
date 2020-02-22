@@ -4,15 +4,20 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="mainColor">#EEBA56</color>
+    <color name="mainColor1">#99EEBA56</color>
     <color name="mainColorH">#E6A029</color>
     <color name="mainTitileColorH">#6F5116</color>
     <color name="itemColorH">#e6e6e6</color>
     <color name="viewColor">#BFBFBF</color>
     <color name="itemViewColor">#E0EEEE</color>
+    <color name="itemViewColor1">#A6E0EEEE</color>
     <color name="titleColor">#333333</color>
     <color name="dialogBackound">#e0e0e0</color>
     <color name="black">#000000</color>
+    <color name="black1">#D0000000</color>
     <color name="background">#F4F4F4</color>
 
     <color name="itemMenuColor">#706C5A</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

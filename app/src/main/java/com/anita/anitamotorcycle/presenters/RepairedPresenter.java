@@ -4,8 +4,10 @@ import android.util.Log;
 
 import com.anita.anitamotorcycle.beans.RecordBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
+import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.interfaces.IRepairedCallback;
 import com.anita.anitamotorcycle.interfaces.IRepairedPresenter;
+import com.anita.anitamotorcycle.utils.ClientUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +23,6 @@ import java.util.TimeZone;
 public class RepairedPresenter implements IRepairedPresenter {
     private List<IRepairedCallback> mCallbacks = new ArrayList<>();
     private List<RecordBean> mDatas;
-    private List<RecordBean> mCurrentDatas = null;
     private static final String TAG = "RepairedPresenter";
 
     /**
@@ -52,30 +53,15 @@ public class RepairedPresenter implements IRepairedPresenter {
 
     //    @Override
     public void getRepairedList() {
-        //        发起请求
-
+//        发起请求
         updateLoading();
 
         if (MotorHelper.getInstance().getCurrentMotorId() != null) {
+            Log.d(TAG, "getRepairedList: ");
 //        获取数据
 //        创建数据集合
-            mDatas = new ArrayList<>();
-            Date date = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  //设置日期格式
-            sdf.setTimeZone(TimeZone.getTimeZone("GMT+08"));
-            String dateFormat = sdf.format(date);// new Date()为获取当前系统时间
-//        创建模拟数据
-            for (int i = 1; i <= 0; i++) {
-//            创建数据对象
-                RecordBean data = new RecordBean();
-                data.setRepair_status("提交成功" + i);
-                data.setPlate_numbers("维修完成车牌号" + i);
-                data.setUpdate_at(dateFormat);
-                data.setFactory_name("商家名" + i);
-                data.setProblem_type("故障类型" + i);
-//            添加到集合里
-                mDatas.add(data);
-            }
+            mDatas = ClientUtils.getRepairingList(UserHelper.getInstance().getPhone(),1);
+            Log.d(TAG, "getRepairedList: mDatas--" + mDatas);
 
         }
 
@@ -102,7 +88,6 @@ public class RepairedPresenter implements IRepairedPresenter {
                 for (IRepairedCallback callback : mCallbacks) {
                     callback.onRepairedListLoaded(datas);
                 }
-                this.mCurrentDatas = datas;
             }
         }else{
             Log.d(TAG, "handlerMyMotorResult: data==null");

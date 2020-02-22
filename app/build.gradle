@@ -31,30 +31,31 @@ MobSDK {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-//    使用AndroidUtilCode，验证用户信息
+    //    使用AndroidUtilCode，验证用户信息
     implementation 'com.blankj:utilcode:1.23.5'
-//    引入circleimageview，圆形图片
+    //    引入circleimageview，圆形图片
     implementation 'de.hdodenhof:circleimageview:3.0.1'
-//    设置界面条目
+    //    设置界面条目
     implementation 'com.leon:lsettingviewlibrary:1.7.0'
-//    使用indicator
+    //    使用indicator
     implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
-//    弹窗确认框、提示框
+    //    弹窗确认框、提示框
     implementation 'com.github.HanHuoBin:BaseDialog:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.0.0'
-//    gsom
+    //    gsom
     implementation 'com.google.code.gson:gson:2.8.0'
-    implementation files('libs\\jackson-databind-2.7.0.jar')
-    implementation files('libs\\jackson-core-2.9.10.jar')
-    implementation files('libs\\jackson-annotations-2.9.10.jar')
-
-//    implementation 'com.github.bumptech.glide:glide:4.0.0'
+    implementation files('libs/jackson-databind-2.7.0.jar')
+    implementation files('libs/jackson-core-2.9.10.jar')
+    implementation files('libs/jackson-annotations-2.9.10.jar')
+    //    implementation 'com.github.bumptech.glide:glide:4.0.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+//    百度地图
+    implementation files('libs/BaiduLBS_Android.jar')
 }

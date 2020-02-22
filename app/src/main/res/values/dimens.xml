@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
     <!--导航条高度-->
     <dimen name="navBarHeight">48dp</dimen>
     <dimen name="navBarIconSize">30dp</dimen>
@@ -11,6 +12,7 @@
     <dimen name="inputIconSize">22dp</dimen>
     <!--小图标-->
     <dimen name="iconSize">22dp</dimen>
+    <dimen name="iconLittleSize">20dp</dimen>
     <!--按钮高度-->
     <dimen name="btnHeight">44dp</dimen>
     <dimen name="btnItemHeight">30dp</dimen>

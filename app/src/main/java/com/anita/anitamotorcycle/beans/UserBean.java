@@ -17,6 +17,10 @@ public class UserBean implements Serializable {
     public UserBean(String phone) {
         this.phone = phone;
     }
+    public UserBean(String phone, int status) {
+        this.phone = phone;
+        this.status = status;
+    }
 
     private String id;
     private String phone;

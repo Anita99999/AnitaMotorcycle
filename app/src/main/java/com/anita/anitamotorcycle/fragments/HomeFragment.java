@@ -17,10 +17,12 @@ import android.widget.TextView;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.activities.AddMotorActivity;
+import com.anita.anitamotorcycle.activities.BaiduActivity;
 import com.anita.anitamotorcycle.activities.BindFirstActivity;
 import com.anita.anitamotorcycle.activities.MotorDetailsActivity;
 import com.anita.anitamotorcycle.activities.MyMotorActivity;
 import com.anita.anitamotorcycle.activities.RepairApplicationActivity;
+import com.anita.anitamotorcycle.activities.ScrollingActivity;
 import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
 import com.bumptech.glide.Glide;
@@ -91,7 +93,7 @@ public class HomeFragment extends Fragment {
         mMotorBean = MotorHelper.getInstance().getCurrentMotor();
 //        设置页面摩托车信息
         if (mMotorBean.getUrl() != null) {
-            Glide.with(getActivity()).load(mMotorBean.getUrl()).placeholder(R.mipmap.network_loading).dontAnimate().into(mIv_motor);
+            Glide.with(getActivity()).load(mMotorBean.getUrl()).placeholder(R.mipmap.network_loading).error(R.mipmap.logo).dontAnimate().into(mIv_motor);
         }
         mTv_warranty_period.setText("保修期剩余：" + mMotorBean.getWarrantyDays() + "天/" + mMotorBean.getWarrantyDistance() + "公里");
         mTv_model.setText(mMotorBean.getModel());
@@ -107,7 +109,7 @@ public class HomeFragment extends Fragment {
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), BindFirstActivity.class));
+                startActivity(new Intent(getActivity(), ScrollingActivity.class));
             }
         });
 //        切换
@@ -136,6 +138,13 @@ public class HomeFragment extends Fragment {
 
     //    有摩托车标记时的点击事件
     private void initListener2() {
+//        定位
+        mLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), BaiduActivity.class));
+            }
+        });
 //        切换
         mChange_motor.setOnClickListener(new View.OnClickListener() {
             @Override

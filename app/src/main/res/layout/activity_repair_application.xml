@@ -114,7 +114,7 @@
             </LinearLayout>
 
             <Spinner
-                android:id="@+id/sp_motors_type"
+                android:id="@+id/sp_plate_numbers"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/textViewHeight"
                 android:background="@drawable/shape_et" />
@@ -143,11 +143,10 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/et_location"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/textViewHeight"
                 android:background="@drawable/shape_et"
-                android:inputType="phone"
-                android:maxLength="11"
                 android:paddingLeft="@dimen/marginLittleSize"
                 android:textSize="@dimen/itemSize" />
 
@@ -180,8 +179,8 @@
                 android:layout_marginTop="@dimen/paddingIconSize"
                 android:background="@drawable/shape_et"
                 android:gravity="top"
+                android:inputType="textMultiLine"
                 android:hint="请描述故障问题"
-                android:inputType="text"
                 android:maxLines="3"
                 android:paddingLeft="@dimen/marginLittleSize"
                 android:paddingTop="@dimen/paddingIconSize"

@@ -1,6 +1,7 @@
 package com.anita.anitamotorcycle.utils;
 
 import com.anita.anitamotorcycle.beans.MotorBean;
+import com.anita.anitamotorcycle.beans.RecordBean;
 import com.anita.anitamotorcycle.beans.UserBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -32,6 +33,13 @@ public class JsonUtils {
         return motor;
     }
 
+    public static RecordBean recordFromJson(String jsonStr) {
+        Gson gson = new Gson();
+        RecordBean record = gson.fromJson(jsonStr, RecordBean.class);
+        System.out.println("json解析：motor---" + record.toString());
+        return record;
+    }
+
     /**
      * 解析json数据
      *
@@ -52,6 +60,15 @@ public class JsonUtils {
         Type type = new TypeToken<ArrayList<MotorBean>>() {
         }.getType();
         List<MotorBean> list = gson.fromJson(jsonStr, type);
+        return list;
+    }
+
+    public static List<RecordBean> recordListFromJson(String jsonStr) {
+
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<RecordBean>>() {
+        }.getType();
+        List<RecordBean> list = gson.fromJson(jsonStr, type);
         return list;
     }
 

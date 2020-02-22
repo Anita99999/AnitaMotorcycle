@@ -24,7 +24,9 @@ import java.util.List;
 public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.InnerHolder> {
     private static final String TAG = "RecordDataAdapter";
     private List<RecordBean> mData;
-    public RecordDataAdapter(){}
+
+    public RecordDataAdapter() {
+    }
 
 
     /**
@@ -71,7 +73,7 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
             public void onClick(View v) {
                 Log.d(TAG, "onClick: holder.itemView.setOnClickListener....test1");
                 Intent intent = new Intent(v.getContext(), RepairDetailsActivity.class);
-                intent.putExtra("recordPlateNumbers", recordBean.getPlate_numbers());
+                intent.putExtra("record",recordBean);
                 v.getContext().startActivity(intent);
             }
         });
@@ -120,9 +122,13 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
          */
         public void setData(RecordBean recordBean) {
             mMotorType.setText(recordBean.getPlate_numbers());
-            mRepairStatus.setText(recordBean.getRepair_status());
+            mRepairStatus.setText(recordBean.getRepairStatus());
             mUpdateTime.setText(recordBean.getUpdate_at());
-            mFactoryName.setText(recordBean.getFactory_name());
+            if (recordBean.getFactory_name() == null) {
+                mFactoryName.setText("等待维修员接单..");
+            } else {
+                mFactoryName.setText(recordBean.getFactory_name());
+            }
             mTroubleType.setText(recordBean.getProblem_type());
         }
     }

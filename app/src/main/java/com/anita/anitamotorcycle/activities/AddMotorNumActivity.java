@@ -57,9 +57,11 @@ public class AddMotorNumActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(mEt_plate_numers.getText().toString())) {
-                    Toast.makeText(AddMotorNumActivity.this, "车牌号为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddMotorNumActivity.this, "车牌号不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
+//                清空数据
+                MotorHelper.getInstance().setMotorBean(null);
 //                获取车牌号
                 mPlateNumbers = mEt_plate_numers.getText().toString();
                 MotorHelper.getInstance().getMotorBean().setPlate_numbers(mPlateNumbers);
@@ -104,7 +106,7 @@ public class AddMotorNumActivity extends AppCompatActivity {
             Log.d(TAG, "validateNumbers结果==" + rs);
             if (rs) {
                 Looper.prepare();
-                Toast.makeText(AddMotorNumActivity.this, "当前车辆" + mPlateNumbers + "已被添加！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "当前车辆" + mPlateNumbers + "已被添加！", Toast.LENGTH_SHORT).show();
                 Looper.loop();
             } else {
                 showAlertDialog();  //弹窗确认车牌号
@@ -149,7 +151,6 @@ public class AddMotorNumActivity extends AppCompatActivity {
         @Override
         public void run() {
             boolean rs = ClientUtils.addMotor(AddMotorNumActivity.this, MotorHelper.getInstance().getMotorBean());
-            Log.d(TAG, "addMotor结果==" + rs);
             if (rs) {
                 Log.d(TAG, "添加摩托车 ");
 

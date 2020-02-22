@@ -10,6 +10,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import java.util.ArrayList;
 
 /**
  * @author weizhen
@@ -37,6 +40,58 @@ public class PermissionUtils {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
     }
+
+    /**
+     * 动态获取定位权限
+     *
+     * @param activity
+     */
+    public static void getGPSPermission(Activity activity) {
+        Log.d(TAG, "getGPSPermission: 动态获取定位权限");
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            //未开启定位权限
+            //开启定位权限,200是标识码
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 200);
+        } else {
+            Log.d(TAG, "getGPSPermission: 已开启定位权限");
+        }
+
+    }
+
+    /**
+     * 动态获取定位权限
+     *
+     * @param activity
+     */
+    public static void getGPSPermission1(Activity activity) {
+        ArrayList<String> permissionList = new ArrayList<>();//权限集合
+        Log.d(TAG, "getGPSPermission: 动态获取定位权限");
+
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            //加入到集合中，在集合中一起请求权限
+            permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (!permissionList.isEmpty()){
+            //集合转数组
+            String[] permissions = permissionList.toArray(new String[permissionList.size()]);
+
+            //请求权限
+            ActivityCompat.requestPermissions(activity,permissions,200);
+        }
+
+
+    }
+
 
     /**
      * 检查sd卡是否可用

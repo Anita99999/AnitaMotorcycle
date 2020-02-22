@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <domain-config>
-        <domain includeSubdomains="true">sunofbeaches.com</domain>
-        <domain-config cleartextTrafficPermitted="true">
-            <domain includeSubdomains="true">www.wuyang-honda.com</domain>
-            <domain includeSubdomains="true">192.168.0.107</domain>
-        </domain-config>
-    </domain-config>
+    <base-config cleartextTrafficPermitted="true" />
 </network-security-config>
+
+
+

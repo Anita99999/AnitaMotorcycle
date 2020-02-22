@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_small_radius"
-    android:paddingTop="@dimen/paddingIconSize"
-    android:paddingBottom="@dimen/paddingIconSize">
+    android:padding="@dimen/paddingIconSize">
 
     <LinearLayout
         android:id="@+id/ll_plate_numbers"
@@ -17,7 +16,7 @@
             android:layout_width="@dimen/iconSize"
             android:layout_height="@dimen/iconSize"
             android:paddingLeft="@dimen/paddingSize"
-            android:src="@mipmap/chepaihao1"/>
+            android:src="@mipmap/chepaihao"/>
 
         <TextView
             android:id="@+id/tv_plate_numbers"

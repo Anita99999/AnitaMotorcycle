@@ -115,7 +115,7 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
 
         public void setData(MotorBean motorBean) {
             if (motorBean.getUrl() != null) {
-                Glide.with(context).load(motorBean.getUrl()).placeholder(R.mipmap.network_loading).dontAnimate().into(mIv_my_motor);
+                Glide.with(context).load(motorBean.getUrl()).placeholder(R.mipmap.network_loading).error(R.mipmap.logo).dontAnimate().into(mIv_my_motor);
             }
 //
             mPlateNumbers.setText(motorBean.getPlate_numbers());

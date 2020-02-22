@@ -50,8 +50,8 @@
 
 
             <ImageView
-                android:layout_width="@dimen/iconSize"
-                android:layout_height="@dimen/iconSize"
+                android:layout_width="@dimen/iconLittleSize"
+                android:layout_height="@dimen/iconLittleSize"
                 android:scaleType="centerInside"
                 android:src="@mipmap/location" />
 
@@ -75,8 +75,8 @@
                 android:textSize="@dimen/itemSize" />
 
             <ImageView
-                android:layout_width="@dimen/iconSize"
-                android:layout_height="@dimen/iconSize"
+                android:layout_width="@dimen/iconLittleSize"
+                android:layout_height="@dimen/iconLittleSize"
                 android:scaleType="centerInside"
                 android:src="@mipmap/change_motor" />
         </LinearLayout>

@@ -1,15 +1,13 @@
 package com.anita.anitamotorcycle.activities;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -18,14 +16,16 @@ import android.widget.Toast;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.beans.MotorBean;
+import com.anita.anitamotorcycle.beans.RecordBean;
 import com.anita.anitamotorcycle.helps.UserHelper;
+import com.anita.anitamotorcycle.utils.ClientUtils;
+import com.anita.anitamotorcycle.utils.Constants;
 import com.anita.anitamotorcycle.utils.MotorUtils;
+import com.anita.anitamotorcycle.utils.UserUtils;
 import com.hb.dialog.dialog.ConfirmDialog;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -33,13 +33,20 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class RepairApplicationActivity extends BaseActivity {
 
     private ArrayAdapter<String> mMotorAdapter;
-    private Spinner mMotorType;
-    private Spinner mProblemsType;    //维修类型下拉列表
+    private Spinner mSp_plate_numbers;
+    private Spinner mSp_problems_type;    //维修类型下拉列表
     private ArrayAdapter<String> mProblemsAdapter;
     private TextView mCommit;
     private ImageView mBack;
     private ImageView mTips2;
     private ImageView mTips1;
+    private EditText mEt_username;
+    private EditText mEt_phone;
+    private String mPlateNumbers;
+    private String mProblemsType;
+    private EditText mEt_location;
+    private EditText mEt_problems;
+    private RecordBean mRecordBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,26 +61,34 @@ public class RepairApplicationActivity extends BaseActivity {
         mBack = findViewById(R.id.iv_back);
         mCommit = findViewById(R.id.tv_commit);
 
-//        mRepairTime = findViewById(R.id.btn_time);
-        EditText et_phone = findViewById(R.id.et_phone);
-        et_phone.setText(UserHelper.getInstance().getPhone());
+        mEt_username = findViewById(R.id.et_username);
+        mEt_phone = findViewById(R.id.et_phone);
+        mEt_phone.setText(UserHelper.getInstance().getPhone());
 //        车牌号提示
         mTips1 = findViewById(R.id.iv_tips1);
 //        车牌号下拉列表内容
-        mMotorType = findViewById(R.id.sp_motors_type);
-        List<String> motors_list = new ArrayList<String>();
-        motors_list.add("请选择车辆");
+        mSp_plate_numbers = findViewById(R.id.sp_plate_numbers);
+        List<String> motors_list = new ArrayList<>();
         List<MotorBean> MotorsData = MotorUtils.getMotorsData(this);
-        for (MotorBean m : MotorsData) {
-            motors_list.add(m.getPlate_numbers());
+        if (MotorsData != null) {
+            motors_list.add("请选择车辆");
+            for (MotorBean m : MotorsData) {
+                motors_list.add(m.getPlate_numbers());
+            }
+        } else {
+            motors_list.add("请先添加车辆");
         }
-        mMotorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, motors_list);   //创建数组适配器
+        mMotorAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, motors_list);   //创建数组适配器
         mMotorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //设置下拉列表下拉时的菜单样式
-        mMotorType.setAdapter(mMotorAdapter);    //将适配器添加到下拉列表上
+        mSp_plate_numbers.setAdapter(mMotorAdapter);    //将适配器添加到下拉列表上
 
 //        车辆位置提示
         mTips2 = findViewById(R.id.iv_tips2);
+
+        mEt_location = findViewById(R.id.et_location);
+
 //        定义故障类型下拉列表内容
+        mSp_problems_type = findViewById(R.id.sp_problems_type);
         List<String> problems_list = new ArrayList<String>();
         problems_list.add("请选择故障类型");
         problems_list.add("车轮爆胎");
@@ -86,8 +101,9 @@ public class RepairApplicationActivity extends BaseActivity {
         problems_list.add("其他");
         mProblemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, problems_list);   //创建数组适配器
         mProblemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //设置下拉列表下拉时的菜单样式
-        mProblemsType = findViewById(R.id.sp_problems_type);
-        mProblemsType.setAdapter(mProblemsAdapter);    //将适配器添加到下拉列表上
+        mSp_problems_type.setAdapter(mProblemsAdapter);    //将适配器添加到下拉列表上
+
+        mEt_problems = findViewById(R.id.et_problems);
 
     }
 
@@ -100,10 +116,11 @@ public class RepairApplicationActivity extends BaseActivity {
         });
 
 //        车牌号下拉列表
-        mMotorType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mSp_plate_numbers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "车牌号选择: " + mMotorAdapter.getItem(position));
+                mPlateNumbers = mMotorAdapter.getItem(position);
             }
 
             @Override
@@ -137,10 +154,11 @@ public class RepairApplicationActivity extends BaseActivity {
 //        });
 
 //        故障类型下拉列表
-        mProblemsType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mSp_problems_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "故障类型选择: " + mProblemsAdapter.getItem(position));
+                mProblemsType = mProblemsAdapter.getItem(position);
             }
 
             @Override
@@ -154,7 +172,10 @@ public class RepairApplicationActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 //                检查字段
-                checkData();
+                if (!checkData()) {
+                    return;
+                }
+//                确认提交弹框
                 showConfirmDialog();
             }
         });
@@ -162,20 +183,63 @@ public class RepairApplicationActivity extends BaseActivity {
 
     }
 
+    /**
+     * 检查信息
+     * 信息数据不正确，返回false；正确返回true
+     *
+     * @return
+     */
     private boolean checkData() {
-        return false;
+        String user_name = mEt_username.getText().toString();
+        if (TextUtils.isEmpty(user_name)) {
+            Toast.makeText(getApplicationContext(), "申请人姓名不可为空", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        String phone = mEt_phone.getText().toString();
+        boolean result = UserUtils.validatePhone(this, phone);    //验证手机号
+        if (!result) {
+            return false;
+        }
+
+        if (mPlateNumbers == "请选择车辆" || mPlateNumbers == "请先添加车辆") {
+            Toast.makeText(getApplicationContext(), "车牌号不可为空", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        String position = mEt_location.getText().toString();
+        if (mProblemsType == "请选择故障类型") {
+            Toast.makeText(getApplicationContext(), "故障类型不可为空", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        String description = mEt_problems.getText().toString();
+//        通过验证,保存数据
+        mRecordBean = new RecordBean(user_name, phone, mPlateNumbers, position, mProblemsType, description);
+        return true;
     }
 
+    /**
+     * 弹窗确认提交数据
+     */
     private void showConfirmDialog() {
         ConfirmDialog confirmDialog = new ConfirmDialog(this);
         confirmDialog.setLogoImg(R.mipmap.dialog_notice).setMsg("确认提交维修申请吗？");
         confirmDialog.setClickListener(new ConfirmDialog.OnBtnClickListener() {
             @Override
             public void ok() {
-                Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), RepairDetailsActivity.class);
-                startActivity(intent);
-                finish();
+//                连接数据库，提交维修数据
+                RecordBean record = ClientUtils.addRecord(mRecordBean);
+                if (record == null) {
+                    Toast.makeText(getApplicationContext(), "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
+                }else if(record.getId() == null){
+                    Log.d(TAG, "提交失败");
+                } else {
+                    Log.d(TAG, "提交成功 ");
+                    Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), RepairDetailsActivity.class);
+                    intent.putExtra("record",record);
+                    startActivity(intent);
+                    finish();
+                }
             }
 
             @Override
