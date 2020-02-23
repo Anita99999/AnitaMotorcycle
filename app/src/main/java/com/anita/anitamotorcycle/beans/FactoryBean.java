@@ -10,6 +10,7 @@ public class FactoryBean {
 
     private String name; // 维修商名称
     private String address;
+    private String phone;
 
     private String create_at;
     private String update_at;

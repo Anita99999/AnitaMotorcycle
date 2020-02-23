@@ -119,14 +119,14 @@
         android:layout_marginLeft="@dimen/marginSize"
         android:layout_marginRight="@dimen/marginSize"
         android:background="@drawable/shape_radius"
-        android:visibility="invisible">
+        >
 
         <ImageView
             android:id="@+id/iv_motor"
-            android:layout_width="160dp"
+            android:layout_width="175dp"
             android:layout_height="140dp"
             android:layout_centerHorizontal="true"
-            android:scaleType="centerInside"
+            android:scaleType="fitCenter"
             android:background="@drawable/shape_small_radius"
             android:src="@mipmap/gsbfy190" />
 

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.activities.MotorDetailsActivity;
+import com.anita.anitamotorcycle.activities.ScrollingActivity;
 import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.fragments.HomeFragment;
 import com.anita.anitamotorcycle.utils.ClientUtils;
@@ -75,7 +76,7 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: holder.itemView.setOnClickListener....test1");
-                Intent intent = new Intent(v.getContext(), MotorDetailsActivity.class);
+                Intent intent = new Intent(v.getContext(), ScrollingActivity.class);
                 intent.putExtra("motor",motorBean);
                 v.getContext().startActivity(intent);
             }

@@ -165,7 +165,7 @@ public class HomeFragment extends Fragment {
         mRelayout_motor_basic_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MotorDetailsActivity.class);
+                Intent intent = new Intent(getActivity(), ScrollingActivity.class);
                 intent.putExtra("motor", mMotorBean);
                 startActivity(intent);
             }

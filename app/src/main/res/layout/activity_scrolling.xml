@@ -19,15 +19,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@color/mainColor"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:background="@color/smssdk_white"
+            app:expandedTitleGravity="left|top"
             app:toolbarId="@+id/toolbar">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:layout_margin="@dimen/marginSize"
+                app:layout_collapseMode="parallax"
+                android:layout_marginBottom="@dimen/marginSize"
+                android:src="@mipmap/gsbfy190"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -42,6 +56,6 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@mipmap/xuanze" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

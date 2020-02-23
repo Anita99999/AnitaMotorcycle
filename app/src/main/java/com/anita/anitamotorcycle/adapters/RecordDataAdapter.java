@@ -125,7 +125,7 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
             mRepairStatus.setText(recordBean.getRepairStatus());
             mUpdateTime.setText(recordBean.getUpdate_at());
             if (recordBean.getFactory_name() == null) {
-                mFactoryName.setText("等待维修员接单..");
+                mFactoryName.setText("等待接单..");
             } else {
                 mFactoryName.setText(recordBean.getFactory_name());
             }

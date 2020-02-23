@@ -55,9 +55,18 @@ public class RecordBean implements Serializable {
     //    维修人员接单
     private String repairman_id;  //维修员id(姓名)
     //获取维修商名称、维修商地址、维修员名、维修员联系电话
+    private String repairman_name;    //（数据库该表无该字段）
     private String factory_name;    //（数据库该表无该字段）
     private String factory_address;    //（数据库该表无该字段）
     private String repairman_phone;    //（数据库该表无该字段）
+
+    public String getRepairman_name() {
+        return repairman_name;
+    }
+
+    public void setRepairman_name(String repairman_name) {
+        this.repairman_name = repairman_name;
+    }
 
     public String getFactory_address() {
         return factory_address;
