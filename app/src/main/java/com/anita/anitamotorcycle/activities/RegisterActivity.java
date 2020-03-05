@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.helps.MotorHelper;
 import com.anita.anitamotorcycle.helps.UserHelper;
+import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.anita.anitamotorcycle.utils.Constants;
 import com.anita.anitamotorcycle.utils.UserUtils;
 
@@ -38,6 +39,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private TextView mTv_sendMessage;
     EventHandler mEventHandler;
     private ImageView mIv_back;
+    private ImageView mIv_right;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 //        手机号、验证码输入框
         mEt_phone = findViewById(R.id.et_phone);
         mEt_verificationCode = findViewById(R.id.et_verificationCode);
+        mIv_right = findViewById(R.id.iv_right);
+        mIv_right.setVisibility(View.INVISIBLE);
 //        获取验证码按钮
         mBtn_getCode = findViewById(R.id.btn_getCode);
         mBtn_getCode.setOnClickListener(this);
@@ -90,11 +94,20 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.d(TAG, "afterTextChanged: mEt_phone.getText().toString().length()==" + mEt_phone.getText().toString().length());
-                if (mEt_phone.getText().toString().length() == 11) {
-                    mBtn_getCode.setEnabled(true);
+                mPhone = mEt_phone.getText().toString();
+                Log.d(TAG, "afterTextChanged: mEt_phone.getText().toString().length()==" + mPhone.length());
+                if (mPhone.length() == 11) {
+                    boolean isRegister = ClientUtils.validatePhone(mPhone);
+                    if (isRegister) {
+                        mIv_right.setVisibility(View.INVISIBLE);
+                        Toast.makeText(getApplicationContext(), "该手机号已注册", Toast.LENGTH_LONG).show();
+                    } else {
+                        mBtn_getCode.setEnabled(true);
+                        mIv_right.setVisibility(View.VISIBLE);
+                    }
                 } else {
                     mBtn_getCode.setEnabled(false);
+                    mIv_right.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -113,6 +126,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 Log.d(TAG, "onClick: 获取验证码，mPhone==" + mPhone);
                 boolean result = UserUtils.validatePhone(this, mPhone);    //验证手机号
                 if (!result) return;
+
                 //判断网络状态
                 mTv_sendMessage.setVisibility(View.INVISIBLE);
                 SMSSDK.getVerificationCode("86", mPhone);    //请求发送验证码的服务
@@ -194,8 +208,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     SMSLog.getInstance().w(e);
                 }
                 if (status == 468) {
-                    Log.d(TAG, "handleMessage: 验证码输入错误，请重新输入");
-                    mTv_sendMessage.setText("验证码输入错误，请重新输入");
+                    Log.d(TAG, "handleMessage: 验证码输入错误，请检查");
+                    mTv_sendMessage.setText("验证码输入错误，请检查");
                     mTv_sendMessage.setVisibility(View.VISIBLE);
                 } else if (status == 466) {
                     Log.d(TAG, "handleMessage: 验证码为空");

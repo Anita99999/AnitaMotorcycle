@@ -44,6 +44,16 @@ public class MotorHelper {
 
     private MotorBean MotorBean; //添加车辆
 
+    private String location;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public String getCurrentMotorId() {
         return currentMotorId;
     }
@@ -117,8 +127,8 @@ public class MotorHelper {
             Log.d(TAG, "refreshMotorList: not empty");
             return true;
         }else{
-            Log.d(TAG, "刷新失败: motorItem==null");
-            Toast.makeText(context, "刷新失败！", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "刷新失败，无摩托车信息: motorItem==null");
+//            Toast.makeText(context, "无摩托车信息！", Toast.LENGTH_SHORT).show();
         }
         return false;
     }

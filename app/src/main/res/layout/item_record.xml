@@ -19,7 +19,7 @@
         android:layout_toRightOf="@+id/iv_chepaihao"
         android:text="车牌号"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/titleSize"
+        android:textSize="@dimen/itemSize"
         android:textStyle="bold" />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -32,14 +32,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="维修状态"
-            android:textColor="#005EFF"
-            android:textSize="@dimen/itemSize" />
+            android:textColor="@color/mainTitileColorH"
+            android:textSize="@dimen/infoSize" />
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_width="@dimen/navBarIconSize"
-            android:layout_height="@dimen/navBarIconSize"
-            android:padding="@dimen/paddingBigSize"
-            android:layout_gravity="right"
+            android:layout_width="@dimen/marginSmallSize"
+            android:layout_height="@dimen/marginSmallSize"
+            android:layout_marginLeft="@dimen/paddingSize"
             android:src="@mipmap/go" />
     </LinearLayout>
 
@@ -48,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_motor_type"
-        android:layout_marginTop="@dimen/marginLittleSize"
+        android:layout_marginTop="@dimen/marginSmallSize"
         android:text="状态更新时间:" />
 
     <TextView
@@ -56,8 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_motor_type"
-        android:layout_marginLeft="@dimen/marginSize"
-        android:layout_marginTop="@dimen/marginLittleSize"
+        android:layout_marginLeft="@dimen/marginSmallSize"
+        android:layout_marginTop="@dimen/marginSmallSize"
         android:layout_toRightOf="@id/tv_update_time"
         android:text="更新时间" />
 
@@ -74,26 +73,58 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_update_time"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="@dimen/marginSmallSize"
         android:layout_marginTop="@dimen/marginLittleSize"
         android:layout_toRightOf="@id/tv_factory_name"
         android:text="商家名称" />
+
+    <RelativeLayout
+        android:id="@+id/rl_repairman"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_factory_name"
+        android:layout_marginTop="@dimen/marginLittleSize">
+        <TextView
+            android:id="@+id/tv_repairman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="维修员:" />
+
+        <TextView
+            android:id="@+id/tv_repairman_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/marginSmallSize"
+            android:layout_toRightOf="@id/tv_repairman"
+            android:text="姓名" />
+
+        <TextView
+            android:id="@+id/tv_repairman_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/paddingBigSize"
+            android:layout_toRightOf="@id/tv_repairman_name"
+            android:layout_alignBaseline="@+id/tv_repairman_name"
+            android:text="联系电话"
+            android:padding="@dimen/paddingSize"
+            android:textColor="#005EFF"/>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_trouble_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_factory_name"
-        android:layout_marginTop="@dimen/marginLittleSize"
+        android:layout_below="@+id/rl_repairman"
+        android:layout_marginTop="@dimen/paddingBigSize"
         android:text="故障类型:" />
 
     <TextView
         android:id="@+id/tv_trouble_type_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_factory_name"
-        android:layout_marginLeft="@dimen/marginSize"
-        android:layout_marginTop="@dimen/marginLittleSize"
+        android:layout_below="@id/rl_repairman"
+        android:layout_marginLeft="@dimen/marginSmallSize"
+        android:layout_marginTop="@dimen/paddingBigSize"
         android:layout_toRightOf="@id/tv_trouble_type"
         android:text="故障类型" />
 

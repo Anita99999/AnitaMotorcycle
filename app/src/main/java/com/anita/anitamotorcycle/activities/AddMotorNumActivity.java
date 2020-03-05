@@ -61,7 +61,7 @@ public class AddMotorNumActivity extends AppCompatActivity {
                     return;
                 }
 //                清空数据
-                MotorHelper.getInstance().setMotorBean(null);
+//                MotorHelper.getInstance().setMotorBean(null);
 //                获取车牌号
                 mPlateNumbers = mEt_plate_numers.getText().toString();
                 MotorHelper.getInstance().getMotorBean().setPlate_numbers(mPlateNumbers);

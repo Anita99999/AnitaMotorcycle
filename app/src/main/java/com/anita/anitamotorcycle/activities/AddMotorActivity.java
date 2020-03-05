@@ -109,7 +109,7 @@ public class AddMotorActivity extends BaseActivity {
                     Looper.prepare();
                     Toast.makeText(AddMotorActivity.this, "无该车辆！", Toast.LENGTH_SHORT).show();
                     Looper.loop();
-                } else if (mMotorBean.getCreate_at() != null) {
+                } else if (mMotorBean.getUser_id() != null) {
 //                            查询有车辆，但已被添加
                     Looper.prepare();
                     Toast.makeText(AddMotorActivity.this, "该车辆已添加", Toast.LENGTH_SHORT).show();

@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.utils.UserUtils;
 import com.anita.anitamotorcycle.views.InputView;
 
@@ -42,7 +43,7 @@ public class ChangePasswordActivity extends BaseActivity {
                 String newPassword = mNewPassword.getInputStr();
                 String passwordConfirm = mComfirmPassword.getInputStr();
 
-                boolean result = UserUtils.changePassword(ChangePasswordActivity.this, oldPassword, newPassword, passwordConfirm);
+                boolean result = UserUtils.changePassword(ChangePasswordActivity.this, UserHelper.getInstance().getPhone(), oldPassword, newPassword, passwordConfirm);
                 if (!result) {
                     return;
                 }

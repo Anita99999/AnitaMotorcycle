@@ -2,6 +2,7 @@ package com.anita.anitamotorcycle.fragments;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,7 @@ import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.activities.AddMotorActivity;
 import com.anita.anitamotorcycle.activities.BaiduActivity;
 import com.anita.anitamotorcycle.activities.BindFirstActivity;
+import com.anita.anitamotorcycle.activities.LocationActivity;
 import com.anita.anitamotorcycle.activities.MotorDetailsActivity;
 import com.anita.anitamotorcycle.activities.MyMotorActivity;
 import com.anita.anitamotorcycle.activities.RepairApplicationActivity;
@@ -109,7 +111,7 @@ public class HomeFragment extends Fragment {
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ScrollingActivity.class));
+                startActivity(new Intent(getActivity(), BindFirstActivity.class));
             }
         });
 //        切换
@@ -142,7 +144,7 @@ public class HomeFragment extends Fragment {
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), BaiduActivity.class));
+                startActivity(new Intent(getActivity(), LocationActivity.class));
             }
         });
 //        切换

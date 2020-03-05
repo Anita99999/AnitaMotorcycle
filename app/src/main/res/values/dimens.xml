@@ -1,5 +1,5 @@
 <resources>
-    <dimen name="app_bar_height">220dp</dimen>
+    <dimen name="app_bar_height">240dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <!--导航条高度-->
@@ -37,6 +37,7 @@
     <dimen name="marginSize">16dp</dimen>
     <dimen name="marginBigSize">22dp</dimen>
     <dimen name="marginLittleSize">10dp</dimen>
+    <dimen name="marginSmallSize">12dp</dimen>
     <!--统一内边距-->
     <dimen name="paddingSize">4dp</dimen>
     <dimen name="paddingLittleSize">2dp</dimen>

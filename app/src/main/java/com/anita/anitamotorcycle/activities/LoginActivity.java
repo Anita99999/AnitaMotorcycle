@@ -17,6 +17,7 @@ import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.anita.anitamotorcycle.utils.MotorUtils;
 import com.anita.anitamotorcycle.utils.UserUtils;
 import com.anita.anitamotorcycle.views.InputView;
+import com.blankj.utilcode.util.EncryptUtils;
 
 
 public class LoginActivity extends BaseActivity {
@@ -27,7 +28,6 @@ public class LoginActivity extends BaseActivity {
     private Button mLogin;
     private TextView mRegister;
 
-    private int sResult;
     private String mPhone;
     private String mPassword;
 
@@ -69,8 +69,7 @@ public class LoginActivity extends BaseActivity {
 
                 Log.d("test", "onClick: ");
 //                连接服务端数据库：验证用户手机号已注册；验证密码正确
-                Thread accessWebServiceThread = new Thread(new WebServiceHandler());
-                accessWebServiceThread.start();
+                loginHandler();
 
             }
         });
@@ -89,6 +88,58 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    private void loginHandler() {
+        int isValidate = ClientUtils.validateLogin(LoginActivity.this, mPhone, EncryptUtils.encryptMD5ToString(mPassword));
+        if (isValidate < 0) {
+            Toast.makeText(this, "该手机号未注册", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (isValidate == 0) {
+            Toast.makeText(this, "密码输入错误", Toast.LENGTH_SHORT).show();
+            return;
+        }
+//              当用户通过验证
+//              利用SharedPreferences保存用户登录标记
+        boolean isSave = UserUtils.saveUser(LoginActivity.this, mPhone);
+        if (isSave) {
+//                  保存用户标记，在全局单例类UserHelp之中
+            UserHelper.getInstance().setPhone(mPhone);
+
+//                    用户有摩托车数据，且摩托车标记为空
+            if (MotorHelper.getInstance().getCurrentMotorId() == null && MotorHelper.getInstance().refreshMotorList(LoginActivity.this, mPhone)) {
+//                        设置摩托车标记,利用SharedPreferences保存摩托车标记
+                if (MotorUtils.saveMotor(LoginActivity.this, MotorHelper.getInstance().getMotorList().get(0).getId())) {
+//                      保存摩托车标记，在全局单例类MotorHelp之中
+                    MotorHelper.getInstance().setCurrentMotorId(MotorHelper.getInstance().getMotorList().get(0).getId());
+                } else {
+                    Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+//                        有摩托车标记时，删除标记
+                if (MotorUtils.isExitMotor(LoginActivity.this)) {
+                    //        删除sp保存的摩托车标记
+                    boolean isRemove = MotorUtils.removeMotor(LoginActivity.this);
+                    if (!isRemove) {
+                        Looper.prepare();
+                        Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                        return;
+                    }
+                }
+            }
+//                  跳转到主页面
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Looper.prepare();
+            Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
+            Looper.loop();
+        }
+
+
+    }
+
     /**
      * 初始化view
      */
@@ -96,64 +147,15 @@ public class LoginActivity extends BaseActivity {
         mInlet = findViewById(R.id.tv_repair_man_inlet);
 
         mInputPhone = findViewById(R.id.input_phone);
+        String phone = UserHelper.getInstance().getPhone();
+        if (phone != null) {
+            mInputPhone.setInputStr(phone);
+        }
         mInputPassword = findViewById(R.id.input_password);
         mLogin = findViewById(R.id.btn_login);
         mRegister = findViewById(R.id.tv_register);
     }
 
-    /**
-     * 1. 连接服务端数据库
-     * 2. 验证用户手机号已注册
-     * 3. 验证密码正确
-     */
-    class WebServiceHandler implements Runnable {
-        @Override
-        public void run() {
-            if (ClientUtils.validateLoginPost(LoginActivity.this, mPhone, mPassword)) {
-//              当用户通过验证
-//              利用SharedPreferences保存用户登录标记
-                boolean isSave = UserUtils.saveUser(LoginActivity.this, mPhone);
-                if (isSave) {
-//                  保存用户标记，在全局单例类UserHelp之中
-                    UserHelper.getInstance().setPhone(mPhone);
-
-//                    用户有摩托车数据，且摩托车标记为空
-                    if (MotorHelper.getInstance().refreshMotorList(LoginActivity.this, mPhone) && MotorHelper.getInstance().getCurrentMotorId() == null) {
-//                        设置摩托车标记,利用SharedPreferences保存摩托车标记
-                        if (MotorUtils.saveMotor(LoginActivity.this, MotorHelper.getInstance().getMotorList().get(0).getId())) {
-//                      保存摩托车标记，在全局单例类MotorHelp之中
-                            MotorHelper.getInstance().setCurrentMotorId(MotorHelper.getInstance().getMotorList().get(0).getId());
-                        } else {
-                            Looper.prepare();
-                            Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
-                            Looper.loop();
-                        }
-                    }else{
-//                        有摩托车标记时，删除标记
-                        if(MotorUtils.isExitMotor(LoginActivity.this)){
-                            //        删除sp保存的摩托车标记
-                            boolean isRemove = MotorUtils.removeMotor(LoginActivity.this);
-                            if (!isRemove) {
-                                Looper.prepare();
-                                Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
-                                Looper.loop();
-                                return;
-                            }
-                        }
-                    }
-//                  跳转到主页面
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Looper.prepare();
-                    Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
-                    Looper.loop();
-                }
-
-            }
-        }
-    }
 
     //  点击两次返回键退出程序
     @Override

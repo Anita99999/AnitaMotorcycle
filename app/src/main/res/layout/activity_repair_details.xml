@@ -213,15 +213,31 @@
                         android:layout_marginBottom="@dimen/paddingLittleSize"
                         android:background="@color/itemViewColor" />
 
-                    <TextView
-                        android:id="@+id/tv_repairman_phone"
+
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/paddingSize"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/paddingIconSize"
-                        android:text="联系电话："
-                        android:textColor="@color/black1" />
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_repairman_phone1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/paddingSize"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/paddingIconSize"
+                            android:text="联系电话："
+                            android:textColor="@color/black1" />
+
+                        <TextView
+                            android:id="@+id/tv_repairman_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/tv_repairman_phone1"
+                            android:layout_alignBaseline="@+id/tv_repairman_phone1"
+                            android:text="联系电话"
+                            android:padding="@dimen/paddingSize"
+                            android:textColor="#005EFF"/>
+                    </RelativeLayout>
 
                     <View
                         android:layout_width="match_parent"

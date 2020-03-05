@@ -87,6 +87,8 @@ public class InputView extends FrameLayout {
         return mEtInput.getText().toString().trim();
     }
 
-
+    public void setInputStr(String phone){
+        mEtInput.setText(phone);
+    }
 
 }

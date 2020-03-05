@@ -5,8 +5,7 @@
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 写入外部存储，允许程序写入外部存储，如SD卡上写文件 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 读取SD卡的权限:打开相册选取图片所必须的权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 请求网络权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 百度地图 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 百度地图 -->
     <!-- 获取网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
@@ -14,13 +13,10 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 更改wifi连状态 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 获取wifi状态 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 进行网络定位，获取粗略位置 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- 访问GPS定位，获取精确gps位置 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 进行网络定位，获取粗略位置 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 访问GPS定位，获取精确gps位置 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
 
     <application
         android:name=".MyApplication"
@@ -32,11 +28,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.LocationActivity"></activity>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="q76yy8mgZcgRXOAitQURv7gsiGLSSmHT" /> <!-- 添加百度地图appkey -->
-
-        <activity android:name=".activities.BaiduActivity"></activity>
+        <activity android:name=".activities.BaiduActivity" />
         <activity
             android:name=".activities.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
@@ -45,8 +42,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" /><!-- 添加百度地图服务 -->
-
+            android:process=":remote" /> <!-- 添加百度地图服务 -->
         <activity android:name=".activities.AddMotorInfoActivity" />
         <activity android:name=".activities.BindFirstActivity" />
         <activity android:name=".activities.RepairDetailsActivity" />

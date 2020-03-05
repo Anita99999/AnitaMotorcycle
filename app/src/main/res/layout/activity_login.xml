@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="28dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="20dp"
             android:text="欢迎登录摩托车管家"
             android:textColor="@android:color/black"
             android:textSize="@dimen/navBarTitleSize" />
@@ -53,7 +53,7 @@
             android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="@dimen/inputViewHeight"
-            android:layout_marginTop="@dimen/marginSize"
+            android:layout_marginTop="@dimen/marginLittleSize"
             android:layout_marginBottom="@dimen/marginSize"
             app:input_hint="请输入密码"
             app:input_icon="@mipmap/password"
@@ -103,6 +103,7 @@
             android:layout_height="wrap_content"
             android:text="登录即代表阅读并同意" />
         <TextView
+            android:id="@+id/tv_items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#005EFF"

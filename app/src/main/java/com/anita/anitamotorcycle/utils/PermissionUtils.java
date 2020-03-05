@@ -65,30 +65,17 @@ public class PermissionUtils {
      * @param activity
      */
     public static void getGPSPermission1(Activity activity) {
-        ArrayList<String> permissionList = new ArrayList<>();//权限集合
-        Log.d(TAG, "getGPSPermission: 动态获取定位权限");
-
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            //加入到集合中，在集合中一起请求权限
-            permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        }
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
-        }
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-        }
-        if (!permissionList.isEmpty()){
-            //集合转数组
-            String[] permissions = permissionList.toArray(new String[permissionList.size()]);
-
+        Log.d(TAG, "getGPSPermission1: 动态获取定位权限");
+        int per1 = ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION);
+        int per2 = ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION);
+        int per3 = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_PHONE_STATE);
+        int per4 = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int per5 = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (per1 != PackageManager.PERMISSION_GRANTED || per2 != PackageManager.PERMISSION_GRANTED || per3 != PackageManager.PERMISSION_GRANTED || per4 != PackageManager.PERMISSION_GRANTED || per5 != PackageManager.PERMISSION_GRANTED) {
             //请求权限
-            ActivityCompat.requestPermissions(activity,permissions,200);
+            Log.d(TAG, "getGPSPermission1: 请求权限");
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 200);
         }
-
 
     }
 

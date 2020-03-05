@@ -1,6 +1,7 @@
 package com.anita.anitamotorcycle.activities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.anita.anitamotorcycle.beans.MotorBean;
@@ -33,6 +34,7 @@ public class ScrollingActivity extends AppCompatActivity {
     private Button mDelete;
     private TextView mChoseMotor;
     private MotorBean mMotorBean;
+    private TextView mTv_location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,16 @@ public class ScrollingActivity extends AppCompatActivity {
 
         initView();
         initListener();
-
-
     }
 
     private void initListener() {
+        mTv_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ScrollingActivity.this, LocationActivity.class));
+            }
+        });
+
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,7 +87,7 @@ public class ScrollingActivity extends AppCompatActivity {
         // 设置返回键和菜单栏可用，可见
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
+        mTv_location = findViewById(R.id.tv_location);
         //悬浮按钮
         mFab = findViewById(R.id.fab);
 
@@ -98,7 +105,7 @@ public class ScrollingActivity extends AppCompatActivity {
         //      设置标题
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.toolbar_layout);
         collapsingToolbar.setTitle(mMotorBean.getPlate_numbers());
-        collapsingToolbar.setExpandedTitleColor(this.getResources().getColor(R.color.mainColor2));
+        collapsingToolbar.setExpandedTitleColor(this.getResources().getColor(R.color.mainTitileColorH));
         ImageView image = findViewById(R.id.image);
         if (mMotorBean.getUrl() != null) {
             Glide.with(this).load(mMotorBean.getUrl()).placeholder(R.mipmap.network_loading).error(R.mipmap.logo).dontAnimate().into(image);
@@ -116,7 +123,10 @@ public class ScrollingActivity extends AppCompatActivity {
 
         tv_vin.setText("车架号：" + mMotorBean.getVin_code());
         tv_warranty.setText("剩余保修期：" + mMotorBean.getWarrantyDays() + "天/" + mMotorBean.getWarrantyDistance() + "公里");
-        tv_location.setText("当前定位：");
+        if (MotorHelper.getInstance().getLocation() != null) {
+            tv_location.setText("当前定位：" + MotorHelper.getInstance().getLocation());
+            Log.d(TAG, "initView: mEt_location重新获取定位");
+        }
         tv_total_distance.setText("累计里程数：" + mMotorBean.getTotal_distance());
         tv_brand.setText("制造商：" + mMotorBean.getBrand());
         tv_model.setText("车辆型号：" + mMotorBean.getModel());

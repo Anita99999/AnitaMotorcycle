@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.LocationActivity">
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true" />
+
+    <LinearLayout
+        android:id="@+id/fl_position"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/itemViewColor1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/marginLittleSize">
+
+        <ImageView
+            android:id="@+id/iv_location_back"
+            android:layout_width="@dimen/navBarIconSize"
+            android:layout_height="@dimen/navBarIconSize"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/marginLittleSize"
+            android:src="@mipmap/back_black" />
+
+        <TextView
+            android:id="@+id/tv_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/paddingLittleSize"
+            android:layout_toRightOf="@+id/iv_back"
+            android:text="定位"
+            android:textStyle="bold"/>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/sa_location"
+        android:layout_width="@dimen/navBarIconSize"
+        android:layout_height="@dimen/navBarIconSize"
+        android:layout_below="@+id/fl_position"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/marginSize"
+        android:src="@mipmap/dingwei" />
+
+</RelativeLayout>

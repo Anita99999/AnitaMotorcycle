@@ -93,13 +93,13 @@ public class ClientUtils {
     }
 
     /**
-     * 根据currentMotorId获取摩托车信息
+     * 根据phone获取用户信息
      *
      * @param phone
      * @return
      */
     public static UserBean getUserInfo(final String phone) {
-        Log.d(TAG, "getUserInfo/AMServer/getuser: 获取用户信息");
+        System.out.println("getUserInfo/AMServer/getuser: 获取用户信息");
         sUserBean = null;
         Thread getUserThread = new Thread(new Runnable() {
             @Override
@@ -133,7 +133,7 @@ public class ClientUtils {
                         inputStream = httpURLConnection.getInputStream();
                         BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
                         String line = in.readLine();
-                        Log.d(TAG, "server response data --- " + line);
+                        System.out.println("服务器响应数据 --- " + line);
                         if (line != null) {
                             sUserBean = JsonUtils.userFromJson(line);
                         }
@@ -169,7 +169,7 @@ public class ClientUtils {
      * @return
      */
     public static MotorBean getCurrentMotor(Context context, final String currentMotorId) {
-        Log.d(TAG, "getCurrentMotor/AMServer/getmotor: 获取当前摩托车信息");
+        System.out.println("getCurrentMotor/AMServer/getmotor: 获取当前摩托车信息");
         sMotorBean = null;
 
         Thread getCurrentMotorThread = new Thread(new Runnable() {
@@ -205,7 +205,7 @@ public class ClientUtils {
                         inputStream = httpURLConnection.getInputStream();
                         BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
                         String line = in.readLine();
-                        Log.d(TAG, "server response data --- " + line);
+                        System.out.println("服务器响应数据 --- " + line);
                         if (line != null) {
                             sMotorBean = JsonUtils.motorFromJson(line);
                         }
@@ -241,7 +241,7 @@ public class ClientUtils {
      * @return
      */
     public static List<MotorBean> getMotorList(final Context context, final String phone) {
-        Log.d(TAG, "getMotorList: 获取所有摩托车信息");
+        System.out.println("getMotorList/AMServer/getmotors 获取所有摩托车信息");
         sMotorList = null;
         Thread getMotorsThread = new Thread(new Runnable() {
             @Override
@@ -275,7 +275,7 @@ public class ClientUtils {
                         inputStream = httpURLConnection.getInputStream();
                         BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
                         String line = in.readLine();
-                        Log.d(TAG, "server response data --- " + line);
+                        System.out.println("服务器响应数据 --- " + line);
                         if (line != null) {
                             sMotorList = JsonUtils.motorListFromJson(line);
 
@@ -305,11 +305,12 @@ public class ClientUtils {
 
     /**
      * 根据userphone获取当前用户维修中/维修完成记录
-     * @param phone
+     *
+     * @param phone  mark：0维修中；1维修完成
      * @return
      */
     public static List<RecordBean> getRepairingList(final String phone, final int mark) {
-        Log.d(TAG, "getRepairingList: 获取维修记录列表");
+        System.out.println("getRepairingList/AMServer/GetRecords获取维修记录列表");
         sRecordingList = null;
         Thread getRepairingThread = new Thread(new Runnable() {
             @Override
@@ -343,7 +344,7 @@ public class ClientUtils {
                         inputStream = httpURLConnection.getInputStream();
                         BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
                         String line = in.readLine();
-                        Log.d(TAG, "server response data --- " + line);
+                        System.out.println("服务器响应数据 --- " + line);
                         if (line != null) {
                             sRecordingList = JsonUtils.recordListFromJson(line);
 
@@ -381,65 +382,199 @@ public class ClientUtils {
      * @param password
      * @return
      */
-    public static boolean validateLoginPost(Context context, String phone, String password) {
-        Log.d(TAG, "validateLoginPost: 登录验证");
-        boolean result = false;
-        OutputStream outputStream;
-        InputStream inputStream;
-        try {
-            URL url = new URL(Constants.BASEURL + "/AMServer/userlogin");
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setConnectTimeout(10000);
-            httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-            httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
-            httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+    public static int validateLogin(final Context context, final String phone, final String password) {
+        System.out.println("validateLogin/AMServer/userlogin 登录验证");
+        sLine = 0;
+        Thread validateLoginThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/userlogin");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
 
-            UserBean userBean = new UserBean(phone, password);
-            Gson gson = new Gson();
-            String jsonStr = gson.toJson(userBean);
-            byte[] bytes = jsonStr.getBytes("UTF-8");
-            Log.d(TAG, "jsonStr --- " + jsonStr);
-            httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
-            //连接
-            httpURLConnection.connect();
-            //把数据给到服务
-            outputStream = httpURLConnection.getOutputStream();
-            outputStream.write(bytes);
-            outputStream.flush();
-            //拿结果
-            int responseCode = httpURLConnection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                inputStream = httpURLConnection.getInputStream();
-                BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-                String line = in.readLine();
-                Log.d(TAG, "server response data --- " + line);
-                if (line != null) {
-                    sLine = Integer.parseInt(line);
-                    if (sLine < 0) {
-                        Looper.prepare();
-                        Toast.makeText(context, "该手机号未注册", Toast.LENGTH_SHORT).show();
-                        Looper.loop();
-
-                    } else if (sLine == 0) {
-                        Looper.prepare();
-                        Toast.makeText(context, "密码输入错误", Toast.LENGTH_SHORT).show();
-                        Looper.loop();
-                    } else if (sLine > 0) {
-                        result = true;
+                    UserBean userBean = new UserBean(phone, password);
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(userBean);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "jsonStr --- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        System.out.println("服务器响应数据 --- " + line);
+                        if (line != null) {
+                            sLine = Integer.parseInt(line);
+                        }
+                        in.close();
+                        inputStream.close();
                     }
-                }
-                in.close();
-                inputStream.close();
-            }
-            outputStream.close();
-        } catch (SocketTimeoutException e) {
-            Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
 
-        } catch (Exception e) {
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        validateLoginThread.start();
+        try {
+//            主线程等待子线程结束
+            validateLoginThread.join();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return result;
+        System.out.println("validateLoginThread done!");
+        return sLine;
+    }
+
+    /**
+     * 修改密码
+     * 1. 验证原密码是否正确
+     * 2. 若正确，修改密码
+     *
+     * @param password
+     * @return 原密码正确且修改密码返回true，错误否则false
+     */
+    public static boolean validatePassword(final String phone, final String oldPassword, final String password) {
+        System.out.println("validatePassword/AMServer/ValidatePassword 验证密码");
+        sResult = false;
+        Thread validatePasswordThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/ValidatePassword");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    UserBean userBean = new UserBean(phone, oldPassword, password);
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(userBean);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "jsonStr --- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        System.out.println("服务器响应数据 --- " + line);
+                        if (line != null) {
+                            sResult = Boolean.parseBoolean(line);
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        validatePasswordThread.start();
+        try {
+//            主线程等待子线程结束
+            validatePasswordThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("validatePasswordThread done!");
+        return sResult;
+    }
+
+    public static boolean validatePhone(final String phone) {
+        System.out.println("ValidatePhone/AMServer/ValidatePhone 验证手机号");
+        sResult = false;
+        Thread validatePhoneThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/ValidatePhone");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    UserBean user = new UserBean(phone);
+                    Log.d(TAG, "post数据---" + user.toString());
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(user);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "生成json--- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        System.out.println("服务器响应数据 --- " + line);
+                        if (line != null) {
+                            sResult = Boolean.parseBoolean(line);
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "validateVIN:Exception-- " + e.getMessage());
+                }
+            }
+        });
+        validatePhoneThread.start();
+        try {
+//            主线程等待子线程结束
+            validatePhoneThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("validatePhoneThread done!");
+        return sResult;
     }
 
     /**
@@ -451,7 +586,7 @@ public class ClientUtils {
      * @return
      */
     public static MotorBean validateVIN(final String vin, final Context context) {
-        Log.d(TAG, "validateVIN: 验证车架号");
+        System.out.println("validateVIN/AMServer/vinvalidate 验证车架号");
         sMotorBean = null;
 //        sResult = false;
         OutputStream outputStream;
@@ -513,7 +648,7 @@ public class ClientUtils {
      * @return
      */
     public static boolean validateNumbers(Context context, MotorBean motorBean) {
-        Log.d(TAG, "validateNumbers: 验证车牌号");
+        System.out.println("validateNumbers/AMServer/pnumsvalidate 验证车牌号");
         sResult = false;
         OutputStream outputStream;
         InputStream inputStream;
@@ -575,7 +710,7 @@ public class ClientUtils {
      * @return
      */
     public static boolean addMotor(Context context, MotorBean motorBean) {
-        Log.d(TAG, "addMotor: 添加摩托车");
+        System.out.println("addMotor/AMServer/updatemotor: 添加摩托车");
         sResult = false;
         OutputStream outputStream;
         InputStream inputStream;
@@ -606,7 +741,7 @@ public class ClientUtils {
                 inputStream = httpURLConnection.getInputStream();
                 BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
                 String line = in.readLine();
-                Log.d(TAG, "服务器响应数据 --- " + line);
+                System.out.println("服务器响应数据 ---" + line);
                 if (line != null) {
                     sResult = Boolean.parseBoolean(line);
 
@@ -628,13 +763,84 @@ public class ClientUtils {
     }
 
     /**
+     * 连接数据库
+     * * 1. 传回当前用户phone、加密后的密码
+     * * 2. add数据库user信息
+     * * （添加成功返回true，失败false）
+     *
+     * @param userBean
+     * @return
+     */
+    public static boolean addUser(final UserBean userBean) {
+        System.out.println("addRecord/AMServer/AddUser 添加用户");
+        sResult = false;
+        Thread addUserThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/AddUser");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    Log.d(TAG, "post数据---" + userBean.toString());
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(userBean);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "生成json--- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        System.out.println("服务器响应数据 --- " + line);
+                        if (line != null) {
+                            sResult = Boolean.parseBoolean(line);
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "validateVIN:Exception-- " + e.getMessage());
+                }
+            }
+        });
+        addUserThread.start();
+        try {
+//            主线程等待子线程结束
+            addUserThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("addUserThread done!");
+        return sResult;
+    }
+
+    /**
      * 申请维修（添加维修记录）
      *
      * @param recordBean 传回申请信息、用户phone、和申请时间
      * @return 返回是否添加成功。成功：record，失败：无数据，连接服务器失败：null
      */
     public static RecordBean addRecord(final RecordBean recordBean) {
-        Log.d(TAG, "addRecord: 添加维修记录");
+        System.out.println("addRecord/AMServer/AddRecord 添加维修记录");
         sRecordBean = null;
         Thread addRecordThread = new Thread(new Runnable() {
             @Override
@@ -668,12 +874,13 @@ public class ClientUtils {
                         inputStream = httpURLConnection.getInputStream();
                         BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
                         String line = in.readLine();
-                        Log.d(TAG, "服务器响应数据 --- " + line);
+                        System.out.println("服务器响应数据 --- " + line);
                         if (line != null) {
                             if (line == "flase") {
                                 sRecordBean = new RecordBean();
                             } else {
-                                sRecordBean = JsonUtils.recordFromJson(line);;
+                                sRecordBean = JsonUtils.recordFromJson(line);
+                                ;
                             }
                         }
                         in.close();

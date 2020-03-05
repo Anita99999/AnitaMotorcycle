@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.anita.anitamotorcycle.activities.LoginActivity;
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.helps.UserHelper;
+import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 
@@ -22,6 +23,7 @@ import com.blankj.utilcode.util.StringUtils;
  */
 public class UserUtils {
     private static final String TAG = "UserUtils";
+
     /**
      * 验证登录用户
      * 1. 验证用户手机号及密码
@@ -38,10 +40,11 @@ public class UserUtils {
         }
 
         return true;
-}
+    }
 
     /**
      * 验证用户手机号
+     *
      * @param context
      * @param phone
      * @return
@@ -81,11 +84,11 @@ public class UserUtils {
     /**
      * 修改密码
      * 1、数据验证
-     *      1、原密码是否输入
-     *      2、新密码是否输入,且新密码与确定密码是否相同
-     *      3、原密码输入是否正确(查数据库，TODO)
+     * 1、原密码是否输入
+     * 2、新密码是否输入,且新密码与确定密码是否相同
+     * 3、原密码输入是否正确(查数据库，TODO)
      */
-    public static boolean changePassword (Context context, String oldPassword, String password, String passwordConfirm) {
+    public static boolean changePassword(Context context, String phone, String oldPassword, String password, String passwordConfirm) {
 //        原密码是否输入
         if (TextUtils.isEmpty(oldPassword)) {
             Toast.makeText(context, "请输入原密码", Toast.LENGTH_SHORT).show();
@@ -97,10 +100,13 @@ public class UserUtils {
             return false;
         }
 
-//        验证原密码是否正确
-//          1、Realm 获取到当前登录的用户模型
-//          2、根据用户模型中保存的密码匹配用户原密码
-
+//        连接数据库，验证原密码是否正确，正确修改成功，失败
+        boolean isRight = ClientUtils.validatePassword(phone, EncryptUtils.encryptMD5ToString(oldPassword), EncryptUtils.encryptMD5ToString(password));
+        if (!isRight) {
+            Toast.makeText(context, "原密码输入错误", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        Toast.makeText(context, "修改密码成功，请重新登录", Toast.LENGTH_SHORT).show();
         return true;
     }
 

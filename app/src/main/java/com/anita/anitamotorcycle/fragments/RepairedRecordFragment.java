@@ -123,7 +123,7 @@ public class RepairedRecordFragment extends Fragment implements IRepairedCallbac
         });
 
         //        创建适配器
-        mAdapter = new RecordDataAdapter(mDatas);
+        mAdapter = new RecordDataAdapter();
 //        设置adaptor到recyclerview里
         mRepairedList.setAdapter(mAdapter);
     }

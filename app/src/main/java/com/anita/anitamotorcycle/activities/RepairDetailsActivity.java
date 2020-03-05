@@ -2,6 +2,8 @@ package com.anita.anitamotorcycle.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +15,8 @@ import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.beans.RecordBean;
 
 import java.io.Serializable;
+
+import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 public class RepairDetailsActivity extends AppCompatActivity {
     private ImageView mBack;
@@ -46,7 +50,7 @@ public class RepairDetailsActivity extends AppCompatActivity {
         mRecordBean = (RecordBean) getIntent().getSerializableExtra("record");
 
         // TODO: 2020/2/22 车辆定位获取实时定位
-        if (mRecordBean.getRepair_status() == 1 ||mRecordBean.getRepair_status() == 6) {
+        if (mRecordBean.getRepair_status() == 1 || mRecordBean.getRepair_status() == 6) {
 //            维修员未接单
             mLl_info2.setVisibility(View.GONE);
         } else {
@@ -57,8 +61,17 @@ public class RepairDetailsActivity extends AppCompatActivity {
             TextView tv_repairman_phone = findViewById(R.id.tv_repairman_phone);
             TextView tv_factory_name = findViewById(R.id.tv_factory_name);
             TextView tv_factory_address = findViewById(R.id.tv_factory_address);
-            tv_repairman_name.setText("维修员姓名：" + mRecordBean.getRepairman_id());
-            tv_repairman_phone.setText("联系电话：" + mRecordBean.getRepairman_phone());
+            tv_repairman_name.setText("维修员姓名：" + mRecordBean.getRepairman_name());
+            tv_repairman_phone.setText(mRecordBean.getRepairman_phone());
+            tv_repairman_phone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mRecordBean.getRepairman_phone()));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
+                }
+            });
             tv_factory_name.setText("维修商名称：" + mRecordBean.getFactory_name());
             tv_factory_address.setText("维修商地址：" + mRecordBean.getFactory_address());
         }

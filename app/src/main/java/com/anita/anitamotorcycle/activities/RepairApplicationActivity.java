@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.beans.RecordBean;
+import com.anita.anitamotorcycle.helps.MotorHelper;
 import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.anita.anitamotorcycle.utils.Constants;
@@ -47,6 +48,7 @@ public class RepairApplicationActivity extends BaseActivity {
     private EditText mEt_location;
     private EditText mEt_problems;
     private RecordBean mRecordBean;
+    private TextView mTv_location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +84,14 @@ public class RepairApplicationActivity extends BaseActivity {
         mMotorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //设置下拉列表下拉时的菜单样式
         mSp_plate_numbers.setAdapter(mMotorAdapter);    //将适配器添加到下拉列表上
 
-//        车辆位置提示
+//        车辆位置
         mTips2 = findViewById(R.id.iv_tips2);
-
         mEt_location = findViewById(R.id.et_location);
+        if (MotorHelper.getInstance().getLocation() != null) {
+            mEt_location.setText(MotorHelper.getInstance().getLocation());
+            Log.d(TAG, "initView: mEt_location重新获取定位");
+        }
+        mTv_location = findViewById(R.id.tv_location);
 
 //        定义故障类型下拉列表内容
         mSp_problems_type = findViewById(R.id.sp_problems_type);
@@ -145,6 +151,12 @@ public class RepairApplicationActivity extends BaseActivity {
             }
         });
 
+        mTv_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RepairApplicationActivity.this, LocationActivity.class));
+            }
+        });
 //        维修时间
 //        mRepairTime.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -230,13 +242,13 @@ public class RepairApplicationActivity extends BaseActivity {
                 RecordBean record = ClientUtils.addRecord(mRecordBean);
                 if (record == null) {
                     Toast.makeText(getApplicationContext(), "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
-                }else if(record.getId() == null){
+                } else if (record.getId() == null) {
                     Log.d(TAG, "提交失败");
                 } else {
                     Log.d(TAG, "提交成功 ");
                     Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), RepairDetailsActivity.class);
-                    intent.putExtra("record",record);
+                    intent.putExtra("record", record);
                     startActivity(intent);
                     finish();
                 }
