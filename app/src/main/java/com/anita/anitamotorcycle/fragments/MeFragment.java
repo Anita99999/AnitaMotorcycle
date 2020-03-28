@@ -91,7 +91,7 @@ public class MeFragment extends Fragment {
 
 //        获取用户信息
         mUserBean = ClientUtils.getUserInfo(UserHelper.getInstance().getPhone());
-        if(mUserBean != null){
+        if (mUserBean != null) {
             tv_username.setText(mUserBean.getName());
         }
 
@@ -119,7 +119,7 @@ public class MeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MeActivity.class);
-                intent.putExtra("user",mUserBean);
+                intent.putExtra("user", mUserBean);
                 startActivityForResult(intent, 1);   //返回数据
             }
         });
@@ -127,7 +127,7 @@ public class MeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MeActivity.class);
-                intent.putExtra("user",mUserBean);
+                intent.putExtra("user", mUserBean);
                 startActivityForResult(intent, 1);   //返回数据
             }
         });
@@ -152,14 +152,13 @@ public class MeFragment extends Fragment {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserUtils.logout(getActivity());
+                UserUtils.logout(getActivity(), 1);
             }
         });
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "onActivityResult: requestCode==" + requestCode + " resultCode==" + resultCode);
-//        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
 //          打开MeActivity后返回
             case 1:

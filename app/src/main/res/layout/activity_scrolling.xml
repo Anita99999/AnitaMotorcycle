@@ -21,7 +21,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="@color/mainColor"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:background="@color/smssdk_white"
+            android:background="@color/dialog_white"
             app:expandedTitleGravity="left|top"
             app:toolbarId="@+id/toolbar">
 

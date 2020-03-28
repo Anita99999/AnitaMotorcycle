@@ -1,33 +1,45 @@
 package com.anita.anitamotorcycle.fragments;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.location.Location;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.activities.AddMotorActivity;
-import com.anita.anitamotorcycle.activities.BaiduActivity;
 import com.anita.anitamotorcycle.activities.BindFirstActivity;
 import com.anita.anitamotorcycle.activities.LocationActivity;
-import com.anita.anitamotorcycle.activities.MotorDetailsActivity;
 import com.anita.anitamotorcycle.activities.MyMotorActivity;
+import com.anita.anitamotorcycle.activities.QRCodeActivity;
 import com.anita.anitamotorcycle.activities.RepairApplicationActivity;
 import com.anita.anitamotorcycle.activities.ScrollingActivity;
 import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
+import com.anita.anitamotorcycle.utils.ClientUtils;
+import com.anita.anitamotorcycle.utils.PermissionUtils;
 import com.bumptech.glide.Glide;
+import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.yzq.zxinglibrary.common.Constant;
+
+import java.security.Permission;
+
+import static android.app.Activity.RESULT_OK;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
@@ -43,7 +55,10 @@ public class HomeFragment extends Fragment {
     private TextView mTv_year;
     private TextView mTv_type;
     private MotorBean mMotorBean = new MotorBean();
+    private String currentMotorId;
     private View mView;
+    private ImageView mIv_erweima;
+    private ImageView mIv_scan;
 
     public HomeFragment() {
     }
@@ -60,6 +75,7 @@ public class HomeFragment extends Fragment {
     private void initView(View view) {
         Log.d(TAG, "initView: ");
 
+        mIv_scan = view.findViewById(R.id.iv_scan);
         mLocation = view.findViewById(R.id.linlayout_location); //定位
         mChange_motor = view.findViewById(R.id.linlayout_change);   //切换
 
@@ -101,6 +117,7 @@ public class HomeFragment extends Fragment {
         mTv_model.setText(mMotorBean.getModel());
         mTv_year.setText(mMotorBean.getYear() + "");
         mTv_type.setText(mMotorBean.getType());
+
     }
 
     /**
@@ -140,6 +157,13 @@ public class HomeFragment extends Fragment {
 
     //    有摩托车标记时的点击事件
     private void initListener2() {
+        mIv_scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showQRPickDialog(getActivity());   //弹出Dialog
+            }
+        });
+
 //        定位
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +186,7 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        currentMotorId = MotorHelper.getInstance().getCurrentMotorId();
 
 //        摩托车信息
         mRelayout_motor_basic_info.setOnClickListener(new View.OnClickListener() {
@@ -170,8 +195,81 @@ public class HomeFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ScrollingActivity.class);
                 intent.putExtra("motor", mMotorBean);
                 startActivity(intent);
+
             }
         });
+    }
+
+    /**
+     * 弹出设置头像图片的Dialog
+     *
+     * @param activity
+     */
+    public void showQRPickDialog(final Activity activity) {
+        String[] items = new String[]{"扫一扫", "摩托车二维码"};
+        new AlertDialog.Builder(activity)
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        switch (which) {
+                            case 0:
+//                                选择扫一扫
+                                boolean qrCodePermission = PermissionUtils.getQRCodePermission(activity);
+                                if (qrCodePermission) {
+                                    Log.d(TAG, "onClick: 已有权限,直接跳转");
+                                    Intent intent = new Intent(activity, CaptureActivity.class);
+                                    startActivityForResult(intent, 100);
+                                }
+                                break;
+//                                选择二维码
+                            case 1:
+                                Intent intent = new Intent(activity, QRCodeActivity.class);
+                                intent.putExtra("currentMotorId", currentMotorId);
+                                startActivity(intent);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }).show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // 扫描二维码/条码回传
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            if (data != null) {
+                Log.d(TAG, "onActivityResult: 扫描二维码/条码回传");
+                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                Log.d(TAG, "onActivityResult: 扫描结果为" + content);
+//                连接服务器，根据摩托车id获取摩托车信息
+                if (content != null && content != "") {
+                    MotorBean motorBean = ClientUtils.getCurrentMotor(getContext(), content);
+                    Log.d(TAG, "onActivityResult: 获取的摩托车信息：" + motorBean.toString());
+                    if (motorBean == null || motorBean.getId() == null) {
+                        Log.d(TAG, "获取数据失败: motorItem==null");
+                        Toast.makeText(getContext(), "扫描结果为" + content, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.d(TAG, "run: 扫码成功");
+                        motorBean.setStatus(0);
+                        Toast.makeText(getContext(), "扫描成功" , Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), ScrollingActivity.class);
+                        intent.putExtra("motor", motorBean);
+                        startActivity(intent);
+                    }
+                } else {
+                    Log.d(TAG, "onActivityResult: 扫码结果无效");
+                }
+            }
+        }
+//        动态获取权限回调
+        if (requestCode == 200 && resultCode == RESULT_OK) {
+            Intent intent = new Intent(getActivity(), CaptureActivity.class);
+            startActivityForResult(intent, 100);
+        }
     }
 
     @Override

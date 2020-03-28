@@ -4,6 +4,7 @@
     <string name="menu_shop">商城</string>
     <string name="menu_message">消息</string>
     <string name="menu_me">我</string>
+    <string name="menu_orders">订单</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -15,6 +16,12 @@
     <!--维修记录指示器标题-->
     <string-array name="indicator_title">
         <item>维修中</item>
+        <item>已完成</item>
+    </string-array>
+    <!--订单指示器标题-->
+    <string-array name="indicator_title2">
+        <item>待处理</item>
+        <item>待维修</item>
         <item>已完成</item>
     </string-array>
 
@@ -112,4 +119,9 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+
+    <string name="viewfinderview_status_text1">将二维码/条码放入取景框内</string>
+    <string name="viewfinderview_status_text2">即可自动扫描</string>
+    <string name="msg_camera_framework_bug">抱歉，手机摄像头遇到问题，您可能需要重新启动设备。</string>
+
 </resources>

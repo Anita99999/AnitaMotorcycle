@@ -48,7 +48,7 @@ public class ChangePasswordActivity extends BaseActivity {
                     return;
                 }
 
-                UserUtils.logout(ChangePasswordActivity.this);
+                UserUtils.logout(ChangePasswordActivity.this,1);
             }
         });
     }

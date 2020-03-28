@@ -17,6 +17,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 访问GPS定位，获取精确gps位置 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动权限 -->
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:name=".MyApplication"
@@ -28,8 +31,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.LocationActivity"></activity>
-
+        <activity android:name=".activities2.Main2Activity"></activity>
+        <activity android:name=".activities2.Login2Activity" />
+        <activity android:name=".activities.LocationActivity" />
+        <activity android:name=".activities.GetLocationActivity" />
+        <activity android:name=".activities.QRCodeActivity" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="q76yy8mgZcgRXOAitQURv7gsiGLSSmHT" /> <!-- 添加百度地图appkey -->
@@ -46,6 +52,7 @@
         <activity android:name=".activities.AddMotorInfoActivity" />
         <activity android:name=".activities.BindFirstActivity" />
         <activity android:name=".activities.RepairDetailsActivity" />
+        <activity android:name=".activities2.OrdersDetailsActivity" />
         <activity android:name=".activities.MotorDetailsActivity" />
         <activity android:name=".activities.AddMotorNumActivity" />
         <activity android:name=".activities.AddMotorActivity" />

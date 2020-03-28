@@ -25,9 +25,9 @@ import com.anita.anitamotorcycle.utils.UserUtils;
 
 import org.json.JSONObject;
 
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
-import cn.smssdk.utils.SMSLog;
+//import cn.smssdk.EventHandler;
+//import cn.smssdk.SMSSDK;
+//import cn.smssdk.utils.SMSLog;
 
 //需要先判断输入的手机号是否已被注册（后台接口实现）
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
@@ -37,7 +37,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private EditText mEt_verificationCode, mEt_phone;
     private Button mBtn_getCode, mBtn_registerNext;
     private TextView mTv_sendMessage;
-    EventHandler mEventHandler;
+//    EventHandler mEventHandler;
     private ImageView mIv_back;
     private ImageView mIv_right;
 
@@ -48,7 +48,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
         initView(); //初始化view
         initTextChanged();  //注册手机号EditText输入监听
-        initEventHandler(); //注册监听回调事件
+
+//        MobSDK.submitPolicyGrantResult(granted, null);
+//        initEventHandler(); //注册监听回调事件
 
     }
 
@@ -129,7 +131,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
                 //判断网络状态
                 mTv_sendMessage.setVisibility(View.INVISIBLE);
-                SMSSDK.getVerificationCode("86", mPhone);    //请求发送验证码的服务
+//                SMSSDK.getVerificationCode("86", mPhone);    //请求发送验证码的服务
                 Log.d(TAG, "onClick: 获取验证码，mPhone==" + mPhone);
                 break;
 //                "注册"按钮点击事件
@@ -140,7 +142,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 Log.d(TAG, "onClick: mPhone==" + mPhone);
                 boolean validate = UserUtils.validatePhone(this, mPhone);    //验证手机号
                 if (validate) {
-                    SMSSDK.submitVerificationCode("86", mPhone, mEt_verificationCode.getText().toString());  //提交验证码
+//                    SMSSDK.submitVerificationCode("86", mPhone, mEt_verificationCode.getText().toString());  //提交验证码
+                    Toast.makeText(getApplicationContext(), "验证成功", Toast.LENGTH_LONG).show();
+//                  保存用户标记，在全局单例类UserHelp之中
+                    UserHelper.getInstance().setPhone(mPhone);
+                    startActivity(new Intent(RegisterActivity.this, SetPasswordActivity.class));    //跳转到设置登录密码界面
                 }
                 break;
             default:
@@ -148,22 +154,22 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-    private void initEventHandler() {
-        mEventHandler = new EventHandler() {
-            @Override
-            public void afterEvent(int event, int result, Object data) {
-                // TODO 此处不可直接处理UI线程，处理后续操作需传到主线程中操作
-                Message msg = new Message();
-                msg.arg1 = event;
-                msg.arg2 = result;
-                msg.obj = data;
-                mHandler.sendMessage(msg);
-
-            }
-        };
-        SMSSDK.registerEventHandler(mEventHandler);    //注册一个事件回调监听
-    }
-
+//    private void initEventHandler() {
+//        mEventHandler = new EventHandler() {
+//            @Override
+//            public void afterEvent(int event, int result, Object data) {
+//                // TODO 此处不可直接处理UI线程，处理后续操作需传到主线程中操作
+//                Message msg = new Message();
+//                msg.arg1 = event;
+//                msg.arg2 = result;
+//                msg.obj = data;
+//                mHandler.sendMessage(msg);
+//
+//            }
+//        };
+//        SMSSDK.registerEventHandler(mEventHandler);    //注册一个事件回调监听
+//    }
+/*
     Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             // TODO Auto-generated method stub
@@ -233,7 +239,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         }
     };
 
-
+*/
     /**
      * 发送短信验证码60s倒计时
      * millisInFuture 倒计时总时长
@@ -261,8 +267,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     /**
      * 注销监听，避免内存泄露
      */
-    protected void onDestroy() {
+    /*protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterEventHandler(mEventHandler);
-    }
+    }*/
 }

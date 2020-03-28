@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.beans.RecordBean;
@@ -154,7 +156,9 @@ public class RepairApplicationActivity extends BaseActivity {
         mTv_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RepairApplicationActivity.this, LocationActivity.class));
+                Intent intent = new Intent(RepairApplicationActivity.this, GetLocationActivity.class);
+//                调用activity的onActivityResult()方法，返回存放返回数据的Intent和requestCode
+                startActivityForResult(intent, 1000);
             }
         });
 //        维修时间
@@ -219,6 +223,10 @@ public class RepairApplicationActivity extends BaseActivity {
             return false;
         }
         String position = mEt_location.getText().toString();
+        if (TextUtils.isEmpty(position)) {
+            Toast.makeText(getApplicationContext(), "车辆位置不可为空", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if (mProblemsType == "请选择故障类型") {
             Toast.makeText(getApplicationContext(), "故障类型不可为空", Toast.LENGTH_SHORT).show();
             return false;
@@ -275,6 +283,17 @@ public class RepairApplicationActivity extends BaseActivity {
                 .setIcon(R.mipmap.tips)//图标
                 .create();
         alertDialog1.show();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000 && resultCode == 1001){
+            String location = data.getStringExtra("location");
+            Log.d(TAG, "onActivityResult: 获取上页数据");
+            mEt_location.setText(location);
+        }
 
     }
 

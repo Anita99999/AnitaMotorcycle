@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.RepairDetailsActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navBarHeight"
+        android:background="@color/mainColor"
+        android:paddingLeft="@dimen/marginSize"
+        android:paddingRight="@dimen/marginSize">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/navBarIconSize"
+            android:layout_height="@dimen/navBarIconSize"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/paddingIconSize"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="订单详情"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/navBarTitleSize" />
+
+        <TextView
+            android:id="@+id/tv_doit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:padding="@dimen/paddingIconSize"
+            android:text="受理"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/navBarTitleSize" />
+
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/marginSize">
+
+            <LinearLayout
+                android:id="@+id/ll_info1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginLittleSize"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="@color/mainColorH" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/paddingIconSize"
+                        android:text="维修单信息"
+                        android:textColor="@color/titleColor"
+                        android:textSize="@dimen/titleSize"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/mainColorH" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_small_radius"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_orders"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_repair_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/paddingSize"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/paddingIconSize"
+                        android:text="当前状态："
+                        android:textColor="@color/black1" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/viewHeight"
+                        android:layout_marginTop="@dimen/paddingLittleSize"
+                        android:layout_marginBottom="@dimen/paddingLittleSize"
+                        android:background="@color/itemViewColor" />
+
+                    <TextView
+                        android:id="@+id/tv_update_at"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/paddingSize"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/paddingIconSize"
+                        android:text="更新时间："
+                        android:textColor="@color/black1" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/viewHeight"
+                        android:layout_marginTop="@dimen/paddingLittleSize"
+                        android:layout_marginBottom="@dimen/paddingLittleSize"
+                        android:background="@color/itemViewColor" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_repair_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/paddingIconSize"
+                    android:text="维修单号："
+                    android:textColor="@color/black1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+                <TextView
+                    android:id="@+id/tv_create_at"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/paddingIconSize"
+                    android:text="申请时间："
+                    android:textColor="@color/black1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_info3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginSize"
+                android:layout_marginBottom="@dimen/marginLittleSize"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="@color/mainColorH" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/paddingIconSize"
+                        android:text="维修详情"
+                        android:textColor="@color/titleColor"
+                        android:textSize="@dimen/titleSize"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/mainColorH" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_small_radius"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/paddingIconSize"
+                    android:text="申请人："
+                    android:textColor="@color/black1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/paddingIconSize"
+                    android:text="联系电话："
+                    android:textColor="@color/black1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+                <TextView
+                    android:id="@+id/tv_position"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/paddingIconSize"
+                    android:text="车辆地址："
+                    android:textColor="@color/black1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+                <TextView
+                    android:id="@+id/tv_plate_numbers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/paddingIconSize"
+                    android:text="车牌号："
+                    android:textColor="@color/black1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+
+                <TextView
+                    android:id="@+id/tv_problem_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/paddingIconSize"
+                    android:text="故障类型："
+                    android:textColor="@color/black1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingSize"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/paddingIconSize"
+                    android:text="故障描述："
+                    android:textColor="@color/black1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

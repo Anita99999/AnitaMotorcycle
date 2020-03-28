@@ -51,14 +51,20 @@ public class LocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-
-        PermissionUtils.getGPSPermission1(this);
-
+        Log.d(TAG, "onCreate: 测试1");
         mMapView = findViewById(R.id.bmapView);
         mIv_back = findViewById(R.id.iv_location_back);
         mMapView = findViewById(R.id.bmapView);
         mSaLocation = findViewById(R.id.sa_location);
         mTv_position = findViewById(R.id.tv_position);
+        if (mTv_position != null && mTv_position.toString() != "") {
+            Log.d(TAG, "旧数据mTv_position更新定位-- " + mTv_position.getText().toString());
+//            更新摩托车定位标记
+            MotorHelper.getInstance().setLocation(mTv_position.getText().toString());
+        }
+        PermissionUtils.getGPSPermission1(this);
+
+        Log.d(TAG, "onCreate: 测试2");
 
         requestLocation();
 
@@ -85,6 +91,7 @@ public class LocationActivity extends AppCompatActivity {
         option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation
         mLocClient.setLocOption(option);
         mLocClient.start();
+        Log.d(TAG, "onCreate: 测试3");
     }
 
     private void initListener() {
@@ -102,6 +109,7 @@ public class LocationActivity extends AppCompatActivity {
                 mBaiduMap.animateMapStatus(mapStatusUpdate);
             }
         });
+        Log.d(TAG, "initListener: 测试4");
     }
 
     /**
@@ -111,9 +119,11 @@ public class LocationActivity extends AppCompatActivity {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
+            Log.d(TAG, "onCreate: 测试5");
             // map view 销毁后不在处理新接收的位置
             if (location == null || mMapView == null) {
                 return;
+
             }
             latLng = new LatLng(location.getLatitude(), location.getLongitude());
             MyLocationData locData = new MyLocationData.Builder()
@@ -123,6 +133,7 @@ public class LocationActivity extends AppCompatActivity {
                     .longitude(location.getLongitude()).build();
             mBaiduMap.setMyLocationData(locData);
             if (isFirstLoc) {
+                Log.d(TAG, "onCreate: 测试6");
                 isFirstLoc = false;
                 LatLng ll = new LatLng(location.getLatitude(),
                         location.getLongitude());
@@ -145,10 +156,12 @@ public class LocationActivity extends AppCompatActivity {
                 Toast.makeText(LocationActivity.this, "手机模式错误，请检查是否飞行", Toast.LENGTH_SHORT).show();
             }
             mLocation = location.getAddrStr();
-            mTv_position.setText("当前定位：" + mLocation);
-            Log.d(TAG, "onReceiveLocation当前定位: " + mLocation);
+            if (mLocation != null) {
+                mTv_position.setText("当前定位：" + mLocation);
+                Log.d(TAG, "onReceiveLocation当前定位: " + mLocation);
 //            更新摩托车定位标记
-            MotorHelper.getInstance().setLocation(mLocation);
+                MotorHelper.getInstance().setLocation(mLocation);
+            }
         }
 
         public void onReceivePoi(BDLocation poiLocation) {
@@ -196,30 +209,13 @@ public class LocationActivity extends AppCompatActivity {
                 }
             }
         }
-//        if (requestCode == 200){
-//            if (grantResults.length > 0) {
-//                for (int result : grantResults) {
-//                    if (result != PackageManager.PERMISSION_GRANTED) {
-//                        Toast.makeText(this, "必须同意所有权限才能使用本程序", Toast.LENGTH_SHORT).show();
-//                        Log.d(TAG, "onRequestPermissionsResult: 定位--存在未同意权限");
-//                        finish();
-//                        return;
-//                    }
-//                    Log.d(TAG, "onRequestPermissionsResult: 定位--已同意所有权限");
-//                }
-//                requestLocation();
-//            } else {
-//                Toast.makeText(this, "发生未知错误", Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-//
-//        }
+
 
     }
 
     private void showComfirmDialog() {
         ConfirmDialog confirmDialog = new ConfirmDialog(this);
-        confirmDialog.setLogoImg(R.mipmap.dialog_notice).setMsg("需要开启定位权限，请到手机设置里打开");
+        confirmDialog.setLogoImg(R.mipmap.dialog_notice).setMsg("勾选了不再询问，需先到请到手机设置里开启相应权限");
         confirmDialog.setClickListener(new ConfirmDialog.OnBtnClickListener() {
             @Override
             public void ok() {

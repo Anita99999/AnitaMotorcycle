@@ -1,5 +1,7 @@
 package com.anita.anitamotorcycle.beans;
 
+import com.anita.anitamotorcycle.utils.UserUtils;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,13 +17,8 @@ public class UserBean implements Serializable {
     public UserBean(String phone, String password) {
         this.phone = phone;
         this.password = password;
-        // 获取当前北京时间,设置创建时间和更新时间
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  //设置日期格式
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT+08"));
-        String currentDate = sdf.format(date);// new Date()为获取当前系统时间
-        this.create_at = currentDate;
-        this.update_at = currentDate;
+        this.create_at = UserUtils.getCurrentTime();
+        this.update_at = UserUtils.getCurrentTime();
     }
 
     public UserBean(String phone) {

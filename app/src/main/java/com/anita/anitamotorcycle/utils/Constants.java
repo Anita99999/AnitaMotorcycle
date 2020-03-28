@@ -17,4 +17,6 @@ public class Constants {
     public static final String SHAREDPREFERENCES_NAME = "user";
 //    public static final String SHAREDPREFERENCES_MOTORNAME = UserHelper.getInstance().getPhone();
 
+    public static final String INTENT_EXTRA_KEY_QR_SCAN = "qr_scan_result";
+
 }

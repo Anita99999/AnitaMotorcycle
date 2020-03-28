@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.QRCodeActivity">
+
+    <FrameLayout
+        android:id="@+id/fl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navBarHeight"
+        android:background="@color/mainColor"
+        android:paddingLeft="@dimen/marginSize"
+        android:paddingRight="@dimen/marginSize">
+
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/navBarIconSize"
+            android:layout_height="@dimen/navBarIconSize"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/paddingIconSize"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="分享我的摩托车"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/navBarTitleSize" />
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/iv_qrcode"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_qrcode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/marginSize"
+        android:text="扫一扫上面的二维码图案，查看我的摩托车" />
+
+</RelativeLayout>

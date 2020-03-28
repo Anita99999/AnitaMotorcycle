@@ -64,7 +64,7 @@ public class PermissionUtils {
      *
      * @param activity
      */
-    public static void getGPSPermission1(Activity activity) {
+    public static boolean getGPSPermission1(Activity activity) {
         Log.d(TAG, "getGPSPermission1: 动态获取定位权限");
         int per1 = ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION);
         int per2 = ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION);
@@ -75,10 +75,33 @@ public class PermissionUtils {
             //请求权限
             Log.d(TAG, "getGPSPermission1: 请求权限");
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 200);
+            return false;
+        }else{
+            Log.d(TAG, "getGPSPermission1: 已有权限");
+            return true;
         }
 
     }
+    /**
+     * 动态获取扫描二维码所需权限
+     *
+     * @param activity
+     */
+    public static boolean getQRCodePermission(Activity activity) {
+        Log.d(TAG, "getQRCodePermission: 动态获取二维码扫描权限");
+        int per1 = ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+        int per2 = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (per1 != PackageManager.PERMISSION_GRANTED || per2 != PackageManager.PERMISSION_GRANTED) {
+            //请求权限
+            Log.d(TAG, "getQRCodePermission: 请求权限");
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, 200);
+            return false;
+        }else{
+            Log.d(TAG, "getQRCodePermission: 已有权限");
+            return true;
+        }
 
+    }
 
     /**
      * 检查sd卡是否可用

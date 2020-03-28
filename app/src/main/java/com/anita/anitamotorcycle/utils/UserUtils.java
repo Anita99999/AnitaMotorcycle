@@ -10,10 +10,15 @@ import android.widget.Toast;
 
 import com.anita.anitamotorcycle.activities.LoginActivity;
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.activities2.Login2Activity;
 import com.anita.anitamotorcycle.helps.UserHelper;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 
 /**
@@ -115,16 +120,21 @@ public class UserUtils {
      * 退出用户登录
      * 1. 删除sp保存的用户标记
      * 2. 跳转到登录页面
+     * type:1 退出到用户登录页面；2退出到维修员的登录界面
      */
-    public static void logout(Context context) {
+    public static void logout(Context context, int type) {
 //        删除sp保存的用户标记
         boolean isRemove = removeUser(context);
         if (!isRemove) {
             Toast.makeText(context, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        Intent intent = new Intent(context, LoginActivity.class);
+        Intent intent;
+        if(type==1){
+            intent = new Intent(context, LoginActivity.class);
+        }else{
+            intent = new Intent(context, Login2Activity.class);
+        }
 //        添加intent标志符：清除当前TASK栈占用的Activity、创建一个新的TASK栈
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
@@ -134,16 +144,17 @@ public class UserUtils {
 
     /**
      * 利用SharedPreferences，保存登录用户的用户标记（手机号码）
-     *
+     *type=1：用户；type=0：维修员
      * @param context
      * @param phone
      * @return 是否保存成功
      */
-    public static boolean saveUser(Context context, String phone) {
+    public static boolean saveUser(Context context, String phone, int type) {
         SharedPreferences sp = context.getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 //        将phone的值传入常量中
         editor.putString("phone", phone);
+        editor.putInt("type", type);
         boolean result = editor.commit();
         return result;
     }
@@ -167,16 +178,42 @@ public class UserUtils {
     }
 
     /**
+     * 获取登录用户类型
+     * 即SharedPreferences中的type值
+     */
+    public static int getUserType(Context context) {
+        int type = 1;
+        SharedPreferences sp = context.getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
+//        取出常量中的内容
+        type = sp.getInt("type", 1);
+        return type;
+    }
+
+    /**
      * 删除用户标记
      */
     public static boolean removeUser(Context context) {
         SharedPreferences sp = context.getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove("phone");
+        editor.remove("type");
         boolean result = editor.commit();
         UserHelper.getInstance().setPhone(null);
 
         return result;
+    }
+
+    /**
+     * 获取当前北京时间
+     * @return
+     */
+    public static String getCurrentTime(){
+        // 获取当前北京时间,设置创建时间和更新时间
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  //设置日期格式
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+08"));
+        String currentDate = sdf.format(date);// new Date()为获取当前系统时间
+        return currentDate;
     }
 
 }

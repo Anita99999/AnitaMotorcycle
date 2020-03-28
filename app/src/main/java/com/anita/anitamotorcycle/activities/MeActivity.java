@@ -1,5 +1,6 @@
 package com.anita.anitamotorcycle.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -143,7 +144,7 @@ public class MeActivity extends BaseActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
 //            调用相机后返回
             case 1:

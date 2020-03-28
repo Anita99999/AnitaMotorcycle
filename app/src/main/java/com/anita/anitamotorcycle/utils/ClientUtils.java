@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.beans.RecordBean;
+import com.anita.anitamotorcycle.beans.RepairmanBean;
 import com.anita.anitamotorcycle.beans.UserBean;
 import com.google.gson.Gson;
 
@@ -38,6 +39,7 @@ public class ClientUtils {
     private static int sLine;
     private static MotorBean sMotorBean;
     private static UserBean sUserBean;
+    private static RepairmanBean sRepairmanBean;
     private static boolean sResult;
     private static List<MotorBean> sMotorList = null;
     private static List<RecordBean> sRecordingList = null;
@@ -47,49 +49,54 @@ public class ClientUtils {
     //                String url = "http://192.168.0.107:8080/AMServer/userlogin";
 //                Map<String, String> params = new HashMap<>();
 //                ClientUtils.getUserData(url, params);
-    public static void getUserData(String baseUrl, Map<String, String> params) {
-        try {
-            //拼接URL
-            StringBuilder sb = new StringBuilder(baseUrl);
-            if (params.size() > 0) {
-                sb.append("?");
-                Set<Map.Entry<String, String>> entries = params.entrySet();
-                for (Map.Entry<String, String> entry : entries) {
-                    sb.append(entry.getKey());
-                    sb.append("=");
-                    sb.append(entry.getValue());
+    public static List<RecordBean> getTohandList() {
+        sRecordingList = null;
+        System.out.println("getTohandList/AMServer/GetOrdersList: 获取订单待处理信息");
+        Thread getTohandList = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/GetOrdersList");
+                    //打开连接
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setRequestMethod("GET");
+                    //设置请求超时时间
+                    urlConnection.setConnectTimeout(1000);
+                    urlConnection.setRequestProperty("accept", "*/*");
+                    urlConnection.setRequestProperty("connection", "keep-alive");
+                    urlConnection.setRequestProperty("Accept-Language", "zh-CN,zh");
+
+                    //开始连接
+                    urlConnection.connect();
+                    //获取返回内容
+                    System.out.println("获取返回内容");
+                    Map<String, List<String>> headerFields = urlConnection.getHeaderFields();
+                    Set<Map.Entry<String, List<String>>> entries = headerFields.entrySet();
+                    for (Map.Entry<String, List<String>> entry : entries) {
+                        System.out.println(entry.getKey() + " === " + entry.getValue());
+                    }
+                    InputStream inputStream = urlConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        System.out.println("line---" + line);
+                        sRecordingList = JsonUtils.recordListFromJson(line);
+                    }
+                    bufferedReader.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-            String resultUrl = sb.toString();
-            URL url = new URL(resultUrl);
-            //打开连接
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            //设置请求超时时间
-            urlConnection.setConnectTimeout(1000);
-            urlConnection.setRequestProperty("accept", "*/*");
-            urlConnection.setRequestProperty("connection", "keep-alive");
-            urlConnection.setRequestProperty("Accept-Language", "zh-CN,zh");
-
-            //开始连接
-            urlConnection.connect();
-            //获取返回内容
-            System.out.println("获取返回内容");
-            Map<String, List<String>> headerFields = urlConnection.getHeaderFields();
-            Set<Map.Entry<String, List<String>>> entries = headerFields.entrySet();
-            for (Map.Entry<String, List<String>> entry : entries) {
-                System.out.println(entry.getKey() + " === " + entry.getValue());
-            }
-            InputStream inputStream = urlConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                System.out.println("line---" + line);
-            }
-            bufferedReader.close();
-        } catch (Exception e) {
+        });
+        getTohandList.start();
+        try {
+//            主线程等待子线程结束
+            getTohandList.join();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("getTohandList done!");
+        return sRecordingList;
     }
 
     /**
@@ -158,6 +165,74 @@ public class ClientUtils {
         System.out.println("getUserThread done!");
 
         return sUserBean;
+    }
+
+    /**
+     * 根据phone获取维修员信息
+     *
+     * @param phone
+     * @return
+     */
+    public static RepairmanBean getRepairmanInfo(final String phone) {
+        System.out.println("getRepairmanInfo/AMServer/GetRepairmanUser: 获取维修员信息");
+        sRepairmanBean = null;
+        Thread getRepairmanThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/GetRepairmanUser");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    RepairmanBean repairmanBean = new RepairmanBean(phone);
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(repairmanBean);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "jsonStr --- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        System.out.println("服务器响应数据 --- " + line);
+                        if (line != null) {
+                            sRepairmanBean = JsonUtils.RepairmanFromJson(line);
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        getRepairmanThread.start();
+        try {
+//            主线程等待子线程结束
+            getRepairmanThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("getRepairmanThread done!");
+
+        return sRepairmanBean;
     }
 
 
@@ -304,9 +379,78 @@ public class ClientUtils {
     }
 
     /**
+     * 根据维修员phone获取当前待维修、已完成订单记录
+     *
+     * @param phone mark：0待维修；1已完成
+     * @return
+     */
+    public static List<RecordBean> getToRepairList(final String phone, final int mark) {
+        System.out.println("getRepairingList/AMServer/GetRecords获取维修记录列表");
+        sRecordingList = null;
+        Thread getRepairingThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/GetOrdersList");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    RepairmanBean repairman = new RepairmanBean(phone, mark);
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(repairman);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "jsonStr --- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        System.out.println("服务器响应数据 --- " + line);
+                        if (line != null) {
+                            sRecordingList = JsonUtils.recordListFromJson(line);
+
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        getRepairingThread.start();
+        try {
+//            主线程等待子线程结束
+            getRepairingThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("getRepairingThread done!");
+        return sRecordingList;
+    }
+
+    /**
      * 根据userphone获取当前用户维修中/维修完成记录
      *
-     * @param phone  mark：0维修中；1维修完成
+     * @param phone mark：0维修中；1维修完成
      * @return
      */
     public static List<RecordBean> getRepairingList(final String phone, final int mark) {
@@ -402,6 +546,78 @@ public class ClientUtils {
                     UserBean userBean = new UserBean(phone, password);
                     Gson gson = new Gson();
                     String jsonStr = gson.toJson(userBean);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "jsonStr --- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        System.out.println("服务器响应数据 --- " + line);
+                        if (line != null) {
+                            sLine = Integer.parseInt(line);
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        validateLoginThread.start();
+        try {
+//            主线程等待子线程结束
+            validateLoginThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("validateLoginThread done!");
+        return sLine;
+    }
+
+    /**
+     * 维修员登录验证
+     * 1. 连接服务端数据库，传递数据
+     * 2. 验证用户手机号已注册
+     * 3. 验证密码正确
+     *
+     * @param phone
+     * @param password
+     * @return 账号不存在返回11，密码错误返回0，验证通过返回1
+     */
+    public static int validateRepairmanLogin(final String phone, final String password) {
+        System.out.println("validateLogin/AMServer/RepairmanLogin 维修员登录验证");
+        sLine = 0;
+        Thread validateLoginThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/RepairmanLogin");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    RepairmanBean repairmanBean = new RepairmanBean(phone, password);
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(repairmanBean);
                     byte[] bytes = jsonStr.getBytes("UTF-8");
                     Log.d(TAG, "jsonStr --- " + jsonStr);
                     httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
@@ -701,6 +917,73 @@ public class ClientUtils {
     }
 
     /**
+     *根据维修id，更新维修记录状态（维修状态、更新时间）
+     * @param recordBean
+     * @return
+     */
+    public static boolean updateRecord(final RecordBean recordBean) {
+        System.out.println("updateRecord/AMServer/UpdateRecord 更新维修记录状态");
+        sResult = false;
+        Thread updateRecordThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/UpdateRecord");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    Log.d(TAG, "post数据---" + recordBean.toString());
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(recordBean);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "生成json--- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        System.out.println("服务器响应数据 --- " + line);
+                        if (line != null) {
+                            sResult = Boolean.parseBoolean(line);
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "validateVIN:Exception-- " + e.getMessage());
+                }
+            }
+        });
+        updateRecordThread.start();
+        try {
+//            主线程等待子线程结束
+            updateRecordThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("updateRecordThread done!");
+        return sResult;
+    }
+
+    /**
      * 连接数据库
      * 1. 传回当前用户phone、摩托车基本信息、车牌号、创建更新时间(motoritem)
      * 2. update数据库摩托车信息
@@ -848,7 +1131,7 @@ public class ClientUtils {
                 OutputStream outputStream;
                 InputStream inputStream;
                 try {
-                    URL url = new URL(Constants.BASEURL + "/AMServer/addrecord");
+                    URL url = new URL(Constants.BASEURL + "/AMServer/AddRecord");
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                     httpURLConnection.setRequestMethod("POST");
                     httpURLConnection.setConnectTimeout(10000);

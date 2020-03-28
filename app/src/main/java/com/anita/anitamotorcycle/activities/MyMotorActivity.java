@@ -17,8 +17,6 @@ import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.adapters.MyMotorDataAdapter;
 import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
-import com.anita.anitamotorcycle.helps.UserHelper;
-import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.anita.anitamotorcycle.utils.MotorUtils;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;

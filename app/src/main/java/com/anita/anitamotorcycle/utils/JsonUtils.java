@@ -2,6 +2,7 @@ package com.anita.anitamotorcycle.utils;
 
 import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.beans.RecordBean;
+import com.anita.anitamotorcycle.beans.RepairmanBean;
 import com.anita.anitamotorcycle.beans.UserBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -51,6 +52,19 @@ public class JsonUtils {
         UserBean user = gson.fromJson(jsonStr, UserBean.class);
         System.out.println("json解析：motor---" + user.toString());
         return user;
+    }
+
+    /**
+     * 解析json数据
+     *
+     * @param jsonStr
+     * @return
+     */
+    public static RepairmanBean RepairmanFromJson(String jsonStr) {
+        Gson gson = new Gson();
+        RepairmanBean repairmanBean = gson.fromJson(jsonStr, RepairmanBean.class);
+        System.out.println("json解析：motor---" + repairmanBean.toString());
+        return repairmanBean;
     }
 
 

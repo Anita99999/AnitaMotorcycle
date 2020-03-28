@@ -14,6 +14,7 @@ import java.util.TimeZone;
  */
 public class RecordBean implements Serializable {
     public RecordBean() {
+
     }
 
     public RecordBean(String user_name, String phone, String plate_numbers, String position, String problem_type, String description) {

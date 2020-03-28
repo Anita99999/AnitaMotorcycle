@@ -1,16 +1,19 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.mob.sdk'
+//apply plugin: 'com.mob.sdk'
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.anita.anitamotorcycle"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //解决引入第三方库jar文件导致的错误
+//        multiDexEnabled true
+//        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
     buildTypes {
         release {
@@ -24,11 +27,14 @@ android {
     }
 }
 
-MobSDK {
-    appKey "2cbe986d2ca8f"
-    appSecret "c6e320106f04a9f2dea8acfcf24f19ed"
-    SMSSDK {}
-}
+//MobSDK {
+//    appKey "2cbe986d2ca8f"
+//    appSecret "c6e320106f04a9f2dea8acfcf24f19ed"
+//    permissions {
+//        exclude "android.permission.READ_CONTACTS", "android.permission.READ_PHONE_STATE"
+//    }
+//    SMSSDK {}
+//}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -45,6 +51,8 @@ dependencies {
     //    弹窗确认框、提示框
     implementation 'com.github.HanHuoBin:BaseDialog:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -58,4 +66,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 //    百度地图
     implementation files('libs/BaiduLBS_Android.jar')
+//    二维码
+//    implementation files('libs\\zxing.jar')
+//    implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.github.yuzhiqiang1993:zxing:2.2.5'
+
 }

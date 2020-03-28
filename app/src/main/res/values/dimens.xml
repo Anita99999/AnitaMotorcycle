@@ -35,7 +35,7 @@
 
     <!--统一边距-->
     <dimen name="marginSize">16dp</dimen>
-    <dimen name="marginBigSize">22dp</dimen>
+    <dimen name="marginBigSize">20dp</dimen>
     <dimen name="marginLittleSize">10dp</dimen>
     <dimen name="marginSmallSize">12dp</dimen>
     <!--统一内边距-->
@@ -68,4 +68,10 @@
     <!--信息文字大小-->
     <dimen name="infoSize">14sp</dimen>
     <dimen name="infoLittleSize">12sp</dimen>
+
+    <dimen name="standard_padding">8dip</dimen>
+    <dimen name="half_padding">4dip</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

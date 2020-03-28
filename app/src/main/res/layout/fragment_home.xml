@@ -23,6 +23,14 @@
             android:text="摩托车管家"
             android:textColor="@android:color/white"
             android:textSize="@dimen/navBarTitleSize" />
+
+        <ImageView
+            android:id="@+id/iv_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:padding="@dimen/paddingBigSize"
+            android:src="@mipmap/saoyisao" />
     </FrameLayout>
 
     <RelativeLayout
@@ -118,8 +126,7 @@
         android:layout_below="@+id/rl_button"
         android:layout_marginLeft="@dimen/marginSize"
         android:layout_marginRight="@dimen/marginSize"
-        android:background="@drawable/shape_radius"
-        >
+        android:background="@drawable/shape_radius">
 
         <ImageView
             android:id="@+id/iv_motor"

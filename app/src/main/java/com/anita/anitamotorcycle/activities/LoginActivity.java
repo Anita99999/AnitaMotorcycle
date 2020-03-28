@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.activities2.Login2Activity;
 import com.anita.anitamotorcycle.helps.MotorHelper;
 import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.utils.ClientUtils;
@@ -46,6 +47,8 @@ public class LoginActivity extends BaseActivity {
         mInlet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, Login2Activity.class);
+                startActivity(intent);
             }
         });
 
@@ -100,7 +103,7 @@ public class LoginActivity extends BaseActivity {
         }
 //              当用户通过验证
 //              利用SharedPreferences保存用户登录标记
-        boolean isSave = UserUtils.saveUser(LoginActivity.this, mPhone);
+        boolean isSave = UserUtils.saveUser(LoginActivity.this, mPhone,1);
         if (isSave) {
 //                  保存用户标记，在全局单例类UserHelp之中
             UserHelper.getInstance().setPhone(mPhone);

@@ -107,7 +107,7 @@ public class RepairedRecordFragment extends Fragment implements IRepairedCallbac
 //        设置recyclerview样式，设置布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 //        设置反向
-//        layoutManager.setReverseLayout(isReverse);
+//        layoutManager.setReverseLayout(true);
         mRepairedList.setFocusable(false);
         mRepairedList.setLayoutManager(layoutManager);
         mRepairedList.setNestedScrollingEnabled(false);

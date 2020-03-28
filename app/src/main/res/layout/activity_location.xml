@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/paddingLittleSize"
             android:layout_toRightOf="@+id/iv_back"
-            android:text="定位"
+            android:text=""
             android:textStyle="bold"/>
 
 
