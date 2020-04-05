@@ -56,7 +56,7 @@ public class MotorDetailsActivity extends AppCompatActivity {
                     Toast.makeText(MotorDetailsActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
                 }
                 Log.d(TAG, "onClick: 选择摩托车id" + mMotorBean.getId());
-                Toast.makeText(getApplicationContext(), "选择车辆"+mMotorBean.getModel()+"成功", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "选择车辆" + mMotorBean.getModel() + "成功", Toast.LENGTH_LONG).show();
                 onBackPressed();    //后退操作
             }
         });
@@ -107,7 +107,7 @@ public class MotorDetailsActivity extends AppCompatActivity {
 
     private void showConfirmDialog() {
         ConfirmDialog confirmDialog = new ConfirmDialog(this);
-        confirmDialog.setLogoImg(R.mipmap.dialog_notice).setMsg("确认删除该摩托车吗吗？");
+        confirmDialog.setLogoImg(R.mipmap.dialog_notice).setMsg("确认删除摩托车" + mMotorBean.getPlate_numbers() + "吗？");
         confirmDialog.setClickListener(new ConfirmDialog.OnBtnClickListener() {
             @Override
             public void ok() {

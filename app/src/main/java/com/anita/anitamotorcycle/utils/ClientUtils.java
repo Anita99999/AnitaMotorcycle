@@ -385,9 +385,9 @@ public class ClientUtils {
      * @return
      */
     public static List<RecordBean> getToRepairList(final String phone, final int mark) {
-        System.out.println("getRepairingList/AMServer/GetRecords获取维修记录列表");
+        System.out.println("getToRepairList/AMServer/getToRepairList获取待维修、已完成订单");
         sRecordingList = null;
-        Thread getRepairingThread = new Thread(new Runnable() {
+        Thread getToRepairListThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 OutputStream outputStream;
@@ -436,14 +436,14 @@ public class ClientUtils {
 
             }
         });
-        getRepairingThread.start();
+        getToRepairListThread.start();
         try {
 //            主线程等待子线程结束
-            getRepairingThread.join();
+            getToRepairListThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("getRepairingThread done!");
+        System.out.println("getToRepairListThread done!");
         return sRecordingList;
     }
 
@@ -792,6 +792,77 @@ public class ClientUtils {
         System.out.println("validatePhoneThread done!");
         return sResult;
     }
+
+    /**
+     * 验证车牌号是否正在维修
+     * 即查询维修记录中是否存在该车牌号且维修状态为1-4维修中的记录（维修申请）
+     * @param PlateNumbers
+     * @return 车辆正在维修，true；否则返回false
+     */
+    public static boolean validatePlateNumbers(final String PlateNumbers) {
+        System.out.println("validatePlateNumbers/AMServer/ValidatePlateNumbers 验证车牌号是否正在维修");
+        sResult = false;
+        Thread validatePlateNumbersThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream outputStream;
+                InputStream inputStream;
+                try {
+                    URL url = new URL(Constants.BASEURL + "/AMServer/ValidatePlateNumbers");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setConnectTimeout(10000);
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    httpURLConnection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9");
+                    httpURLConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
+
+                    MotorBean motor = new MotorBean();
+                    motor.setPlate_numbers(PlateNumbers);
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(motor);
+                    byte[] bytes = jsonStr.getBytes("UTF-8");
+                    Log.d(TAG, "生成json--- " + jsonStr);
+                    httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+                    //连接
+                    httpURLConnection.connect();
+                    //把数据给到服务
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    //拿结果
+                    int responseCode = httpURLConnection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpURLConnection.getInputStream();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = in.readLine();
+                        System.out.println("服务器响应数据 --- " + line);
+                        if (line != null) {
+                            sResult = Boolean.parseBoolean(line);
+                        }
+                        in.close();
+                        inputStream.close();
+                    }
+                    outputStream.close();
+                } catch (SocketTimeoutException e) {
+                    Log.d(TAG, "SocketTimeoutException: " + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "validatePlateNumbersThread:Exception-- " + e.getMessage());
+                }
+            }
+        });
+        validatePlateNumbersThread.start();
+        try {
+//            主线程等待子线程结束
+            validatePlateNumbersThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("validatePlateNumbersThread done!");
+        return sResult;
+    }
+
+
 
     /**
      * 验证vin码

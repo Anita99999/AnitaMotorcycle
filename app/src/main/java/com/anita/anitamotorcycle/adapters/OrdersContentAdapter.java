@@ -34,15 +34,12 @@ public class OrdersContentAdapter extends FragmentPagerAdapter {
         if (fragment != null) {
             return fragment;
         }
-
+//        Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new ToHandFragment();
-                break;
-            case 1:
                 fragment = new ToRepairFragment();
                 break;
-            case 2:
+            case 1:
                 fragment = new FinishedFragment();
                 break;
         }
@@ -53,6 +50,6 @@ public class OrdersContentAdapter extends FragmentPagerAdapter {
     //    返回视图的总数量
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 }

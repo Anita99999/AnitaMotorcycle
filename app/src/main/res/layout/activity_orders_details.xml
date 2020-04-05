@@ -95,6 +95,22 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/tv_repair_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/paddingIconSize"
+                    android:text="维修单号："
+                    android:textColor="@color/black1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewHeight"
+                    android:layout_marginTop="@dimen/paddingLittleSize"
+                    android:layout_marginBottom="@dimen/paddingLittleSize"
+                    android:background="@color/itemViewColor" />
+
                 <LinearLayout
                     android:id="@+id/ll_orders"
                     android:layout_width="match_parent"
@@ -135,22 +151,6 @@
                         android:layout_marginBottom="@dimen/paddingLittleSize"
                         android:background="@color/itemViewColor" />
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_repair_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/paddingIconSize"
-                    android:text="维修单号："
-                    android:textColor="@color/black1" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/viewHeight"
-                    android:layout_marginTop="@dimen/paddingLittleSize"
-                    android:layout_marginBottom="@dimen/paddingLittleSize"
-                    android:background="@color/itemViewColor" />
 
                 <TextView
                     android:id="@+id/tv_create_at"

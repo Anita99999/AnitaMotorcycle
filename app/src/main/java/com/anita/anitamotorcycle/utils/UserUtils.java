@@ -130,9 +130,9 @@ public class UserUtils {
             return;
         }
         Intent intent;
-        if(type==1){
+        if (type == 1) {
             intent = new Intent(context, LoginActivity.class);
-        }else{
+        } else {
             intent = new Intent(context, Login2Activity.class);
         }
 //        添加intent标志符：清除当前TASK栈占用的Activity、创建一个新的TASK栈
@@ -140,11 +140,26 @@ public class UserUtils {
         context.startActivity(intent);
 //        定义Activity跳转动画
         ((Activity) context).overridePendingTransition(R.anim.activity_open_enter, R.anim.activity_open_exit);
+        deleteMotorMark(context);
+
+    }
+
+    private static void deleteMotorMark(Context context) {
+        //                        有摩托车标记时，删除标记
+        if (MotorUtils.isExitMotor(context)) {
+            //        删除sp保存的摩托车标记
+            boolean isRemove = MotorUtils.removeMotor(context);
+            if (!isRemove) {
+                Toast.makeText(context, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
     }
 
     /**
      * 利用SharedPreferences，保存登录用户的用户标记（手机号码）
-     *type=1：用户；type=0：维修员
+     * type=1：用户；type=0：维修员
+     *
      * @param context
      * @param phone
      * @return 是否保存成功
@@ -205,9 +220,10 @@ public class UserUtils {
 
     /**
      * 获取当前北京时间
+     *
      * @return
      */
-    public static String getCurrentTime(){
+    public static String getCurrentTime() {
         // 获取当前北京时间,设置创建时间和更新时间
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  //设置日期格式

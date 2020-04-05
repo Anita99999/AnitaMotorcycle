@@ -1,43 +1,35 @@
-package com.anita.anitamotorcycle.fragments;
+package com.anita.anitamotorcycle.activities2;
 
 import android.os.Bundle;
+import android.util.Log;
 
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.anita.anitamotorcycle.R;
+import com.anita.anitamotorcycle.activities.BaseActivity;
 import com.anita.anitamotorcycle.adapters.Indicator2Adapter;
 import com.anita.anitamotorcycle.adapters.IndicatorAdapter;
 import com.anita.anitamotorcycle.adapters.OrdersContentAdapter;
+import com.anita.anitamotorcycle.adapters.RecordContentAdapter;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
-
-public class OrdersFragment extends Fragment {
-    private static final String TAG = "OrdersFragment";
+public class OrdersRecordActivity extends BaseActivity {
 
     private MagicIndicator mRecord_indicator;
     private ViewPager mVpager_content;
     private Indicator2Adapter mIndicatorAdapter;
-
-    public OrdersFragment() {
-
-    }
+    private static final String TAG = "OrdersRecordActivity";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_orders, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_orders_record);
 
-        initView(view);
+        initView();
         initListener();
-        return view;
     }
 
     private void initListener() {
@@ -52,22 +44,23 @@ public class OrdersFragment extends Fragment {
         });
     }
 
-    private void initView(View view) {
-        mRecord_indicator = view.findViewById(R.id.record_indicator);
+    private void initView() {
+        initNavBar(true, "我的订单");
+
+        mRecord_indicator = this.findViewById(R.id.record_indicator);
 //        mRecord_indicator.setBackgroundColor(this.getResources().getColor(R.color.viewColor));
 //        创建indicator的适配器
-        mIndicatorAdapter = new Indicator2Adapter(getActivity());
-        CommonNavigator commonNavigator = new CommonNavigator(getActivity());
+        mIndicatorAdapter = new Indicator2Adapter(this);
+        CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(mIndicatorAdapter);
         mRecord_indicator.setNavigator(commonNavigator);
 
 //        创建内容适配器
-        mVpager_content = view.findViewById(R.id.vpager_content);
-        OrdersContentAdapter ordersContentAdapter = new OrdersContentAdapter(getFragmentManager());
+        mVpager_content = this.findViewById(R.id.vpager_content);
+        OrdersContentAdapter ordersContentAdapter = new OrdersContentAdapter(getSupportFragmentManager());
         mVpager_content.setAdapter(ordersContentAdapter);
 //        把ViewPager和indicator指示器绑定到一起
         ViewPagerHelper.bind(mRecord_indicator,mVpager_content);
     }
-
 }

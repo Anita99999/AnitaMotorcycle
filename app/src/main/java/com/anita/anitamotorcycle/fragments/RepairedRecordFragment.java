@@ -49,7 +49,7 @@ public class RepairedRecordFragment extends Fragment implements IRepairedCallbac
 //        mRepairedList = view.findViewById(R.id.rv_repairing_record);
 //        getData();  //获取数据
 //        showList(true); //实现list
-
+        Log.d(TAG, "onCreateView: ");
         mUiLoaderView = new UILoaderView(getContext()) {
             @Override
             protected View getSuccessView(ViewGroup container) {

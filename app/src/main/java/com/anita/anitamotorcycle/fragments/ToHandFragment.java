@@ -32,11 +32,16 @@ public class ToHandFragment extends Fragment {
 
     private RecyclerView mRv_orders;
     private List<RecordBean> mDatas;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: 待维修1");
+        Log.d(TAG, "onCreateView: 待处理1");
         View view = inflater.inflate(R.layout.fragment_to_hand, container, false);
         initView(view);
 
@@ -100,30 +105,30 @@ public class ToHandFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart: 待维修3");
+        Log.d(TAG, "onStart: 待处理3");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: 待维修2");
+        Log.d(TAG, "onResume: 待处理2");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause: 待维修4");
+        Log.d(TAG, "onPause: 待处理4");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop: 待维修5");
+        Log.d(TAG, "onStop: 待处理5");
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.d(TAG, "onHiddenChanged: 待维修6");
+        Log.d(TAG, "onHiddenChanged: 待处理6");
     }
 }

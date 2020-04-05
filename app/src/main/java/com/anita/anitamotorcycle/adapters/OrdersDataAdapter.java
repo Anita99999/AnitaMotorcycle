@@ -69,9 +69,9 @@ public class OrdersDataAdapter extends RecyclerView.Adapter<OrdersDataAdapter.In
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: holder.itemView.setOnClickListener....test1");
-//                Intent intent = new Intent(v.getContext(), OrdersDetailsActivity.class);
-//                intent.putExtra("record", recordBean);
-//                v.getContext().startActivity(intent);
+                Intent intent = new Intent(v.getContext(), OrdersDetailsActivity.class);
+                intent.putExtra("record", recordBean);
+                v.getContext().startActivity(intent);
             }
         });
     }
@@ -120,6 +120,7 @@ public class OrdersDataAdapter extends RecyclerView.Adapter<OrdersDataAdapter.In
          */
         public void setData(RecordBean recordBean) {
             mTv_record_id.setText(recordBean.getId());
+
             if (recordBean.getRepair_status() == 1) {
 //                待处理
                 mRepairStatus.setText("待处理");
@@ -129,7 +130,7 @@ public class OrdersDataAdapter extends RecyclerView.Adapter<OrdersDataAdapter.In
                 mRepairStatus.setText(recordBean.getRepairStatus());
             } else {
 //                已完成
-
+                mRepairStatus.setText(recordBean.getRepairStatus());
             }
             mUpdateTime.setText(recordBean.getUpdate_at());
 

@@ -7,17 +7,24 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.beans.RecordBean;
+import com.anita.anitamotorcycle.beans.RepairmanBean;
+import com.anita.anitamotorcycle.beans.UserBean;
+import com.anita.anitamotorcycle.helps.UserHelper;
+import com.anita.anitamotorcycle.utils.ClientUtils;
+import com.anita.anitamotorcycle.utils.UserUtils;
+import com.hb.dialog.dialog.ConfirmDialog;
 
 public class OrdersDetailsActivity extends AppCompatActivity {
     private ImageView mBack;
-    private LinearLayout mLl_info2;
     private String mRecordID;
     private RecordBean mRecordBean;
+    private TextView mTv_doit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,50 +42,40 @@ public class OrdersDetailsActivity extends AppCompatActivity {
                 onBackPressed();    //后退操作
             }
         });
+
+//        受理、完成
+        mTv_doit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String info = "确认受理订单" + mRecordBean.getId() + "吗？";
+                if (mRecordBean.getRepair_status() == 2) {
+                    info = "确认订单" + mRecordBean.getId() + "正在维修中吗？";
+                } else if (mRecordBean.getRepair_status() == 3) {
+                    info = "确认订单" + mRecordBean.getId() + "维修完成吗？";
+                }
+                showConfirmDialog(info);
+            }
+        });
     }
 
     private void initView() {
         mBack = findViewById(R.id.iv_back);
-        mLl_info2 = findViewById(R.id.ll_info2);
-
+        mTv_doit = findViewById(R.id.tv_doit);
+        LinearLayout ll_orders = findViewById(R.id.ll_orders);
         //获取上一页面传递的数据
         mRecordBean = (RecordBean) getIntent().getSerializableExtra("record");
 
         // TODO: 2020/2/22 车辆定位获取实时定位
-        if (mRecordBean.getRepair_status() == 1 || mRecordBean.getRepair_status() == 6) {
-//            维修员未接单
-            mLl_info2.setVisibility(View.GONE);
-        } else {
-//            维修员已接单
-            mLl_info2.setVisibility(View.VISIBLE);
-            //        维修商信息
-            TextView tv_repairman_name = findViewById(R.id.tv_repair_name);
-            TextView tv_repairman_phone = findViewById(R.id.tv_repairman_phone);
-            TextView tv_factory_name = findViewById(R.id.tv_factory_name);
-            TextView tv_factory_address = findViewById(R.id.tv_factory_address);
-            tv_repairman_name.setText("维修员姓名：" + mRecordBean.getRepairman_name());
-            tv_repairman_phone.setText(mRecordBean.getRepairman_phone());
-            tv_repairman_phone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mRecordBean.getRepairman_phone()));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
 
-                }
-            });
-            tv_factory_name.setText("维修商名称：" + mRecordBean.getFactory_name());
-            tv_factory_address.setText("维修商地址：" + mRecordBean.getFactory_address());
-        }
 //        维修单信息
         TextView tv_repair_id = findViewById(R.id.tv_repair_id);
         TextView tv_create_at = findViewById(R.id.tv_create_at);
         TextView tv_repair_status = findViewById(R.id.tv_repair_status);
         TextView tv_update_at = findViewById(R.id.tv_update_at);
         tv_repair_id.setText("维修单号：" + mRecordBean.getId());
-        tv_create_at.setText("提交申请时间：" + mRecordBean.getCreate_at());
-        tv_repair_status.setText("当前维修状态：" + mRecordBean.getRepairStatus());
-        tv_update_at.setText("状态更新时间：" + mRecordBean.getUpdate_at());
+        tv_create_at.setText("申请时间：" + mRecordBean.getCreate_at());
+        tv_repair_status.setText("当前状态：" + mRecordBean.getRepairStatus());
+        tv_update_at.setText("更新时间：" + mRecordBean.getUpdate_at());
 
 //        维修详情
         TextView tv_user_name = findViewById(R.id.tv_user_name);
@@ -93,7 +90,61 @@ public class OrdersDetailsActivity extends AppCompatActivity {
         tv_position.setText("车辆位置：" + mRecordBean.getPosition());
         tv_problem_type.setText("故障类型：" + mRecordBean.getProblem_type());
         tv_description.setText("故障描述：" + mRecordBean.getDescription());
+
+        if (mRecordBean.getRepair_status() == 1) {
+//            提交成功1
+            mTv_doit.setVisibility(View.VISIBLE);
+            mTv_doit.setText("受理");
+            ll_orders.setVisibility(View.GONE);
+        } else if (mRecordBean.getRepair_status() == 2 || mRecordBean.getRepair_status() == 3) {
+//            维修中
+            mTv_doit.setText("完成");
+            mTv_doit.setVisibility(View.VISIBLE);
+            ll_orders.setVisibility(View.VISIBLE);
+        } else {
+//            维修完成
+            mTv_doit.setVisibility(View.GONE);
+            ll_orders.setVisibility(View.VISIBLE);
+        }
     }
 
+    private void showConfirmDialog(String info) {
+        ConfirmDialog confirmDialog = new ConfirmDialog(this);
+        confirmDialog.setLogoImg(R.mipmap.dialog_notice).setMsg(info);
+        confirmDialog.setClickListener(new ConfirmDialog.OnBtnClickListener() {
+            @Override
+            public void ok() {
+//                连接服务器，update订单状态
+                if (mRecordBean.getRepair_status() == 1) {
+//                    传回维修员phone
+                    mRecordBean.setRepairman_id(UserHelper.getInstance().getPhone());
+                    mRecordBean.setRepair_status(mRecordBean.getRepair_status() + 1);
+                    mRecordBean.setUpdate_at(UserUtils.getCurrentTime());
+                    boolean isUpdate = ClientUtils.updateRecord(mRecordBean);
+                    if (isUpdate) {
+                        Toast.makeText(getApplicationContext(), "受理成功", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(OrdersDetailsActivity.this, "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    mRecordBean.setRepair_status(mRecordBean.getRepair_status() + 1);
+                    mRecordBean.setUpdate_at(UserUtils.getCurrentTime());
+                    boolean isUpdate = ClientUtils.updateRecord(mRecordBean);
+                    if (isUpdate) {
+                        Toast.makeText(getApplicationContext(), "处理成功", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(OrdersDetailsActivity.this, "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
+                    }
+                }
 
+                onBackPressed();    //后退操作
+            }
+
+            @Override
+            public void cancel() {
+                Toast.makeText(getApplicationContext(), "取消", Toast.LENGTH_LONG).show();
+            }
+        });
+        confirmDialog.show();
+    }
 }

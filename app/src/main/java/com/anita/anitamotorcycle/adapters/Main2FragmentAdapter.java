@@ -4,11 +4,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.anita.anitamotorcycle.fragments.HomeFragment;
 import com.anita.anitamotorcycle.fragments.Me2Fragment;
-import com.anita.anitamotorcycle.fragments.MeFragment;
 import com.anita.anitamotorcycle.fragments.MessageFragment;
-import com.anita.anitamotorcycle.fragments.OrdersFragment;
+import com.anita.anitamotorcycle.fragments.Home2Fragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,15 +23,16 @@ public class Main2FragmentAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
-//    返回具体位置的viewPager切换到i位置时对应的fragment
+    //    返回具体位置的viewPager切换到i位置时对应的fragment
     public Fragment getItem(int i) {
-        Fragment fragment = sCache.get(i);
-        if (fragment != null) {
-            return fragment;
-        }
+        Fragment fragment = null;
+//        Fragment fragment = sCache.get(i);
+//        if (fragment != null) {
+//            return fragment;
+//        }
         switch (i) {
             case 0:
-                fragment = new OrdersFragment();
+                fragment = new Home2Fragment();
                 break;
             case 1:
                 fragment = new MessageFragment();
@@ -44,11 +43,11 @@ public class Main2FragmentAdapter extends FragmentPagerAdapter {
             default:
                 break;
         }
-        sCache.put(i, fragment);
+//        sCache.put(i, fragment);
         return fragment;
     }
 
-//    返回视图的总数量
+    //    返回视图的总数量
     public int getCount() {
         return 3;
     }

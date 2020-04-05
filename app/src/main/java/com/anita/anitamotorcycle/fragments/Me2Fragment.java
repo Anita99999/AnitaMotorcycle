@@ -50,6 +50,7 @@ public class Me2Fragment extends Fragment {
         initView(view);
 //        设置条目点击事件
         initListener();
+        Log.d(TAG, "onCreateView: ");
         return view;
     }
 
@@ -78,9 +79,7 @@ public class Me2Fragment extends Fragment {
 //        用户名
         tv_username = view.findViewById(R.id.tv_username);
         TextView tv_factory_name = view.findViewById(R.id.tv_factory_name);
-        TextView tv_today_do = view.findViewById(R.id.tv_today_do);
-        TextView tv_today_did = view.findViewById(R.id.tv_today_did);
-        TextView tv_total_did = view.findViewById(R.id.tv_total_did);
+
 
 //       退出登录按钮
         btn_logout = view.findViewById(R.id.btn_logout);
@@ -90,9 +89,9 @@ public class Me2Fragment extends Fragment {
         if (mRepairmanBean != null) {
             tv_username.setText(mRepairmanBean.getName());
             tv_factory_name.setText(mRepairmanBean.getFactory_id());
-            tv_today_do.setText(mRepairmanBean.getToday_do()+"");
-            tv_today_did.setText(mRepairmanBean.getToday_did()+"");
-            tv_total_did.setText(mRepairmanBean.getTotal_did()+"");
+//            tv_today_do.setText(mRepairmanBean.getToday_do()+"");
+//            tv_today_did.setText(mRepairmanBean.getToday_did()+"");
+//            tv_total_did.setText(mRepairmanBean.getTotal_did()+"");
         }
 
     }

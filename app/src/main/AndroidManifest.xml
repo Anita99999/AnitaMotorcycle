@@ -27,7 +27,7 @@
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/welcome"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
@@ -53,6 +53,8 @@
         <activity android:name=".activities.BindFirstActivity" />
         <activity android:name=".activities.RepairDetailsActivity" />
         <activity android:name=".activities2.OrdersDetailsActivity" />
+        <activity android:name=".activities2.TodoOrdersActivity" />
+        <activity android:name=".activities2.OrdersRecordActivity" />
         <activity android:name=".activities.MotorDetailsActivity" />
         <activity android:name=".activities.AddMotorNumActivity" />
         <activity android:name=".activities.AddMotorActivity" />

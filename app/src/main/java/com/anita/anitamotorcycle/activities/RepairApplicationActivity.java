@@ -51,6 +51,7 @@ public class RepairApplicationActivity extends BaseActivity {
     private EditText mEt_problems;
     private RecordBean mRecordBean;
     private TextView mTv_location;
+    private boolean mIsRepair;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +130,7 @@ public class RepairApplicationActivity extends BaseActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "车牌号选择: " + mMotorAdapter.getItem(position));
                 mPlateNumbers = mMotorAdapter.getItem(position);
+
             }
 
             @Override
@@ -191,6 +193,10 @@ public class RepairApplicationActivity extends BaseActivity {
                 if (!checkData()) {
                     return;
                 }
+//                if(mIsRepair){
+//                    Toast.makeText(getApplicationContext(), "车牌号为" + mPlateNumbers + "的车辆正在维修中，请重新选择", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 //                确认提交弹框
                 showConfirmDialog();
             }
@@ -218,6 +224,7 @@ public class RepairApplicationActivity extends BaseActivity {
             return false;
         }
 
+        Log.d(TAG, "checkData: mPlateNumbers---" + mPlateNumbers);
         if (mPlateNumbers == "请选择车辆" || mPlateNumbers == "请先添加车辆") {
             Toast.makeText(getApplicationContext(), "车牌号不可为空", Toast.LENGTH_SHORT).show();
             return false;
@@ -230,6 +237,16 @@ public class RepairApplicationActivity extends BaseActivity {
         if (mProblemsType == "请选择故障类型") {
             Toast.makeText(getApplicationContext(), "故障类型不可为空", Toast.LENGTH_SHORT).show();
             return false;
+        }else{
+            //            连接数据库，验证当前车牌号未处于维修状态
+            Log.d(TAG, "checkData: ");
+            mIsRepair = ClientUtils.validatePlateNumbers(mPlateNumbers);
+            Log.d(TAG, "checkData: isRepair--" + mIsRepair);
+            if (mIsRepair) {
+//                车辆正在维修
+                Toast.makeText(getApplicationContext(), "车辆" + mPlateNumbers + "正在维修中，请重新选择", Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
         String description = mEt_problems.getText().toString();
 //        通过验证,保存数据
@@ -289,7 +306,7 @@ public class RepairApplicationActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1000 && resultCode == 1001){
+        if (requestCode == 1000 && resultCode == 1001) {
             String location = data.getStringExtra("location");
             Log.d(TAG, "onActivityResult: 获取上页数据");
             mEt_location.setText(location);

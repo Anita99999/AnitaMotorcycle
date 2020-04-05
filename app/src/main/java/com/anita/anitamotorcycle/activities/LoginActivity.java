@@ -105,29 +105,18 @@ public class LoginActivity extends BaseActivity {
 //              利用SharedPreferences保存用户登录标记
         boolean isSave = UserUtils.saveUser(LoginActivity.this, mPhone,1);
         if (isSave) {
+            Log.d(TAG, "loginHandler: 保存用户登录标记");
 //                  保存用户标记，在全局单例类UserHelp之中
             UserHelper.getInstance().setPhone(mPhone);
 
+            if ( MotorHelper.getInstance().refreshMotorList(LoginActivity.this, mPhone)) {
 //                    用户有摩托车数据，且摩托车标记为空
-            if (MotorHelper.getInstance().getCurrentMotorId() == null && MotorHelper.getInstance().refreshMotorList(LoginActivity.this, mPhone)) {
 //                        设置摩托车标记,利用SharedPreferences保存摩托车标记
                 if (MotorUtils.saveMotor(LoginActivity.this, MotorHelper.getInstance().getMotorList().get(0).getId())) {
 //                      保存摩托车标记，在全局单例类MotorHelp之中
                     MotorHelper.getInstance().setCurrentMotorId(MotorHelper.getInstance().getMotorList().get(0).getId());
                 } else {
                     Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-//                        有摩托车标记时，删除标记
-                if (MotorUtils.isExitMotor(LoginActivity.this)) {
-                    //        删除sp保存的摩托车标记
-                    boolean isRemove = MotorUtils.removeMotor(LoginActivity.this);
-                    if (!isRemove) {
-                        Looper.prepare();
-                        Toast.makeText(LoginActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
-                        Looper.loop();
-                        return;
-                    }
                 }
             }
 //                  跳转到主页面
