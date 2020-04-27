@@ -1,5 +1,7 @@
 package com.anita.anitamotorcycle.activities2;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,13 +49,17 @@ public class OrdersDetailsActivity extends AppCompatActivity {
         mTv_doit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String info = "确认受理订单" + mRecordBean.getId() + "吗？";
-                if (mRecordBean.getRepair_status() == 2) {
+                String info;
+                if (mRecordBean.getRepair_status() == 1) {
+                    info = "确认受理订单" + mRecordBean.getId() + "吗？";
+                    showConfirmDialog(info);
+                } else if (mRecordBean.getRepair_status() == 2) {
                     info = "确认订单" + mRecordBean.getId() + "正在维修中吗？";
+                    showConfirmDialog(info);
                 } else if (mRecordBean.getRepair_status() == 3) {
-                    info = "确认订单" + mRecordBean.getId() + "维修完成吗？";
+                    info = "请选择订单" + mRecordBean.getId() + "维修完成情况？";
+                    showCompleteDialog(info);
                 }
-                showConfirmDialog(info);
             }
         });
     }
@@ -111,6 +117,7 @@ public class OrdersDetailsActivity extends AppCompatActivity {
     private void showConfirmDialog(String info) {
         ConfirmDialog confirmDialog = new ConfirmDialog(this);
         confirmDialog.setLogoImg(R.mipmap.dialog_notice).setMsg(info);
+
         confirmDialog.setClickListener(new ConfirmDialog.OnBtnClickListener() {
             @Override
             public void ok() {
@@ -146,5 +153,42 @@ public class OrdersDetailsActivity extends AppCompatActivity {
             }
         });
         confirmDialog.show();
+    }
+
+    private void showCompleteDialog(String info){
+        AlertDialog dialog2 = new AlertDialog.Builder (this).create ();
+        dialog2.setTitle ("维修完成情况");
+        dialog2.setMessage (info);
+        dialog2.setButton (DialogInterface.BUTTON_NEGATIVE, "维修失败", new DialogInterface.OnClickListener () {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mRecordBean.setRepair_status(7);
+                mRecordBean.setUpdate_at(UserUtils.getCurrentTime());
+                boolean isUpdate = ClientUtils.updateRecord(mRecordBean);
+                if (isUpdate) {
+                    Toast.makeText(getApplicationContext(), "处理成功", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(OrdersDetailsActivity.this, "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
+                }
+                onBackPressed();    //后退操作
+            }
+        });
+        dialog2.setButton (DialogInterface.BUTTON_POSITIVE, "维修成功", new DialogInterface.OnClickListener () {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mRecordBean.setRepair_status(mRecordBean.getRepair_status() + 1);
+                mRecordBean.setUpdate_at(UserUtils.getCurrentTime());
+                boolean isUpdate = ClientUtils.updateRecord(mRecordBean);
+                if (isUpdate) {
+                    Toast.makeText(getApplicationContext(), "处理成功", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(OrdersDetailsActivity.this, "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
+                }
+                onBackPressed();    //后退操作
+            }
+        });
+        //一定要调用show（）方法，否则对话框不会显示
+        dialog2.show ();
+
     }
 }

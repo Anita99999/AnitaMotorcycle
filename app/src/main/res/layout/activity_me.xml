@@ -70,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:LtextColor="@android:color/black"
+            app:isShowRightText="true"
             app:leftText="手机号"></com.leon.lib.settingview.LSettingItem>
 
         <com.leon.lib.settingview.LSettingItem
@@ -77,6 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:LtextColor="@android:color/black"
+            app:isShowRightText="true"
             app:leftText="性别"></com.leon.lib.settingview.LSettingItem>
 
 

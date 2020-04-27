@@ -47,6 +47,11 @@ public class MyMotorDataAdapter extends RecyclerView.Adapter<MyMotorDataAdapter.
         this.context = context;
     }
 
+    public void setData(List<MotorBean> data) {
+        this.mData = data;
+
+    }
+
 
     /**
      * 用于创建条目view,即条目的界面

@@ -57,6 +57,7 @@ public class SetPasswordActivity extends BaseActivity {
         if(!isAdd){
             Toast.makeText(getApplicationContext(), "注册失败，请重试", Toast.LENGTH_SHORT).show();
         }
+        Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoginActivity.class);
 //        添加intent标志符：清除当前TASK栈占用的Activity、创建一个新的TASK栈
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

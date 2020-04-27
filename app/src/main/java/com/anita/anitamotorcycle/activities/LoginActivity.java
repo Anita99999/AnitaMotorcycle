@@ -103,13 +103,13 @@ public class LoginActivity extends BaseActivity {
         }
 //              当用户通过验证
 //              利用SharedPreferences保存用户登录标记
-        boolean isSave = UserUtils.saveUser(LoginActivity.this, mPhone,1);
+        boolean isSave = UserUtils.saveUser(LoginActivity.this, mPhone, 1);
         if (isSave) {
             Log.d(TAG, "loginHandler: 保存用户登录标记");
 //                  保存用户标记，在全局单例类UserHelp之中
             UserHelper.getInstance().setPhone(mPhone);
 
-            if ( MotorHelper.getInstance().refreshMotorList(LoginActivity.this, mPhone)) {
+            if (MotorHelper.getInstance().getCurrentMotorId() == null && MotorHelper.getInstance().refreshMotorList(LoginActivity.this, mPhone)) {
 //                    用户有摩托车数据，且摩托车标记为空
 //                        设置摩托车标记,利用SharedPreferences保存摩托车标记
                 if (MotorUtils.saveMotor(LoginActivity.this, MotorHelper.getInstance().getMotorList().get(0).getId())) {

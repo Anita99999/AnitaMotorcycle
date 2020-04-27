@@ -57,7 +57,7 @@ public class MotorBean implements Serializable {
     private String url;//图片
 
     private Date buy_at;//购买日期（计算保修期）
-//    保修公里数通过总骑行公里数得出
+    //    保修公里数通过总骑行公里数得出
     private String location;
 
     //    统计
@@ -156,7 +156,6 @@ public class MotorBean implements Serializable {
     public void setYear(int year) {
         this.year = year;
     }
-
 
 
     public String getPlate_numbers() {

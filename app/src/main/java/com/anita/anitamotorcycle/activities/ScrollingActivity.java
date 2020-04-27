@@ -60,9 +60,9 @@ public class ScrollingActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                //                利用SharedPreferences保存摩托车标记
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//                利用SharedPreferences保存摩托车标记
                 boolean isSave = MotorUtils.saveMotor(ScrollingActivity.this, mMotorBean.getId());
                 if (isSave) {
 //                      保存摩托车标记，在全局单例类MotorHelp之中
@@ -71,7 +71,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     Toast.makeText(ScrollingActivity.this, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
                 }
                 Log.d(TAG, "onClick: 选择摩托车id" + mMotorBean.getId());
-                Toast.makeText(getApplicationContext(), "选择车辆" + mMotorBean.getModel() + "成功", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "选择车辆" + mMotorBean.getPlate_numbers() + "成功", Toast.LENGTH_LONG).show();
                 onBackPressed();    //后退操作
             }
         });

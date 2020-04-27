@@ -34,9 +34,6 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
                 fragment = new HomeFragment();
                 break;
             case 1:
-                fragment = new MessageFragment();
-                break;
-            case 2:
                 fragment = new MeFragment();
                 break;
             default:
@@ -48,7 +45,7 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
 
 //    返回视图的总数量
     public int getCount() {
-        return 3;
+        return 2;
     }
 
 }

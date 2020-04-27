@@ -105,6 +105,12 @@ public class UserUtils {
             return false;
         }
 
+//        新旧密码是否相同
+        if (!oldPassword.equals(password)) {
+            Toast.makeText(context, "新密码与原密码不可一致，请确认", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
 //        连接数据库，验证原密码是否正确，正确修改成功，失败
         boolean isRight = ClientUtils.validatePassword(phone, EncryptUtils.encryptMD5ToString(oldPassword), EncryptUtils.encryptMD5ToString(password));
         if (!isRight) {
@@ -132,6 +138,7 @@ public class UserUtils {
         Intent intent;
         if (type == 1) {
             intent = new Intent(context, LoginActivity.class);
+            deleteMotorMark(context);
         } else {
             intent = new Intent(context, Login2Activity.class);
         }
@@ -140,7 +147,6 @@ public class UserUtils {
         context.startActivity(intent);
 //        定义Activity跳转动画
         ((Activity) context).overridePendingTransition(R.anim.activity_open_enter, R.anim.activity_open_exit);
-        deleteMotorMark(context);
 
     }
 
@@ -217,6 +223,7 @@ public class UserUtils {
 
         return result;
     }
+
 
     /**
      * 获取当前北京时间

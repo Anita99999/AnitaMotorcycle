@@ -34,6 +34,7 @@ public class FinishedFragment extends Fragment {
 
     private RecyclerView mRv_orders;
     private List<RecordBean> mDatas;
+    private OrdersDataAdapter mAdapter;
 
     @Nullable
     @Override
@@ -93,9 +94,9 @@ public class FinishedFragment extends Fragment {
         mRv_orders.setNestedScrollingEnabled(false);
 
 //        创建适配器
-        OrdersDataAdapter adapter = new OrdersDataAdapter(mDatas);
+        mAdapter = new OrdersDataAdapter(mDatas);
 //        设置adaptor到recyclerview里
-        mRv_orders.setAdapter(adapter);
+        mRv_orders.setAdapter(mAdapter);
     }
 
     @Override
@@ -108,6 +109,9 @@ public class FinishedFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume: 已完成2");
+        mDatas = ClientUtils.getToRepairList(UserHelper.getInstance().getPhone(),1);
+        mAdapter.setData(mDatas);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

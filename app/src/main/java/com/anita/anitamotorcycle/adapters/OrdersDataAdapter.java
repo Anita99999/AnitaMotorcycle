@@ -40,6 +40,9 @@ public class OrdersDataAdapter extends RecyclerView.Adapter<OrdersDataAdapter.In
         this.mData = data;
     }
 
+    public void setData(List<RecordBean> data) {
+        this.mData = data;
+    }
 
     /**
      * 用于创建条目view,即条目的界面
@@ -92,12 +95,14 @@ public class OrdersDataAdapter extends RecyclerView.Adapter<OrdersDataAdapter.In
     public class InnerHolder extends RecyclerView.ViewHolder {
 
         private TextView mRepairStatus;
-        private TextView mUpdateTime;
+
         private TextView mTv_repairman_name;
         private TextView mTv_repairman_phone;
         private TextView mTv_problem_type_data;
         private TextView mTv_record_id;
         private TextView mTv_position;
+        private final TextView mTv_update_time_data;
+        private final TextView mTv_update_time;
 
         public InnerHolder(@NonNull View itemView) {
             super(itemView);
@@ -105,7 +110,8 @@ public class OrdersDataAdapter extends RecyclerView.Adapter<OrdersDataAdapter.In
             mTv_record_id = itemView.findViewById(R.id.tv_record_id);
             mRepairStatus = itemView.findViewById(R.id.tv_repair_status);
 
-            mUpdateTime = itemView.findViewById(R.id.tv_update_time_data);
+            mTv_update_time = itemView.findViewById(R.id.tv_update_time);
+            mTv_update_time_data = itemView.findViewById(R.id.tv_update_time_data);
             mTv_repairman_name = itemView.findViewById(R.id.tv_repairman_name);
             mTv_repairman_phone = itemView.findViewById(R.id.tv_repairman_phone);
             mTv_problem_type_data = itemView.findViewById(R.id.tv_problem_type_data);
@@ -124,15 +130,21 @@ public class OrdersDataAdapter extends RecyclerView.Adapter<OrdersDataAdapter.In
             if (recordBean.getRepair_status() == 1) {
 //                待处理
                 mRepairStatus.setText("待处理");
-
-            } else if (recordBean.getRepair_status() >= 2 && recordBean.getRepair_status() <= 4) {
+                mTv_update_time.setText("申请时间:");
+            } else if (recordBean.getRepair_status() >= 2 && recordBean.getRepair_status() <= 3) {
 //                待维修
                 mRepairStatus.setText(recordBean.getRepairStatus());
+                mTv_update_time.setText("更新时间:");
+            } else if (recordBean.getRepair_status() == 4) {
+//                待维修
+                mRepairStatus.setText("等待确认");
+                mTv_update_time.setText("更新时间:");
             } else {
 //                已完成
                 mRepairStatus.setText(recordBean.getRepairStatus());
+                mTv_update_time.setText("更新时间:");
             }
-            mUpdateTime.setText(recordBean.getUpdate_at());
+            mTv_update_time_data.setText(recordBean.getUpdate_at());
 
             mTv_repairman_name.setText(recordBean.getUser_name());
 

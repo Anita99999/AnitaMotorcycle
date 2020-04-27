@@ -128,7 +128,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 Log.d(TAG, "onClick: 获取验证码，mPhone==" + mPhone);
                 boolean result = UserUtils.validatePhone(this, mPhone);    //验证手机号
                 if (!result) return;
-
+                messageCountDown();    //倒计时
                 //判断网络状态
                 mTv_sendMessage.setVisibility(View.INVISIBLE);
 //                SMSSDK.getVerificationCode("86", mPhone);    //请求发送验证码的服务

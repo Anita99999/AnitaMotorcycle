@@ -17,7 +17,10 @@ import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.adapters.MyMotorDataAdapter;
 import com.anita.anitamotorcycle.beans.MotorBean;
 import com.anita.anitamotorcycle.helps.MotorHelper;
+import com.anita.anitamotorcycle.helps.UserHelper;
+import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.anita.anitamotorcycle.utils.MotorUtils;
+import com.hb.dialog.myDialog.MyPwdInputDialog;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
@@ -105,5 +108,11 @@ public class MyMotorActivity extends BaseActivity {
         mRv_my_motor.setAdapter(mDataAdapter);
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mDatas = MotorUtils.getMotorsData(this);    //获取数据
+        mDataAdapter.setData(mDatas);
+        mDataAdapter.notifyDataSetChanged();
+    }
 }

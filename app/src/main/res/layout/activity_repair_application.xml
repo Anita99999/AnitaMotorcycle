@@ -194,6 +194,18 @@
                     android:textColor="#005EFF"
                     android:textSize="@dimen/infoSize" />
 
+                <TextView
+                    android:id="@+id/tv_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="@dimen/marginLittleSize"
+                    android:layout_toRightOf="@+id/tv_location"
+                    android:padding="@dimen/paddingLittleSize"
+                    android:text="选择地区"
+                    android:textColor="#005EFF"
+                    android:textSize="@dimen/infoSize" />
+
                 <ImageView
                     android:id="@+id/iv_tips2"
                     android:layout_width="@dimen/iconSize"
@@ -210,6 +222,7 @@
                 android:layout_height="@dimen/textViewHeight"
                 android:background="@drawable/shape_et"
                 android:paddingLeft="@dimen/marginLittleSize"
+                android:hint="请输入详细地址"
                 android:textSize="@dimen/itemSize" />
 
             <RelativeLayout

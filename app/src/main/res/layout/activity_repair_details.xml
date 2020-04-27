@@ -221,15 +221,18 @@
                         android:background="@color/itemViewColor" />
 
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/paddingSize">
 
                         <TextView
                             android:id="@+id/tv_repairman_phone1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/paddingSize"
+
                             android:gravity="center_vertical"
                             android:padding="@dimen/paddingIconSize"
                             android:text="联系电话："
@@ -239,12 +242,18 @@
                             android:id="@+id/tv_repairman_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/tv_repairman_phone1"
-                            android:layout_toRightOf="@id/tv_repairman_phone1"
                             android:padding="@dimen/paddingSize"
                             android:text="联系电话"
                             android:textColor="#005EFF" />
-                    </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/iv_qq"
+                            android:layout_width="@dimen/iconLittleSize"
+                            android:layout_height="@dimen/iconLittleSize"
+                            android:scaleType="centerInside"
+                            android:layout_marginLeft="@dimen/marginSmallSize"
+                            android:src="@mipmap/qq" />
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
@@ -434,7 +443,16 @@
                     android:background="@color/itemViewColor" />
 
             </LinearLayout>
-
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/commitButton"
+                android:text="取消维修" />
+            <Button
+                android:id="@+id/btn_confirm"
+                style="@style/commitButton"
+                android:text="确认取车" />
         </LinearLayout>
+
+
     </ScrollView>
 </LinearLayout>

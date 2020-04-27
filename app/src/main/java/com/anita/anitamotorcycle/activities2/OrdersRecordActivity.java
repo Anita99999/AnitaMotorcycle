@@ -22,6 +22,7 @@ public class OrdersRecordActivity extends BaseActivity {
     private ViewPager mVpager_content;
     private Indicator2Adapter mIndicatorAdapter;
     private static final String TAG = "OrdersRecordActivity";
+    private OrdersContentAdapter mOrdersContentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +59,16 @@ public class OrdersRecordActivity extends BaseActivity {
 
 //        创建内容适配器
         mVpager_content = this.findViewById(R.id.vpager_content);
-        OrdersContentAdapter ordersContentAdapter = new OrdersContentAdapter(getSupportFragmentManager());
-        mVpager_content.setAdapter(ordersContentAdapter);
+        mOrdersContentAdapter = new OrdersContentAdapter(getSupportFragmentManager());
+        mVpager_content.setAdapter(mOrdersContentAdapter);
 //        把ViewPager和indicator指示器绑定到一起
         ViewPagerHelper.bind(mRecord_indicator,mVpager_content);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+
     }
 }

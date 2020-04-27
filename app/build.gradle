@@ -70,5 +70,8 @@ dependencies {
 //    implementation files('libs\\zxing.jar')
 //    implementation 'com.google.zxing:core:3.3.0'
     implementation 'com.github.yuzhiqiang1993:zxing:2.2.5'
-
+//    下拉刷新
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
+//    地区选择器
+    implementation 'liji.library.dev:citypickerview:5.2.2'
 }

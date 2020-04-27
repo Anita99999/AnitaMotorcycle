@@ -42,6 +42,7 @@ public class MeFragment extends Fragment {
     private LSettingItem mlsi_repair_record;
     private LSettingItem mlsi_my_motor;
     private UserBean mUserBean;
+    private View mView;
 
     public MeFragment() {
         // Required empty public constructor
@@ -54,14 +55,21 @@ public class MeFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        initView(mView);
+        Log.d(TAG, "onResume: ");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
-        View view = inflater.inflate(R.layout.fragment_me, container, false);
+        mView = inflater.inflate(R.layout.fragment_me, container, false);
 //        初始化view
-        initView(view);
+        initView(mView);
 //        设置条目点击事件
         initListener();
-        return view;
+        return mView;
     }
 
     /**

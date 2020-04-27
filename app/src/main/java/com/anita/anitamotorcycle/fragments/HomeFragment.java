@@ -123,6 +123,12 @@ public class HomeFragment extends Fragment {
      * 未添加摩托车时的点击事件
      */
     private void initListener1() {
+        mIv_scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showQRPickDialog(getActivity(), false);   //弹出Dialog
+            }
+        });
 //        定位
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +165,7 @@ public class HomeFragment extends Fragment {
         mIv_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showQRPickDialog(getActivity());   //弹出Dialog
+                showQRPickDialog(getActivity(), true);   //弹出Dialog
             }
         });
 
@@ -204,7 +210,7 @@ public class HomeFragment extends Fragment {
      *
      * @param activity
      */
-    public void showQRPickDialog(final Activity activity) {
+    public void showQRPickDialog(final Activity activity, final boolean isBind) {
         String[] items = new String[]{"扫一扫", "摩托车二维码"};
         new AlertDialog.Builder(activity)
                 .setItems(items, new DialogInterface.OnClickListener() {
@@ -223,9 +229,13 @@ public class HomeFragment extends Fragment {
                                 break;
 //                                选择二维码
                             case 1:
-                                Intent intent = new Intent(activity, QRCodeActivity.class);
-                                intent.putExtra("currentMotorId", currentMotorId);
-                                startActivity(intent);
+                                if (isBind) {
+                                    Intent intent = new Intent(activity, QRCodeActivity.class);
+                                    intent.putExtra("currentMotorId", currentMotorId);
+                                    startActivity(intent);
+                                }else{
+                                    startActivity(new Intent(getActivity(), BindFirstActivity.class));
+                                }
                                 break;
                             default:
                                 break;
@@ -254,7 +264,7 @@ public class HomeFragment extends Fragment {
                     } else {
                         Log.d(TAG, "run: 扫码成功");
                         motorBean.setStatus(0);
-                        Toast.makeText(getContext(), "扫描成功" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "扫描成功", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getActivity(), ScrollingActivity.class);
                         intent.putExtra("motor", motorBean);
                         startActivity(intent);

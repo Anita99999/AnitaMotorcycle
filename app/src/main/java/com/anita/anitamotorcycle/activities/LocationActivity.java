@@ -57,11 +57,7 @@ public class LocationActivity extends AppCompatActivity {
         mMapView = findViewById(R.id.bmapView);
         mSaLocation = findViewById(R.id.sa_location);
         mTv_position = findViewById(R.id.tv_position);
-        if (mTv_position != null && mTv_position.toString() != "") {
-            Log.d(TAG, "旧数据mTv_position更新定位-- " + mTv_position.getText().toString());
-//            更新摩托车定位标记
-            MotorHelper.getInstance().setLocation(mTv_position.getText().toString());
-        }
+
         PermissionUtils.getGPSPermission1(this);
 
         Log.d(TAG, "onCreate: 测试2");
@@ -161,6 +157,7 @@ public class LocationActivity extends AppCompatActivity {
                 Log.d(TAG, "onReceiveLocation当前定位: " + mLocation);
 //            更新摩托车定位标记
                 MotorHelper.getInstance().setLocation(mLocation);
+                Log.d(TAG, "onReceiveLocation: 更新摩托车定位标记==" + MotorHelper.getInstance().getLocation());
             }
         }
 

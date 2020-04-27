@@ -34,6 +34,8 @@ public class ToRepairFragment extends Fragment {
 
     private RecyclerView mRv_orders;
     private List<RecordBean> mDatas;
+    private OrdersDataAdapter mAdapter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +74,6 @@ public class ToRepairFragment extends Fragment {
      */
     private void getData() {
 //        创建数据集合
-//        创建数据集合
         mDatas = ClientUtils.getToRepairList(UserHelper.getInstance().getPhone(),0);
         Log.d(TAG, "getToRepairList: mDatas--" + mDatas);
 
@@ -98,9 +99,9 @@ public class ToRepairFragment extends Fragment {
         mRv_orders.setNestedScrollingEnabled(false);
 
 //        创建适配器
-        OrdersDataAdapter adapter = new OrdersDataAdapter(mDatas);
+        mAdapter = new OrdersDataAdapter(mDatas);
 //        设置adaptor到recyclerview里
-        mRv_orders.setAdapter(adapter);
+        mRv_orders.setAdapter(mAdapter);
     }
 
     @Override
@@ -113,6 +114,9 @@ public class ToRepairFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume: 待维修2");
+        mDatas = ClientUtils.getToRepairList(UserHelper.getInstance().getPhone(),0);
+        mAdapter.setData(mDatas);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

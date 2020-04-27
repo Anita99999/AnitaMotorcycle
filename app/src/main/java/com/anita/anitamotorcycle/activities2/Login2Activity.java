@@ -61,10 +61,10 @@ public class Login2Activity extends AppCompatActivity {
             public void onClick(View v) {
                 System.out.println("点击登录按钮");
                 loginValidate();
-
             }
         });
 
+//        mTv_register
     }
 
     private void loginValidate() {

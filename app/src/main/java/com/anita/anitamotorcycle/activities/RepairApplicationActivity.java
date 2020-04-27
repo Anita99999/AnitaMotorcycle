@@ -26,6 +26,13 @@ import com.anita.anitamotorcycle.utils.Constants;
 import com.anita.anitamotorcycle.utils.MotorUtils;
 import com.anita.anitamotorcycle.utils.UserUtils;
 import com.hb.dialog.dialog.ConfirmDialog;
+import com.lljjcoder.Interface.OnCityItemClickListener;
+import com.lljjcoder.bean.CityBean;
+import com.lljjcoder.bean.DistrictBean;
+import com.lljjcoder.bean.ProvinceBean;
+import com.lljjcoder.citywheel.CityConfig;
+import com.lljjcoder.style.citylist.Toast.ToastUtils;
+import com.lljjcoder.style.citypickerview.CityPickerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,12 +59,17 @@ public class RepairApplicationActivity extends BaseActivity {
     private RecordBean mRecordBean;
     private TextView mTv_location;
     private boolean mIsRepair;
+    //申明对象
+    CityPickerView mPicker = new CityPickerView();
+    private TextView mTv_area;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repair_application);
 
+        //预先加载地区选择的全部数据
+        mPicker.init(this);
         initView();
         initListener();
     }
@@ -90,10 +102,11 @@ public class RepairApplicationActivity extends BaseActivity {
 //        车辆位置
         mTips2 = findViewById(R.id.iv_tips2);
         mEt_location = findViewById(R.id.et_location);
-        if (MotorHelper.getInstance().getLocation() != null) {
-            mEt_location.setText(MotorHelper.getInstance().getLocation());
-            Log.d(TAG, "initView: mEt_location重新获取定位");
-        }
+        mTv_area = findViewById(R.id.tv_area);
+//        if (MotorHelper.getInstance().getLocation() != null) {
+//            mEt_location.setText(MotorHelper.getInstance().getLocation());
+//            Log.d(TAG, "initView: mEt_location重新获取定位");
+//        }
         mTv_location = findViewById(R.id.tv_location);
 
 //        定义故障类型下拉列表内容
@@ -163,6 +176,14 @@ public class RepairApplicationActivity extends BaseActivity {
                 startActivityForResult(intent, 1000);
             }
         });
+
+//        地区选择器
+        mTv_area.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choseArea();
+            }
+        });
 //        维修时间
 //        mRepairTime.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -193,16 +214,64 @@ public class RepairApplicationActivity extends BaseActivity {
                 if (!checkData()) {
                     return;
                 }
-//                if(mIsRepair){
-//                    Toast.makeText(getApplicationContext(), "车牌号为" + mPlateNumbers + "的车辆正在维修中，请重新选择", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+
 //                确认提交弹框
                 showConfirmDialog();
             }
         });
 
 
+    }
+
+    private void choseArea() {
+//添加默认的配置，不需要自己定义，当然也可以自定义相关熟悉，详细属性请看demo
+//        CityConfig cityConfig = new CityConfig.Builder().build();
+        CityConfig cityConfig = new CityConfig.Builder()
+                .title("选择城市")//标题
+                .titleTextSize(18)//标题文字大小
+                .titleTextColor("#585858")//标题文字颜  色
+                .titleBackgroundColor("#E9E9E9")//标题栏背景色
+                .confirTextColor("#585858")//确认按钮文字颜色
+                .confirmText("确认")//确认按钮文字
+                .confirmTextSize(16)//确认按钮文字大小
+                .cancelTextColor("#585858")//取消按钮文字颜色
+                .cancelText("取消")//取消按钮文字
+                .cancelTextSize(16)//取消按钮文字大小
+                .setCityWheelType(CityConfig.WheelType.PRO_CITY_DIS)//显示类，只显示省份一级，显示省市两级还是显示省市区三级
+                .showBackground(true)//是否显示半透明背景
+                .visibleItemsCount(5)//显示item的数量
+                .province("广东省")//默认显示的省份
+                .city("肇庆市")//默认显示省份下面的城市
+                .district("端州区")//默认显示省市下面的区县数据
+//                .provinceCyclic(true)//省份滚轮是否可以循环滚动
+                .cityCyclic(true)//城市滚轮是否可以循环滚动
+                .districtCyclic(true)//区县滚轮是否循环滚动
+                .drawShadows(false)//滚轮不显示模糊效果
+//                .setLineColor("#03a9f4")//中间横线的颜色
+//                .setLineHeigh(5)//中间横线的高度
+                .setShowGAT(true)//是否显示港澳台数据，默认不显示
+                .build();
+        mPicker.setConfig(cityConfig);
+
+//监听选择点击事件及返回结果
+        mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
+            @Override
+            public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
+
+                //省份province
+                //城市city
+                //地区district
+                mEt_location.setText("" + province + city + district);
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getApplicationContext(), "已取消", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //显示
+        mPicker.showCityPicker();
     }
 
     /**
@@ -237,7 +306,7 @@ public class RepairApplicationActivity extends BaseActivity {
         if (mProblemsType == "请选择故障类型") {
             Toast.makeText(getApplicationContext(), "故障类型不可为空", Toast.LENGTH_SHORT).show();
             return false;
-        }else{
+        } else {
             //            连接数据库，验证当前车牌号未处于维修状态
             Log.d(TAG, "checkData: ");
             mIsRepair = ClientUtils.validatePlateNumbers(mPlateNumbers);
@@ -292,7 +361,7 @@ public class RepairApplicationActivity extends BaseActivity {
         String b = "若无所需车牌号，请先到我的摩托车中添加车辆。";
         if (i == 2) {
             a = "车辆位置";
-            b = "维修员将根据此位置到点维修车辆，请确保车辆位置准确。";
+            b = "维修员将根据此位置到点维修车辆，请确保车辆位置准确，且停放在合法位置。";
         }
         AlertDialog alertDialog1 = new AlertDialog.Builder(this)
                 .setTitle(a)//标题
@@ -308,7 +377,11 @@ public class RepairApplicationActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000 && resultCode == 1001) {
             String location = data.getStringExtra("location");
-            Log.d(TAG, "onActivityResult: 获取上页数据");
+            Log.d(TAG, "onActivityResult: 获取上页数据location==" + location);
+            if (location == null || location == "") {
+                Toast.makeText(getApplicationContext(), "获取失败", Toast.LENGTH_LONG).show();
+                location = "";
+            }
             mEt_location.setText(location);
         }
 

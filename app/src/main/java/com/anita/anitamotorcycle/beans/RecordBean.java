@@ -60,6 +60,15 @@ public class RecordBean implements Serializable {
     private String factory_name;    //（数据库该表无该字段）
     private String factory_address;    //（数据库该表无该字段）
     private String repairman_phone;    //（数据库该表无该字段）
+    private String repairman_qq;    //（数据库该表无该字段）
+
+    public String getRepairman_qq() {
+        return repairman_qq;
+    }
+
+    public void setRepairman_qq(String repairman_qq) {
+        this.repairman_qq = repairman_qq;
+    }
 
     public String getRepairman_name() {
         return repairman_name;

@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.anita.anitamotorcycle.R;
 import com.anita.anitamotorcycle.adapters.RecordDataAdapter;
 import com.anita.anitamotorcycle.beans.RecordBean;
+import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.interfaces.IRepairingCallback;
 import com.anita.anitamotorcycle.presenters.RepairingPresenter;
+import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.anita.anitamotorcycle.views.UILoaderView;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -157,5 +159,13 @@ public class RepairingRecordFragment extends Fragment implements IRepairingCallb
     public void onLoading() {
         Log.d(TAG, "onLoading: ");
         mUiLoaderView.updateStatus(UILoaderView.UIStatus.LOADING);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mDatas = ClientUtils.getRepairingList(UserHelper.getInstance().getPhone(),0);
+        mAdapter.setData(mDatas);
+        mAdapter.notifyDataSetChanged();
     }
 }

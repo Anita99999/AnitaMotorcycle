@@ -38,9 +38,11 @@ public class TodoOrdersActivity extends BaseActivity {
     private RecyclerView mRv_orders;
     private List<RecordBean> mDatas;
     private ImageView mBack;
+    private OrdersDataAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_orders);
 
@@ -83,7 +85,6 @@ public class TodoOrdersActivity extends BaseActivity {
      */
     private void getData() {
 //        创建数据集合
-//        创建数据集合
         mDatas = ClientUtils.getTohandList();
         Log.d(TAG, "getTohandList: mDatas--" + mDatas);
 
@@ -109,9 +110,26 @@ public class TodoOrdersActivity extends BaseActivity {
         mRv_orders.setNestedScrollingEnabled(false);
 
 //        创建适配器
-        OrdersDataAdapter adapter = new OrdersDataAdapter(mDatas);
+        mAdapter = new OrdersDataAdapter(mDatas);
 //        设置adaptor到recyclerview里
-        mRv_orders.setAdapter(adapter);
+        mRv_orders.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        List<RecordBean> refreshDatas;
+        Log.d(TAG, "onResume: 回显");
+//        mDatas.clear(); //去掉之前的数据
+        mDatas = ClientUtils.getTohandList();
+        mAdapter.setData(mDatas);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
     }
 
 

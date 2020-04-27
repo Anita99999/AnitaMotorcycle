@@ -18,6 +18,8 @@ import com.anita.anitamotorcycle.activities.AddMotorNumActivity;
 import com.anita.anitamotorcycle.activities.RepairDetailsActivity;
 import com.anita.anitamotorcycle.activities.RepairRecordActivity;
 import com.anita.anitamotorcycle.beans.RecordBean;
+import com.anita.anitamotorcycle.fragments.RepairingRecordFragment;
+import com.anita.anitamotorcycle.helps.UserHelper;
 import com.anita.anitamotorcycle.utils.ClientUtils;
 import com.anita.anitamotorcycle.utils.UserUtils;
 import com.hb.dialog.dialog.ConfirmDialog;
@@ -110,8 +112,6 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
         private TextView mUpdateTime;
         private TextView mFactoryName;
         private TextView mTroubleType;
-        private Button mCancel;
-        private Button mConfirm;
         private final RelativeLayout mRl_repairman;
         private final TextView mTv_repairman_name;
         private final TextView mTv_repairman_phone;
@@ -129,8 +129,6 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
             mTv_repairman_phone = itemView.findViewById(R.id.tv_repairman_phone);
             mTroubleType = itemView.findViewById(R.id.tv_trouble_type_data);
 
-            mCancel = itemView.findViewById(R.id.btn_cancel);
-            mConfirm = itemView.findViewById(R.id.btn_confirm);
         }
 
         /**
@@ -139,12 +137,10 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
          * @param recordBean
          */
         public void setData(final RecordBean recordBean) {
-            mCancel.setVisibility(View.GONE);
-            mConfirm.setVisibility(View.GONE);
+
             if (recordBean.getRepair_status() == 1 || recordBean.getRepair_status() == 6) {
 //            维修员未接单：1提交成功、6维修取消
                 if (recordBean.getRepair_status() == 1) {
-                    mCancel.setVisibility(View.VISIBLE);
                     mFactoryName.setText("等待接单..");
                 }else{
                     mFactoryName.setText("未接单");
@@ -152,9 +148,7 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
                 mRl_repairman.setVisibility(View.GONE);
             } else {
 //            维修员已接单：2分派维修员中、3维修中、4维修完成、5维修成功、7维修失败
-                if(recordBean.getRepair_status() == 4){
-                    mConfirm.setVisibility(View.VISIBLE);
-                }
+
 //                维修员信息
                 mRl_repairman.setVisibility(View.VISIBLE);
                 mTv_repairman_name.setText(recordBean.getRepairman_name());
@@ -176,75 +170,25 @@ public class RecordDataAdapter extends RecyclerView.Adapter<RecordDataAdapter.In
             mUpdateTime.setText(recordBean.getUpdate_at());
 
             mTroubleType.setText(recordBean.getProblem_type());
-//            取消维修
-            mCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d(TAG, "onClick:recordBean-- " + recordBean);
-                    showComfirmDialog(v, recordBean);
-                }
-            });
-//            确认取车
-            mConfirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showComfirmDialog1(v, recordBean);
-                }
-
-
-            });
+////            取消维修
+//            mCancel.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d(TAG, "onClick:recordBean-- " + recordBean);
+//                    showComfirmDialog(v, recordBean);
+//                }
+//            });
+////            确认取车
+//            mConfirm.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    showComfirmDialog1(v, recordBean);
+//                }
+//
+//
+//            });
         }
 
-        private void showComfirmDialog(final View v, final RecordBean record) {
-            ConfirmDialog confirmDialog = new ConfirmDialog(v.getContext());
-            confirmDialog.setLogoImg(R.mipmap.dialog_notice).setMsg("确认取消" + record.getPlate_numbers() + "车辆的维修申请吗？");
-            confirmDialog.setClickListener(new ConfirmDialog.OnBtnClickListener() {
-                @Override
-                public void ok() {
-//                连接数据库，update record信息
-                    record.setRepair_status(6);
-                    record.setUpdate_at(UserUtils.getCurrentTime());
-                    boolean isUpdate = ClientUtils.updateRecord(record);
-                    if (isUpdate) {
-                        Toast.makeText(v.getContext(), "取消成功", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(v.getContext(), "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
-                    }
 
-                }
-
-                @Override
-                public void cancel() {
-                    Toast.makeText(v.getContext(), "取消", Toast.LENGTH_LONG).show();
-                }
-            });
-            confirmDialog.show();
-        }
-
-        private void showComfirmDialog1(final View v, final RecordBean record) {
-            ConfirmDialog confirmDialog = new ConfirmDialog(v.getContext());
-            confirmDialog.setLogoImg(R.mipmap.dialog_notice).setMsg("确认车辆" + record.getPlate_numbers() + "维修完成并取车吗？");
-            confirmDialog.setClickListener(new ConfirmDialog.OnBtnClickListener() {
-                @Override
-                public void ok() {
-//                连接数据库，update record信息
-                    record.setRepair_status(5);
-                    record.setUpdate_at(UserUtils.getCurrentTime());
-                    boolean isUpdate = ClientUtils.updateRecord(record);
-                    if (isUpdate) {
-                        Toast.makeText(v.getContext(), "取车成功", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(v.getContext(), "服务器连接超时，请检查", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-
-                @Override
-                public void cancel() {
-                    Toast.makeText(v.getContext(), "取消", Toast.LENGTH_LONG).show();
-                }
-            });
-            confirmDialog.show();
-        }
     }
 }

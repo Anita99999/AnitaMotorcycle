@@ -46,7 +46,7 @@ public class ClientUtils {
     private static Bitmap sBitmap = null;
     private static RecordBean sRecordBean;
 
-    //                String url = "http://192.168.0.107:8080/AMServer/userlogin";
+    //                String url = "http://192.168.0.107:8080/AMServer/GetOrdersList";
 //                Map<String, String> params = new HashMap<>();
 //                ClientUtils.getUserData(url, params);
     public static List<RecordBean> getTohandList() {
@@ -385,7 +385,7 @@ public class ClientUtils {
      * @return
      */
     public static List<RecordBean> getToRepairList(final String phone, final int mark) {
-        System.out.println("getToRepairList/AMServer/getToRepairList获取待维修、已完成订单");
+        System.out.println("getToRepairList/AMServer/GetOrdersList获取待维修、已完成订单");
         sRecordingList = null;
         Thread getToRepairListThread = new Thread(new Runnable() {
             @Override

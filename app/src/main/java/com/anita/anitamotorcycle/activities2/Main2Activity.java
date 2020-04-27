@@ -24,11 +24,10 @@ public class Main2Activity extends AppCompatActivity {
     private Main2FragmentAdapter mAdapter;
 
     //    菜单标题
-    private final int[] TAB_TITLES = new int[]{R.string.menu_orders, R.string.menu_message, R.string.menu_me};
+    private final int[] TAB_TITLES = new int[]{R.string.menu_orders,  R.string.menu_me};
     //    菜单图标
     private final int[] TAB_IMGS = new int[]{
             R.drawable.icon_orders_select,
-            R.drawable.icon_message_select,
             R.drawable.icon_me_select};
 
     @Override

@@ -26,11 +26,10 @@ public class MainActivity extends AppCompatActivity {
     private PagerAdapter mAdapter;   //页卡适配器
 
     //    菜单标题
-    private final int[] TAB_TITLES = new int[]{R.string.menu_home, R.string.menu_message, R.string.menu_me};
+    private final int[] TAB_TITLES = new int[]{R.string.menu_home,  R.string.menu_me};
     //    菜单图标
     private final int[] TAB_IMGS = new int[]{
             R.drawable.icon_home_select,
-            R.drawable.icon_message_select,
             R.drawable.icon_me_select};
 
     @Override
